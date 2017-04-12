@@ -57,15 +57,11 @@ public class addAffiliateUser extends HttpServlet {
             }
             AddAffiliateUser req = new AddAffiliateUser(at, affiliate, name, email, mobile);
             AddAffiliateUserValidation reqV = new AddAffiliateUserValidation(req);
-            System.out.println("validation started");
             reqV.validation();
-            System.out.println("Validation completed");
             AddAffiliateUserResult reqR = JSONParser.parseJSONAAU(reqV.toString());
             String validSubmission = reqR.getValidationResult();
-            System.out.println(validSubmission);
             UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "add_affiliate_user", "affiliate", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
-                System.out.println("valid form submission");
                 ProcessAddAffiliateUser process = new ProcessAddAffiliateUser(req);
                 AddAffiliateUserSuccessResponse SResp = process.processRequest();
                 ck.setValue(SResp.getAccessToken());

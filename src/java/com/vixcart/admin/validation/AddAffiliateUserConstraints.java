@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.vixcart.admin.validation;
 
 import com.vixcart.admin.db.DB;
@@ -80,14 +79,19 @@ public class AddAffiliateUserConstraints implements AddAffiliateUserValidator {
         String valid = ErrMsg.ERR_EMAIL;
         String regX = RegX.REGX_EMAIL;
         String email = req.getEmail();
+        System.out.println("get");
         if (validate(email, regX)) {
+            System.out.println("get1");
             if (dbc.checkAffiliateUserEmail(email) == 0) {
+                System.out.println("get2");
                 req.setNew_user_id(dbc.getNewAffiliateUserId());
                 valid = CorrectMsg.CORRECT_EMAIL;
             } else {
+                System.out.println("get3");
                 valid = ErrMsg.ERR_EMAIL_EXISTS;
             }
         }
+        System.out.println("get4");
         return valid;
     }
 

@@ -33,10 +33,15 @@ public class AddAffiliateUserValidation implements Validation{
             String valid1 = auc.validateUserType("affiliate");
             valid += "#" + valid1;
             if(valid1.startsWith(CorrectMsg.CORRECT_MESSAGE)){
+                System.out.println(valid);
                 valid += "#"+auc.validateAffiliate();
+                System.out.println(valid);
                 valid += "#"+auc.validateName();
+                System.out.println(valid);
                 valid += "#"+auc.validateMobile();
+                System.out.println(valid);
                 valid += "#"+auc.validateEmail();
+                System.out.println(valid);
             }
         }
         auc.closeConnection();

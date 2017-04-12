@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <title>admin.vayDeal</title>
+    <meta name="description" content="">
+    <meta name="Keywords" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="og_site_name" property="og:site_name" content=""/>
+    <meta name="og_title" property="og:title" content=""/>
+    <meta name="og_url" property="og:url" content=""/>
+    
+    <link rel="canonical" href=""/>
+    <link rel='shortcut icon' href="images/favicon.ico" />
+    
+    <!-- CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/vaydeal-icons.css">
+    
+    <!-- JS -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/animation.jquery.js"></script>
+
+</head>
+
+<body>
+
+<main>
+
+	<header> <!-- Header -->
+        <div class="header-logo">
+            <a href="#"><img src="images/logo.png" alt=""></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="dashboard.html" class="btn-dashboard"> <i class="ti-pie-chart"></i> Dashboard</a></li>
+                <li><a href="clint-dashboard.html" class=""> <i class=" ti-folder"></i> Clint</a></li>
+                <li><a href="#" class=""> <i class="ti-package"></i> Customer</a></li>
+                <li class="active"><a href="" class=""> <i class="ti-stats-up"></i> Enc</a></li>
+                <li><a href="#" class=""> <i class="ti-settings"></i> User </a></li>
+                <li><a href="#" class=""> <i class="ti-settings"></i> PM </a></li>
+                <li><a href="#" class=""> <i class="ti-settings"></i> Settings </a></li>
+                <li><a href="#" class=""> <i class="ti-power-off"></i> log Out</a></li>           
+            </ul>
+        </nav>
+    </header> <!-- End Header -->
+    <div id="mainSection" class="main-section"> <!-- Main Section -->
+        <div class="header-menu"> <!-- Header Menu -->
+            <ul>
+                <li><a href="enc-dashboard.html"><i class="ti-pie-chart"></i> Dashboard</a></li>
+                <i class="list-sup"></i>
+                <li class="active"><a href=""><i class="ti-pie-chart"></i> Location</a></li>
+                <i class="list-sup"></i>
+                <li><a href="enc-post.html"><i class="ti-pie-chart"></i> Post</a></li>
+                <i class="list-sup"></i>
+                <li><a href="enc-report.html"><i class="ti-pie-chart"></i> Report & ENQ</a></li>
+            </ul>
+        </div> <!-- End Header Menu -->
+
+        <div class="container sub-container">
+            <div class="section-head form">
+                <div class="col-6">
+                    <h1>Location List</h1>
+                </div>
+                <div class="col-6 text-right">
+                    <button data-target="newLocation" class="btn btn-bg waves-effect"><i class="ti-plus"></i>Add Location</button>
+                </div>
+            </div>
+            <hr class="hr">
+            <div class="locatio-list">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Location</th>
+                            <th>Districts</th>
+                            <th>State</th>
+                            <th>Countries</th>
+                            <th class="table-action">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Tirur</td>
+                            <td>Malappuram</td>
+                            <td>Kerala</td>
+                            <td>India</td>
+                            <td><button class="btn btn-view waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="View"><i class="ti-eye"></i> </button>
+                                <button class="btn btn-edit waves-effect tooltipped" data-target="editLocation" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
+                                <button class="btn btn-remove waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Remove"><i class="ti-trash"></i> </button></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Tirur</td>
+                            <td>Malappuram</td>
+                            <td>Kerala</td>
+                            <td>India</td>
+                            <td><button class="btn btn-view waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="View"><i class="ti-eye"></i> </button>
+                                <button class="btn btn-edit waves-effect tooltipped" data-target="editLocation" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
+                                <button class="btn btn-remove waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Remove"><i class="ti-trash"></i> </button></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Tirur</td>
+                            <td>Malappuram</td>
+                            <td>Kerala</td>
+                            <td>India</td>
+                            <td><button class="btn btn-view waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="View"><i class="ti-eye"></i> </button>
+                                <button class="btn btn-edit waves-effect tooltipped" data-target="editLocation" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
+                                <button class="btn btn-remove waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Remove"><i class="ti-trash"></i> </button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div> <!-- End Main Section -->
+
+    <div id="newLocation" class="new-post modal"> <!-- Add Location Modal -->
+        <div class="modal-content form">
+            <h2>Add New Location</h2>
+            <label for="rolNum">No</label>
+            <input id="rolNum" type="text" name="rolnumber">
+            <label for="adCou">Countries</label>
+            <input id="adCou" type="text" name="countries">            
+            <label for="adSta">State</label>
+            <input id="adSta" type="text" name="state">
+            <label for="adDis">Districts</label>
+            <input id="adDis" type="text" name="districts">
+            <label for="adLoc">Location</label>
+            <input id="adLoc" type="text" name="location">
+        </div>
+        <div class="modal-footer form">
+            <button class="btn btn-cancel waves-effect modal-close" type="button">Cancel</button>
+            <button onclick="addLocation()" class="btn btn-bg waves-effect btn-select-plan" type="button">Submit</button>
+        </div>
+    </div> <!-- End Add Location Modal -->
+
+    <div id="editLocation" class="new-post modal"> <!-- Edit Location Modal -->
+        <div class="modal-content form">
+            <h2>Edit Location</h2>
+            <label for="rolnumber">No</label>
+            <input id="edtNum" type="text" name="rolnumber" value="2">
+            <label for="edtCou">Countries</label>
+            <input id="edtCou" type="text" name="countries" value="India">
+            <label for="edtSta">State</label>
+            <input id="edtSta" type="text" name="state" value="Kerala">
+            <label for="edtDis">Districts</label>
+            <input id="edtDis" type="text" name="districts" value="Malappuram">
+            <label for="edtLoc">Location</label>
+            <input id="edtLoc" type="text" name="location" value="Tirur">
+        </div>
+        <div class="modal-footer form">
+            <button class="btn btn-cancel waves-effect modal-close" type="button">Cancel</button>
+            <button onclick="edtLocation()" class="btn btn-bg waves-effect btn-select-plan" type="button">Update</button>
+        </div>
+    </div> <!-- End Edit Location Modal -->
+
+</main>
+    
+    <!-- JS -->
+    <script type="text/javascript" src="js/vaydeal.jquery.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <title>admin.vayDeal</title>
+    <meta name="description" content="">
+    <meta name="Keywords" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="og_site_name" property="og:site_name" content=""/>
+    <meta name="og_title" property="og:title" content=""/>
+    <meta name="og_url" property="og:url" content=""/>
+    
+    <link rel="canonical" href=""/>
+    <link rel='shortcut icon' href="images/favicon.ico" />
+    
+    <!-- CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/vaydeal-icons.css">
+    
+    <!-- JS -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/animation.jquery.js"></script>
+
+</head>
+
+<body>
+
+<main>
+
+	<header> <!-- Header -->
+        <div class="header-logo">
+            <a href="#"><img src="images/logo.png" alt=""></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="dashboard.html" class="btn-dashboard"> <i class="ti-pie-chart"></i> Dashboard</a></li>
+                <li class="active"><a href="" class=""> <i class=" ti-folder"></i> Clint</a></li>
+                <li><a href="#" class=""> <i class="ti-package"></i> Customer</a></li>
+                <li><a href="enc-dashboard.html" class=""> <i class="ti-stats-up"></i> Enc</a></li>
+                <li><a href="#" class=""> <i class="ti-settings"></i> User </a></li>
+                <li><a href="#" class=""> <i class="ti-settings"></i> PM </a></li>
+                <li><a href="#" class=""> <i class="ti-settings"></i> Settings </a></li>
+                <li><a href="#" class=""> <i class="ti-power-off"></i> log Out</a></li>            
+            </ul>
+        </nav>
+    </header> <!-- End Header -->
+    <div id="mainSection" class="main-section"> <!-- Main Section -->
+        <div class="header-menu"> <!-- Header Menu -->
+            <ul>
+                <li><a href="#"><i class="ti-pie-chart"></i> Dashboard</a></li>
+                <i class="list-sup"></i>
+                <li><a href="#"><i class="ti-pie-chart"></i> Shops</a></li>
+                <i class="list-sup"></i>
+                <li class="active"><a href=""><i class="ti-pie-chart"></i> Plan</a></li>
+                <i class="list-sup"></i>
+                <li><a href="#"><i class="ti-pie-chart"></i> Products</a></li>
+                <i class="list-sup"></i>
+                <li><a href="#"><i class="ti-pie-chart"></i> Specification</a></li>
+                <i class="list-sup"></i>
+                <li><a href="#"><i class="ti-pie-chart"></i> Payments</a></li>
+                <i class="list-sup"></i>
+                <li><a href="#"><i class="ti-pie-chart"></i> Seller</a></li>
+                <i class="list-sup"></i>
+                <li><a href="#"><i class="ti-pie-chart"></i> Settings</a></li>
+            </ul>
+        </div> <!-- End Header Menu -->
+
+        <div class="container sub-container">
+            <div class="section-head form">
+                <div class="col-6">
+                    <h1>Plans</h1>
+                </div>
+            </div>
+            <hr class="hr">
+            <div class="reports-enq">
+                <div class="rep-tab">
+                    <div class="tabs"> <!-- Tabs List -->
+                        <div class="tab"><a href="#tabCritevia"> Critevia </a></div>
+                        <div class="tab"><a href="#tabPlans"> Plans </a></div>
+                        <div class="tab"><a href="#tabCtv"> CTV </a></div>
+                        <div class="tab"><a href="#tabPc"> PC </a></div>
+                        <div class="tab"><a href="#tabCoupen"> Coupens </a></div>
+                    </div> <!-- End Tabs List -->
+                </div>
+                <div class="tab-content"> <!-- Tabs Content -->
+                    <div id="tabCritevia" class=""> <!-- Tabs Critevia -->
+                        <div class="col-6">
+                            <h1>Critevia</h1>
+                        </div>
+                        <div class="col-6 text-right">
+                            <button data-target="newCritevia" class="btn btn-bg waves-effect"><i class="ti-plus"></i>Add Critevia</button>
+                        </div>
+                        <div class="critevia-report">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Name</th>
+                                        <th class="table-action">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>demo Name</td>
+                                        <td><button class="btn btn-edit waves-effect tooltipped" data-target="editCritevia" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
+                                        <button class="btn btn-remove waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Remove"><i class="ti-trash"></i> </button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>demo Name</td>
+                                        <td><button class="btn btn-edit waves-effect tooltipped" data-target="editCritevia" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
+                                        <button class="btn btn-remove waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Remove"><i class="ti-trash"></i> </button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>demo Name</td>
+                                        <td><button class="btn btn-edit waves-effect tooltipped" data-target="editCritevia" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
+                                        <button class="btn btn-remove waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Remove"><i class="ti-trash"></i> </button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> <!-- End Tabs Critevia -->
+                    <div id="tabPlans" class=""> <!-- Tabs Plan -->
+                        <div class="col-6">
+                            <h1>Plan</h1>
+                        </div>
+                        <div class="col-6 text-right">
+                            <button data-target="newPlan" class="btn btn-bg waves-effect"><i class="ti-plus"></i>Add Plan</button>
+                        </div>
+                        <div class="plan-report">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Plan Name</th>
+                                        <th>Amount</th>
+                                        <th>No Users</th>
+                                        <th>Type</th>
+                                        <th class="table-action">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Basic</td>
+                                        <td>800</td>
+                                        <td>250</td>
+                                        <td>Demo</td>
+                                        <td><button class="btn btn-view waves-effect tooltipped" data-target="viewPlan" data-position="top" data-delay="50" data-tooltip="View"><i class="ti-eye"></i> </button>
+                                        <button class="btn btn-edit waves-effect tooltipped" data-target="editPlan" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
+                                        <button class="btn btn-remove waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Remove"><i class="ti-trash"></i> </button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Basic</td>
+                                        <td>800</td>
+                                        <td>250</td>
+                                        <td>Demo</td>
+                                        <td><button class="btn btn-view waves-effect tooltipped" data-target="viewPlan" data-position="top" data-delay="50" data-tooltip="View"><i class="ti-eye"></i> </button>
+                                        <button class="btn btn-edit waves-effect tooltipped" data-target="editPlan" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
+                                        <button class="btn btn-remove waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Remove"><i class="ti-trash"></i> </button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Basic</td>
+                                        <td>800</td>
+                                        <td>250</td>
+                                        <td>Demo</td>
+                                        <td><button class="btn btn-view waves-effect tooltipped" data-target="viewPlan" data-position="top" data-delay="50" data-tooltip="View"><i class="ti-eye"></i> </button>
+                                        <button class="btn btn-edit waves-effect tooltipped" data-target="editPlan" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
+                                        <button class="btn btn-remove waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Remove"><i class="ti-trash"></i> </button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> <!-- End Tabs Plan -->
+                    <div id="tabCtv" class=""> <!-- Tabs CTV -->
+                        <div class="col-6">
+                            <h1>CTV</h1>
+                        </div>
+                        <div class="col-6 text-right">
+                            <button data-target="newCtv" class="btn btn-bg waves-effect"><i class="ti-plus"></i>Add CTV</button>
+                        </div>
+                        <div class="ctv-report">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>CTV Plan</th>
+                                        <th>Amount</th>
+                                        <th>No of Town Visib</th>
+                                        <th>Discount</th>
+                                        <th class="table-action">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Basic</td>
+                                        <td>900</td>
+                                        <td>55</td>
+                                        <td>25%</td>
+                                        <td><button class="btn btn-view waves-effect tooltipped" data-target="viewCtv" data-position="top" data-delay="50" data-tooltip="View"><i class="ti-eye"></i> </button>
+                                        <button class="btn btn-edit waves-effect tooltipped" data-target="editCtv" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
+                                        <button class="btn btn-remove waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Remove"><i class="ti-trash"></i> </button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Basic</td>
+                                        <td>900</td>
+                                        <td>55</td>
+                                        <td>25%</td>
+                                        <td><button class="btn btn-view waves-effect tooltipped" data-target="viewCtv" data-position="top" data-delay="50" data-tooltip="View"><i class="ti-eye"></i> </button>
+                                        <button class="btn btn-edit waves-effect tooltipped" data-target="editCtv" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
+                                        <button class="btn btn-remove waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Remove"><i class="ti-trash"></i> </button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Basic</td>
+                                        <td>900</td>
+                                        <td>55</td>
+                                        <td>25%</td>
+                                        <td><button class="btn btn-view waves-effect tooltipped" data-target="viewCtv" data-position="top" data-delay="50" data-tooltip="View"><i class="ti-eye"></i> </button>
+                                        <button class="btn btn-edit waves-effect tooltipped" data-target="editCtv" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
+                                        <button class="btn btn-remove waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Remove"><i class="ti-trash"></i> </button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> <!-- End Tabs CTV -->
+                    <div id="tabPc" class=""> <!-- Tabs Pc -->
+                        <div class="col-6">
+                            <h1>PC</h1>
+                        </div>
+                        <div class="col-6 text-right">
+                            <button data-target="editPc" class="btn btn-bg waves-effect"><i class="ti-plus"></i>Edit Update</button>
+                        </div>
+                        <div class="plan-pc-report">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Shop Name</th>
+                                        <th>Amount</th>
+                                        <th>Rank</th>
+                                        <th>Catogory</th>
+                                        <th class="table-action">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Malabar Gold</td>
+                                        <td>1205</td>
+                                        <td>1</td>
+                                        <td>Gold</td>
+                                        <td><button class="btn btn-view waves-effect tooltipped" data-target="viewPc" data-position="top" data-delay="50" data-tooltip="View"><i class="ti-eye"></i> </button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Malabar Gold</td>
+                                        <td>1205</td>
+                                        <td>1</td>
+                                        <td>Gold</td>
+                                        <td><button class="btn btn-view waves-effect tooltipped" data-target="viewPc" data-position="top" data-delay="50" data-tooltip="View"><i class="ti-eye"></i> </button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Malabar Gold</td>
+                                        <td>1205</td>
+                                        <td>1</td>
+                                        <td>Gold</td>
+                                        <td><button class="btn btn-view waves-effect tooltipped" data-target="viewPc" data-position="top" data-delay="50" data-tooltip="View"><i class="ti-eye"></i> </button></td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> <!-- End Tabs Pc -->
+                    <div id="tabCoupen" class=""> <!-- Tabs Coupen -->
+                        <h1> Enquiry Coupen </h1>
+                        <div class="seller-report">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Email</th>
+                                        <th>Subjuct</th>
+                                        <th>Status</th>
+                                        <th class="table-action">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>demo@mail.com</td>
+                                        <td>Demo Subj</td>
+                                        <td><span class="status payed">Payed</span></td>
+                                        <td><button class="btn btn-view waves-effect" ><i class="ti-eye"></i> </button></td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> <!-- End Tabs Coupen -->
+                </div> <!-- End Tabs Content -->
+            </div>
+        </div>
+    </div> <!-- End Main Section -->
+    <div id="newCritevia" class="new-post modal"> <!-- Add Critevia Modal -->
+        <div class="modal-content form">
+            <h2>Add New Critevia</h2>
+            <label for="rolNum">No</label>
+            <input id="rolNum" type="text" name="rolnumber">
+            <label for="adPro">No of product</label>
+            <input id="adPro" type="text" name="product">
+            <label for="adTyp">Val Type</label>
+            <input id="adTyp" type="text" name="valtype">
+        </div>
+        <div class="modal-footer form">
+            <button class="btn btn-cancel waves-effect modal-close" type="button">Cancel</button>
+            <button onclick="addCritevia()" class="btn btn-bg waves-effect btn-select-plan" type="button">Submit</button>
+        </div>
+    </div> <!-- End Add Critevia Modal -->
+
+    <div id="editCritevia" class="new-post modal"> <!-- Edit Critevia Modal -->
+        <div class="modal-content form">
+            <h2>Edit And Update Critevia</h2>
+            <label for="rolNum">No</label>
+            <input id="rolNum" type="text" name="rolnumber">
+            <label for="edtPro">No of product</label>
+            <input id="edtPro" type="text" name="product" value="demo">
+            <label for="edtTyp">Val Type</label>
+            <input id="edtTyp" type="text" name="valtype" value="demo">
+        </div>
+        <div class="modal-footer form">
+            <button class="btn btn-cancel waves-effect modal-close" type="button">Cancel</button>
+            <button onclick="edtCritevia()" class="btn btn-bg waves-effect btn-select-plan" type="button">Submit</button>
+        </div>
+    </div> <!-- End Edit Critevia Modal -->
+
+    <div id="newPlan" class="new-post modal"> <!-- Add Plan Modal -->
+        <div class="modal-content form">
+            <h2>Add New Plan</h2>
+            <label for="rolNum">No</label>
+            <input id="rolNum" type="text" name="rolnumber">
+            <label for="adName">Plan Name</label>
+            <input id="adName" type="text" name="planname">
+            <label for="adAmout">Amout</label>
+            <input id="adAmount" type="text" name="planamount">
+            <label for="adUsers">Discount</label>
+            <input id="adUsers" type="text" name="nousers">
+            <label for="adType">Type</label>
+            <select id="adType" name="plantype">
+                <option value="demo">Demo</option>
+                <option value="demo1">Demo1</option>
+                <option value="demo2">Demo2</option>
+                <option value="demo3">Demo3</option>
+                <option value="demo4">Demo4</option>
+            </select>
+            <label for="adPv">No Of Product Visible</label>
+            <input id="adPv" type="text" name="productvisible">
+            <label for="adPs">No Of Product Store</label>
+            <input id="adPs" type="text" name="productstore">
+            <label for="adFp">No Of Free Product</label>
+            <input id="adFp" type="text" name="freeproduct">
+            <label for="adTv">No Of Town Visible</label>
+            <input id="adTv" type="text" name="townvisible">
+            <label for="adSlf">Shop Listing Feeling</label>
+            <input id="adSlf" type="radio" name="shoplisting"> yes <input id="adSlf" type="radio" name="shoplisting"> no
+            <label for="adCv">Coupen Visible</label>
+            <input id="adCv" type="radio" name="coupenvisible"> yes <input id="adCv" type="radio" name="coupenvisible"> no
+        </div>
+        <div class="modal-footer form">
+            <button class="btn btn-cancel waves-effect modal-close" type="button">Cancel</button>
+            <button onclick="addPlan()" class="btn btn-bg waves-effect btn-select-plan" type="button">Submit</button>
+        </div>
+    </div> <!-- End Add PLan Modal -->
+
+    <div id="editPlan" class="new-post modal"> <!-- Edit Plan Modal -->
+        <div class="modal-content form">
+            <h2>Edit And Update Plan</h2>
+            <label for="rolNum">No</label>
+            <input id="rolNum" type="text" name="rolnumber" value="2">
+            <label for="edtName">Plan Name</label>
+            <input id="edtName" type="text" name="planname" value="Basic">
+            <label for="edtAmout">Amout</label>
+            <input id="edtAmount" type="text" name="planamount" value="5210">
+            <label for="edtUsers">Discount</label>
+            <input id="edtUsers" type="text" name="nousers" value="23%">
+            <label for="edtType">Type</label>
+            <select id="edtType" name="plantype">
+                <option value="demo">Demo</option>
+                <option value="demo1">Demo1</option>
+                <option value="demo2" selected="">Demo2</option>
+                <option value="demo3">Demo3</option>
+                <option value="demo4">Demo4</option>
+            </select>
+            <label for="edtPv">No Of Product Visible</label>
+            <input id="edtPv" type="text" name="productvisible" value="50">
+            <label for="edtPs">No Of Product Store</label>
+            <input id="edtPs" type="text" name="productstore" value="20">
+            <label for="edtFp">No Of Free Product</label>
+            <input id="edtFp" type="text" name="freeproduct" value="520">
+            <label for="edtTv">No Of Town Visible</label>
+            <input id="edtTv" type="text" name="townvisible" value="5">
+            <label for="edtSlf">Shop Listing Feeling</label>
+            <input id="edtSlf" type="radio" name="shoplisting" checked=""> yes <input id="edtSlf" type="radio" name="shoplisting"> no
+            <label for="edtCv">Coupen Visible</label>
+            <input id="edtCv" type="radio" name="coupenvisible"> yes <input id="edtCv" type="radio" name="coupenvisible" checked=""> no
+        </div>
+        <div class="modal-footer form">
+            <button class="btn btn-cancel waves-effect modal-close" type="button">Cancel</button>
+            <button onclick="edtPlan()" class="btn btn-bg waves-effect btn-select-plan" type="button">Submit</button>
+        </div>
+    </div> <!-- End Edit Plan Modal -->
+
+    <div id="viewPlan" class="new-post modal"> <!-- View PC Modal -->
+        <div class="modal-content form">
+            <h2> View Plan </h2>
+            <ul class="view-list">
+                <li> <span class="view-title"> Amount :</span> <span class="view-value"> 500 </span> </li>
+                <li> <span class="view-title"> Discount :</span> <span class="view-value"> 0% </span> </li>
+                <li> <span class="view-title"> No of Product Visible :</span> <span class="view-value"> 501 </span> </li>
+                <li> <span class="view-title"> No of Product Store :</span> <span class="view-value"> 1001 </span></li>
+                <li> <span class="view-title"> No Of Poster :</span> <span class="view-value"> 5 </span> </li>
+                <li> <span class="view-title"> No Of Town Visible :</span> <span class="view-value"> 5 </span>  </li>
+                <li> <span class="view-title"> Shop Listinng Fealing :</span> <span class="view-value"> Yes  </span> </li>
+                <li> <span class="view-title"> Coupening Listing :</span> <span class="view-value"> No  </span> </li>
+            </ul>
+        </div>
+        <div class="modal-footer form">
+            <button class="btn btn-cancel waves-effect modal-close" type="button">Cancel</button>
+        </div>
+    </div> <!-- View PC Modal -->
+
+    <div id="newCtv" class="new-post modal"> <!-- Add CTV Modal -->
+        <div class="modal-content form">
+            <h2>Add New CTV</h2>
+            <label for="rolNum">No</label>
+            <input id="rolNum" type="text" name="rolnumber">
+            <label for="adCplan">CTV PLan</label>
+            <input id="adCplan" type="text" name="ctvplan">
+            <label for="adCamount">Amount</label>
+            <input id="adCamount" type="text" name="ctvamount">
+            <label for="adCtown">No of Town Vicb</label>
+            <input id="adCtown" type="text" name="ctvtown">
+            <label for="adCdisc">Discount</label>
+            <input id="adCdisc" type="text" name="ctvdiscount">
+        </div>
+        <div class="modal-footer form">
+            <button class="btn btn-cancel waves-effect modal-close" type="button">Cancel</button>
+            <button onclick="addCtv()" class="btn btn-bg waves-effect btn-select-plan" type="button">Submit</button>
+        </div>
+    </div> <!-- End Add CTV Modal -->
+
+    <div id="editCtv" class="new-post modal"> <!-- Edit CTV Modal -->
+        <div class="modal-content form">
+            <h2>Edit And Update CTV</h2>
+            <label for="rolNum">No</label>
+            <input id="rolNum" type="text" name="rolnumber" value="2">
+            <label for="edtCplan">CTV PLan</label>
+            <input id="edtCplan" type="text" name="ctvplan" value="Basic">
+            <label for="edtCamount">Amount</label>
+            <input id="edtCamount" type="text" name="ctvamount" value="650">
+            <label for="edtCtown">No of Town Vicb</label>
+            <input id="edtCtown" type="text" name="ctvtown" value="63">
+            <label for="edtCdisc">Discount</label>
+            <input id="edtCdisc" type="text" name="ctvdiscount" value="23%">
+        </div>
+        <div class="modal-footer form">
+            <button class="btn btn-cancel waves-effect modal-close" type="button">Cancel</button>
+            <button onclick="edtCtv()" class="btn btn-bg waves-effect btn-select-plan" type="button">Submit</button>
+        </div>
+    </div> <!-- End Edit CTV Modal -->
+
+    <div id="viewCtv" class="new-post modal"> <!-- View CTV Modal -->
+        <div class="modal-content form">
+            <h2> View CTV </h2>
+            <ul class="view-list">
+                <li> <span class="view-title"> Name :</span> <span class="view-value"> Basic CTV </span> </li>
+                <li> <span class="view-title"> No Of Town Visible :</span> <span class="view-value"> 5 </span>  </li>
+                <li> <span class="view-title"> Amount :</span> <span class="view-value"> 980  </span> </li>
+                <li> <span class="view-title"> Discount :</span> <span class="view-value"> 10%  </span> </li>
+            </ul>
+        </div>
+        <div class="modal-footer form">
+            <button class="btn btn-cancel waves-effect modal-close" type="button">Cancel</button>
+        </div>
+    </div> <!-- View CTV Modal -->
+
+    <div id="editPc" class="new-post modal"> <!-- Edit PC Modal -->
+        <div class="modal-content form">
+            <h2>Edit And Update CTV</h2>
+            <label for="rolNum">No</label>
+            <input id="rolNum" type="text" name="rolnumber" value="2">
+            <label for="edtPcamount">Mount</label>
+            <input id="edtPcamount" type="text" name="pcamount" value="25000">
+        </div>
+        <div class="modal-footer form">
+            <button class="btn btn-cancel waves-effect modal-close" type="button">Cancel</button>
+            <button onclick="edtPc()" class="btn btn-bg waves-effect btn-select-plan" type="button">Submit</button>
+        </div>
+    </div> <!-- End Edit PC Modal -->
+
+    <div id="viewPc" class="new-post modal"> <!-- View PC Modal -->
+        <div class="modal-content form">
+            <h2> View Premium Customer </h2>
+            <ul class="view-list">
+                <li> <span class="view-title"> Name :</span> <span class="view-value"> Malabar Gold </span> </li>
+                <li> <span class="view-title"> Town :</span> <span class="view-value"> Calicut </span> </li>
+                <li> <span class="view-title"> Category :</span> <span class="view-value"> Gold </span> </li>
+                <li> <span class="view-title"> Rank :</span> <span class="view-value"> 1 </span></li>
+                <li> <span class="view-title"> No Of Products :</span> <span class="view-value"> 500 </span> </li>
+                <li> <span class="view-title"> No Of :</span> <span class="view-value"> 5232 </span>  </li>
+                <li> <span class="view-title"> Amount :</span> <span class="view-value"> 59000  </span> </li>
+            </ul>
+        </div>
+        <div class="modal-footer form">
+            <button class="btn btn-cancel waves-effect modal-close" type="button">Cancel</button>
+        </div>
+    </div> <!-- View PC Modal -->
+
+</main>
+    
+    <!-- JS -->
+    <script type="text/javascript" src="js/vaydeal.jquery.js"></script>
+    
+</body>
+</html>

@@ -465,6 +465,12 @@ public class MongoConnect {
         Document doc = new Document("query", "" + company).append("query_type", "company");
         at.insertOne(doc);
     }
+    
+    public void addAffiliateUser(String company) {
+        MongoCollection<Document> at = db.getCollection("search_affiliate");
+        Document doc = new Document("query", "" + company).append("query_type", "user");
+        at.insertOne(doc);
+    }
 
     public ArrayList<Affiliates> searchAffiliates(String str) throws IOException {
         Pattern p = Pattern.compile(str+"\\w*");
@@ -497,6 +503,7 @@ public class MongoConnect {
         String token = "" + System.currentTimeMillis() + ran.nextLong();
         addAUAT(req.getNew_user_id(), token);
         addAUPasswordToken(req.getNew_user_id(), req.getPasswordToken());
+        addAffiliateUser(req.getNew_user_id());
     }
 
     private void addAUAT(String new_user_id, String token) {

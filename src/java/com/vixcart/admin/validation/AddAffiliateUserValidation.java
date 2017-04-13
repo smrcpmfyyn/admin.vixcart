@@ -36,6 +36,7 @@ public class AddAffiliateUserValidation implements Validation{
                 valid += "#"+auc.validateAffiliate();
                 valid += "#"+auc.validateName();
                 valid += "#"+auc.validateMobile();
+                System.out.println("Emailva");
                 valid += "#"+auc.validateEmail();
             }
         }

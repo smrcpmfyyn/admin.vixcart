@@ -57,7 +57,6 @@ public class addAffiliateUser extends HttpServlet {
             }
             AddAffiliateUser req = new AddAffiliateUser(at, affiliate, name, email, mobile);
             AddAffiliateUserValidation reqV = new AddAffiliateUserValidation(req);
-            System.out.println("asdddd");
             reqV.validation();
             AddAffiliateUserResult reqR = JSONParser.parseJSONAAU(reqV.toString());
             String validSubmission = reqR.getValidationResult();

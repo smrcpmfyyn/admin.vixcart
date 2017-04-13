@@ -79,7 +79,6 @@ public class AddAffiliateUserConstraints implements AddAffiliateUserValidator {
         String valid = ErrMsg.ERR_EMAIL;
         String regX = RegX.REGX_EMAIL;
         String email = req.getEmail();
-        System.out.println("Email");
         if (validate(email, regX)) {
             if (dbc.checkAffiliateUserEmail(email) == 0) {
                 req.setNew_user_id(dbc.getNewAffiliateUserId());
@@ -88,7 +87,6 @@ public class AddAffiliateUserConstraints implements AddAffiliateUserValidator {
                 valid = ErrMsg.ERR_EMAIL_EXISTS;
             }
         }
-        System.out.println("Email");
         return valid;
     }
 

@@ -55,7 +55,7 @@ public class getAffiliates extends HttpServlet {
             reqV.validation();
             GetAffiliatesResult reqR = JSONParser.parseJSONGAs(reqV.toString());
             String validSubmission = reqR.getValidationResult();
-            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "get_all_affiliates", "affiliate", "valid");
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "get_affiliates", "affiliate", "valid");
             if (validSubmission.equals(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessGetAffiliates processor = new ProcessGetAffiliates(req);
                 GetAffiliatesSuccessResponse SResp = processor.processRequest();

@@ -48,7 +48,6 @@ public class ProcessLog implements LogProcessor {
     @Override
     public LogSuccessResponse processRequest() throws Exception {
         LogSuccessResponse obj = null;
-
         if (generateToken()) {
             if (updateLog()) {
                 obj = generateResponse(true);
@@ -74,10 +73,6 @@ public class ProcessLog implements LogProcessor {
 
     @Override
     public boolean updateLog() throws Exception {
-        if (dbc.updateLog(log.getuName())) {
-            return true;
-        } else {
-            return false;
-        }
+        return dbc.updateLog(log.getuName());
     }
 }

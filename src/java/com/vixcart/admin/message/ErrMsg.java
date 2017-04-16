@@ -50,7 +50,7 @@ public class ErrMsg {
     public static final String ERR_ADD_PP = "Invalid addpp";
     public static final String ERR_GET_APP = "Invalid activepremiumpayments";
     public static final String ERR_GET_TPP = "Invalid totalpremiumpayments";
-    public static final String ERR_ADD_AFFILIATE= "Invalid affiliate";
+    public static final String ERR_ADD_AFFILIATE = "Invalid affiliate";
     public static final String ERR_CHECK_TYPE_ID = "Invalid checkTypeID invalid";
     public static final String ERR_SUPER_TYPE_NOT_EXISTS = "Invalid supertype notexists";
     public static final String ERR_STATUS_NOT_EXISTS = "Invalid status notexists";
@@ -103,5 +103,31 @@ public class ErrMsg {
     public static final String ERR_AFFILIATE_NOT_EXISTS = "Invalid affiliate notexists";
     public static final String ERR_AFFILIATE_USER = "Invalid auid invalid";
     public static final String ERR_AFFILIATE_USER_NOT_EXISTS = "Invalid auid notexists";
+    public static final String ERR_SUPER_CATEGORY_NOT_EXISTS = "Invalid categ notexists";
+    public static final String ERR_ONLINE_VISIBILITY_NOT_EXISTS = "Invalid onlinevisibility notexists";
+    public static final String ERR_OFFLINE_VISIBILITY_NOT_EXISTS = "Invalid offlinevisibility notexists";
+    public static final String ERR_CATEGORY_EXISTS = "Invalid categ exists";
+    public static final String ERR_SUB_CATEGORY_EXISTS = "Invalid subcateg exists";
+    public static final String ERR_SUB_CATEGORY = "Invalid subcateg invalid";
+    public static final String ERR_CATEGORY_NOT_EXISTS = "Invalid categ notexists";
+    public static final String ERR_SUB_CATEGORY_NOT_EXISTS = "Invalid subcateg notexists";
+    public static String ERR_PTYPE_EXISTS = "Invalid ptype exists";
+    public static String ERR_PTYPE = "Invalid ptype invalid";
+    public static String ERR_SPECIFIC_EXISTS = "Invalid specification exists";
+    public static String ERR_SPECIFIC = "Invalid specification invalid";
+    public static String ERR_TAC_EXISTS = "Invalid tac exists";
+    public static String ERR_TAC = "Invalid tac invalid";
+    public static String ERR_BRAND_EXISTS = "Invalid brand exists";
+    public static String ERR_PTYPE_NOT_EXISTS = "Invalid ptype notexists";
+    public static String ERR_SPECIFIC_NOT_EXISTS = "Invalid specification notexists";
+    public static String ERR_TAC_NOT_EXISTS = "Invalid tac notexists";
+    public static String ERR_BRAND_NOT_EXISTS = "Invalid brand notexists";
+    public static String ERR_TAC_OFFSET_NOT_EXISTS = "Invalid tacoffset notexists";
+    public static String ERR_PTYPE_OFFSET_NOT_EXISTS = "Invalid ptypeoffset notexists";
+    public static String ERR_BRAND_OFFSET_NOT_EXISTS = "Invalid brandoffset notexists";
+    public static final String ERR_SUPER_CATEGORY_EXISTS = "Invalid req exists";
+    public static final String ERR_SUPER_CATEGORY = "Invalid categ invalid";
+    public static final String ERR_CATEGORY = "Invalid categ invalid";
+    public static String ERR_NO = "Invalid number invalid";
 
 }

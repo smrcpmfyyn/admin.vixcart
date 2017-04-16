@@ -102,7 +102,7 @@ public final class DBConnect {
      */
     public DBConnect() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
-        connect = DriverManager.getConnection("jdbc:mysql://localhost:3307/vaydeal", "techvay", "techvay");
+        connect = DriverManager.getConnection("jdbc:mysql://worddb.c8s8lmxdo3ux.ap-south-1.rds.amazonaws.com:3306/vaydeal", "worduser", "sooraj123");
 
         checkUname = connect.prepareStatement("SELECT count(*) FROM admin_logger WHERE uname = ?");
         checkNBUname = connect.prepareStatement("SELECT count(*) FROM admin_logger_not_blocked WHERE uname = ?");

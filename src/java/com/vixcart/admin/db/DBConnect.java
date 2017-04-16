@@ -871,7 +871,7 @@ public final class DBConnect {
     }
 
     private void addAffiliateUserDetails(AddAffiliateUser req) throws SQLException {   
-        PreparedStatement ps = connect.prepareStatement("INSERT INTO affiliate_user(affiliate_user_id,affiliate,affiliate_user_name,affiliate_user_email,affiliate_user_mobile) VALUES(?,?,?,?,?)");
+        PreparedStatement ps = connect.prepareStatement("INSERT INTO affiliate_user(affiliate_user_id,affiliate,affiliate_user_name,affiliate_user_email,affiliate_user_mobile,affiliate_user_type) VALUES(?,?,?,?,?,1)");
         ps.setString(1, req.getNew_user_id());
         ps.setString(2, req.getAffiliate());
         ps.setString(3, req.getName());

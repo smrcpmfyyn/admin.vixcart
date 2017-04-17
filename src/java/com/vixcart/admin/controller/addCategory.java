@@ -45,26 +45,25 @@ public class addCategory extends HttpServlet {
             String superCategory = request.getParameter("superCategory");
             Cookie ck = Servlets.getCookie(request, "at");
             String at = ck.getValue();
-            AddCategory addCateg = new AddCategory(at,category,superCategory);
-            AddCategoryValidation addCategV = new AddCategoryValidation(addCateg);
-            addCategV.validation();
-            System.out.println("addCategV = " + addCategV);
-            AddCategoryResult addCategR = JSONParser.parseJSONAddCategory(addCategV.toString());
-            String validSubmission = addCategR.getValidationResult();
+            AddCategory req = new AddCategory(at,category,superCategory);
+            AddCategoryValidation reqV = new AddCategoryValidation(req);
+            reqV.validation();
+            AddCategoryResult reqR = JSONParser.parseJSONAddCategory(reqV.toString());
+            String validSubmission = reqR.getValidationResult();
             if(validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)){
-                ProcessAddCategory pAddTyp = new ProcessAddCategory(addCateg);
+                ProcessAddCategory pAddTyp = new ProcessAddCategory(req);
                 AddCategorySuccessResponse addTypSResp = pAddTyp.processRequest();
                 ck.setValue(addTypSResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(addTypSResp.toString());
             }else if(validSubmission.startsWith(ErrMsg.ERR_ERR)){
-                if (addCategR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
+                if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
-                } else if (addCategR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-                    BlockAdminUser bau = new BlockAdminUser(addCateg.getAdmin_id());
+                } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
                     bau.block();
                 }
-                AddCategoryFailureResponse usersFResp = new AddCategoryFailureResponse(addCategR, validSubmission);
+                AddCategoryFailureResponse usersFResp = new AddCategoryFailureResponse(reqR, validSubmission);
                 out.write(usersFResp.toString());
             }else{
                 //exception response

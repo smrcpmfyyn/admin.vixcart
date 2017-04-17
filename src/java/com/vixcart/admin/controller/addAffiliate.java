@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.vixcart.admin.controller;
+//      com.vixcart.admin.controller.addAffiliate
 
 import com.vixcart.admin.jsn.JSONParser;
 import com.vixcart.admin.message.CorrectMsg;

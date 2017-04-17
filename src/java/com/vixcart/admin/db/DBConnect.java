@@ -922,7 +922,7 @@ public class DBConnect {
         ps.close();
         Random random = new Random();
         new_admin_id = "" + (random.nextInt(9999999) + 45573456);
-        while (!al.contains(new_admin_id)) {
+        while (al.contains(new_admin_id)) {
             new_admin_id = "" + (random.nextInt(9999999) + 45573456);
         }
         return new_admin_id;

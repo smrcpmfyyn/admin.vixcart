@@ -9,6 +9,8 @@ import com.vixcart.admin.req.mod.AddSuperCategory;
 import com.vixcart.admin.resp.mod.AddSuperCategoryFailureResponse;
 import com.vixcart.admin.resp.mod.AddSuperCategorySuccessResponse;
 import com.vixcart.admin.result.AddSuperCategoryResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.AddSuperCategoryValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -46,9 +48,9 @@ public class addSuperCategory extends HttpServlet {
             AddSuperCategory req = new AddSuperCategory(at, scat);
             AddSuperCategoryValidation reqV = new AddSuperCategoryValidation(req);
             reqV.validation();
-            System.out.println("addTypV = " + reqV);
             AddSuperCategoryResult reqR = JSONParser.parseJSONAddSuperCategory(reqV.toString());
             String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "add_super_category", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessAddSuperCategory process = new ProcessAddSuperCategory(req);
                 AddSuperCategorySuccessResponse rSucc = process.processRequest();
@@ -59,14 +61,17 @@ public class addSuperCategory extends HttpServlet {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(addTyp.getAdmin_id());
-//                    bau.block();
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
                 }
+                ua.setEntryStatus("invalid");
                 AddSuperCategoryFailureResponse rFail = new AddSuperCategoryFailureResponse(reqR, validSubmission);
                 out.write(rFail.toString());
             } else {
                 //exception response
             }
+            ua.addActivity();
             out.flush();
             out.close();
         } catch (Exception ex) {

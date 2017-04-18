@@ -831,7 +831,7 @@ public class DBConnect {
                 int start = (pn - 1) * me;
                 ps.setString(1, req.getQuery());
                 ps.setInt(2, start);
-                ps.setInt(3, pn);
+                ps.setInt(3, me);
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     AffiliateUserDetails auds = new AffiliateUserDetails(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(5), rs.getString(4));

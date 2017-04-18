@@ -501,14 +501,14 @@ public class MongoConnect {
     public void addAffiliateUser(AddAffiliateUser req) {
         Random ran = new Random();
         String token = "" + System.currentTimeMillis() + ran.nextLong();
-        addAUAT(req.getNew_user_id(), token);
+        addAUAT(req.getNew_user_id(), token, req.getAffiliate());
         addAUPasswordToken(req.getNew_user_id(), req.getPasswordToken());
         addAffiliateUser(req.getNew_user_id());
     }
 
-    private void addAUAT(String new_user_id, String token) {
+    private void addAUAT(String new_user_id, String token, String affiliate) {
         MongoCollection<Document> at = db.getCollection("affiliate_user_access_token");
-        Document doc = new Document("user_id", "" + new_user_id).append("token", token).append("status", "not logged");
+        Document doc = new Document("user_id", "" + new_user_id).append("token", token).append("affiliate", affiliate).append("status", "not logged");
         at.insertOne(doc);
     }
 

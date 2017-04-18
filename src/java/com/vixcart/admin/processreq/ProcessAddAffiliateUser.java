@@ -55,7 +55,6 @@ public class ProcessAddAffiliateUser implements AddAffiliateUserProcessor {
     public AddAffiliateUserSuccessResponse processRequest() throws Exception {
         AddAffiliateUserSuccessResponse obj = null;
         if (generateToken()) {
-            System.out.println("token generated");
             addUser();
             sendSetPasswordEmail(req.getEmail(), req.getPasswordToken(), req.getName());
             obj = generateResponse(true);

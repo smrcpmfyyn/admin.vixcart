@@ -95,7 +95,7 @@ public class FAUAConstraints implements FAUAValidator {
             String[] activities = ftr.getActivity();
             for (String activity : activities) {
                 if (validate(activity, regX)) {
-                    if (dbc.checkActivity(activity)) {
+                    if (dbc.checkAdminActivity(activity)) {
                         valid = CorrectMsg.CORRECT_FTR_ACTIVITY;
                     } else {
                         valid = ErrMsg.ERR_FTR_ACTIVITY_NOT_EXISTS;

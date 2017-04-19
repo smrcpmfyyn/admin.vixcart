@@ -681,7 +681,7 @@ public class DBConnect {
         return uids;
     }
 
-    public boolean checkActivity(String activity) throws SQLException {
+    public boolean checkAdminActivity(String activity) throws SQLException {
         PreparedStatement ps = con.prepareStatement("SELECT count(*) FROM admin_activities WHERE activity = ?");
         ps.setString(1, activity);
         rs = ps.executeQuery();

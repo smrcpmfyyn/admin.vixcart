@@ -478,7 +478,6 @@ public class MongoConnect {
         MongoCollection<Document> fgp = db.getCollection("search_affiliate");
         FindIterable<Document> find = fgp.find(Filters.regex("query", p)).limit(7).projection(exclude("query_type", "_id"));
         MongoCursor<Document> itr = find.iterator();
-        System.out.println(find.first().toJson());
         while(itr.hasNext()){
             Affiliates af = JSONParser.parseJSONA(itr.next().toJson());
             System.out.println(af.toString());
@@ -521,6 +520,7 @@ public class MongoConnect {
     public void removeAffiliateUser(String new_user_id) {
         removeAUAT(new_user_id);
         removeAUPasswordToken(new_user_id);
+        removeAUQuery(new_user_id);
     }
 
     private void removeAUAT(String new_user_id) {
@@ -533,6 +533,9 @@ public class MongoConnect {
         otp.findOneAndDelete(Filters.eq("user_id", "" + new_user_id));
     }
 
-    
+    private void removeAUQuery(String new_user_id) {
+        MongoCollection<Document> otp = db.getCollection("search_affiliate");
+        otp.findOneAndDelete(Filters.eq("query", "" + new_user_id));
+    }
 
 }

@@ -52,6 +52,7 @@ public class searchBrand extends HttpServlet {
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessSearchBrand process = new ProcessSearchBrand(req);
                 SearchBrandSuccessResponse rSucc = process.processRequest();
+                process.closeConnection();
                 ck.setValue(rSucc.getAccessToken());
                 response.addCookie(ck);
                 out.write(rSucc.toString());

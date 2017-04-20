@@ -63,5 +63,10 @@ public class ProcessEmpReport implements EmpReportProcessor {
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+    }
 
 }

@@ -70,5 +70,11 @@ public class ProcessAddBaC implements AddBaCProcessor{
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

@@ -57,8 +57,9 @@ public class getAffiliates extends HttpServlet {
             String validSubmission = reqR.getValidationResult();
             UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "get_affiliates", "affiliate", "valid");
             if (validSubmission.equals(CorrectMsg.CORRECT_MESSAGE)) {
-                ProcessGetAffiliates processor = new ProcessGetAffiliates(req);
-                GetAffiliatesSuccessResponse SResp = processor.processRequest();
+                ProcessGetAffiliates process = new ProcessGetAffiliates(req);
+                GetAffiliatesSuccessResponse SResp = process.processRequest();
+                process.closeConnection();
                 ck.setValue(SResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(SResp.toString());

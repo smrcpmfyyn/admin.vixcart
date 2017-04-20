@@ -54,6 +54,7 @@ public class getBPaC2 extends HttpServlet {
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessGetBPaC2 process = new ProcessGetBPaC2(req);
                 GetBPaC2SuccessResponse rSucc = process.processRequest();
+                process.closeConnection();
                 ck.setValue(rSucc.getAccessToken());
                 response.addCookie(ck);
                 out.write(rSucc.toString());

@@ -89,12 +89,11 @@ public class GetTotalPremiumPaymentsResult implements Result{
             error += "at#";
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
-        }else{
-            if (offset.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "offset#";
-            }
+        }else {
             if (company.startsWith(ErrMsg.ERR_MESSAGE)) {
                 error += "company#";
+            } else if (offset.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "offset#";
             }
         }
         return error.substring(0, error.length() - 1);

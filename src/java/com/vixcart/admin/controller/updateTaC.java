@@ -55,6 +55,7 @@ public class updateTaC extends HttpServlet {
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessUpdateTaC process = new ProcessUpdateTaC(req);
                 UpdateTaCSuccessResponse rSucc = process.processRequest();
+                process.closeConnection();
                 ck.setValue(rSucc.getAccessToken());
                 response.addCookie(ck);
                 out.write(rSucc.toString());

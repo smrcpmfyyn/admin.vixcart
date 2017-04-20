@@ -50,8 +50,9 @@ public class getAllCategories extends HttpServlet {
             GetCategoriesResult typeR = JSONParser.parseJSONGCateg(sCategV.toString());
             String validSubmission = typeR.getValidationResult();
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
-                ProcessGetCategories pCategs = new ProcessGetCategories(sCategs);
-                CategorySuccessResponse sCategsSResp = pCategs.processRequest();
+                ProcessGetCategories process = new ProcessGetCategories(sCategs);
+                CategorySuccessResponse sCategsSResp = process.processRequest();
+                process.closeConnection();
                 ck.setValue(sCategsSResp.getAccessToken());
                 response.addCookie(ck);
                 System.out.println("sCategsSResp = " + sCategsSResp);

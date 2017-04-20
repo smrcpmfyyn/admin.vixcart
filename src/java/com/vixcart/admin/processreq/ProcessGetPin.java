@@ -67,5 +67,10 @@ public class ProcessGetPin implements GetPinProcessor {
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+    }
 
 }

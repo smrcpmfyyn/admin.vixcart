@@ -52,6 +52,7 @@ public class getTaC extends HttpServlet {
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessGetTaC process = new ProcessGetTaC(req);
                 GetTaCSuccessResponse rSucc = process.processRequest();
+                process.closeConnection();
                 ck.setValue(rSucc.getAccessToken());
                 response.addCookie(ck);
                 out.write(rSucc.toString());

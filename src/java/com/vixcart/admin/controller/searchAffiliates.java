@@ -58,8 +58,9 @@ public class searchAffiliates extends HttpServlet {
             String validSubmission = reqR.getValidationResult();
             UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "search_affiliates", "affiliate", "valid");
             if (validSubmission.equals(CorrectMsg.CORRECT_MESSAGE)) {
-                ProcessSearchAffiliates processor = new ProcessSearchAffiliates(req);
-                SearchAffiliatesSuccessResponse SResp = processor.processRequest();
+                ProcessSearchAffiliates process = new ProcessSearchAffiliates(req);
+                SearchAffiliatesSuccessResponse SResp = process.processRequest();
+                process.closeConnection();
                 ck.setValue(SResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(SResp.toString());

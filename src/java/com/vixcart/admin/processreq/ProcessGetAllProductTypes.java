@@ -74,5 +74,11 @@ public class ProcessGetAllProductTypes implements GetAllProductTypesProcessor{
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

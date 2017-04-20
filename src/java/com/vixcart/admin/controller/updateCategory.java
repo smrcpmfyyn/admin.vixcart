@@ -54,6 +54,7 @@ public class updateCategory extends HttpServlet {
             if (validmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessUpdateCategory process = new ProcessUpdateCategory(req);
                 UpdateCategorySuccessResponse rSucc = process.processRequest();
+                process.closeConnection();
                 ck.setValue(rSucc.getAccessToken());
                 response.addCookie(ck);
                 out.write(rSucc.toString());

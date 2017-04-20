@@ -43,7 +43,7 @@ public class ProcessDeleteAffiliateUsers implements DeleteAffiliateUsersProcesso
 
     @Override
     public boolean blockAffiliateUsers() throws Exception {
-        return dbc.blockAffiliateUsers(req.getAuid());
+        return dbc.blockAffiliateUsers(req.getAuids());
     }
 
     @Override
@@ -70,6 +70,12 @@ public class ProcessDeleteAffiliateUsers implements DeleteAffiliateUsersProcesso
             resp = new DeleteAffiliateUsersSuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken);
         }
         return resp;
+    }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
     }
 
 }

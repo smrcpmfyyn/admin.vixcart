@@ -87,5 +87,11 @@ public class ProcessAddAffiliateUser implements AddAffiliateUserProcessor {
         accessToken = Hashing.genAccessToken(ts);
         return mdbc.updateAccessToken(req.getAdmin_id(), accessToken);
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

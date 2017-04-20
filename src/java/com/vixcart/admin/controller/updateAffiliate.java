@@ -55,7 +55,10 @@ public class updateAffiliate extends HttpServlet {
                 at = ck.getValue();
             }
             Cookie ck2 = Servlets.getCookie(request, "comp");
-            String ckCompany = ck2.getValue();
+            String ckCompany = "";
+            if(ck2!=null){
+                ckCompany = ck2.getValue();
+            }
             UpdateAffiliate req = new UpdateAffiliate(at, ckCompany, company, status, mpp, cf);
             UpdateAffiliateValidation reqV = new UpdateAffiliateValidation(req);
             reqV.validation();
@@ -65,7 +68,9 @@ public class updateAffiliate extends HttpServlet {
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessUpdateAffiliate process = new ProcessUpdateAffiliate(req);
                 UpdateAffiliateSuccessResponse SResp = process.processRequest();
+                process.closeConnection();
                 ck.setValue(SResp.getAccessToken());
+                ck2.setValue("");
                 ck2.setMaxAge(0);
                 response.addCookie(ck2);
                 response.addCookie(ck);

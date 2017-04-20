@@ -74,5 +74,11 @@ public class ProcessGetUserIds implements GetUserIdsProcessor{
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

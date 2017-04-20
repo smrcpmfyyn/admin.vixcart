@@ -52,6 +52,7 @@ public class getSuperCategory extends HttpServlet {
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessGetSuperCategory process = new ProcessGetSuperCategory(req);
                 GetSuperCategorySuccessResponse rSucc = process.processRequest();
+                process.closeConnection();
                 ck.setValue(rSucc.getAccessToken());
                 response.addCookie(ck);
                 out.write(rSucc.toString());

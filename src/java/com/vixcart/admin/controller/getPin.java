@@ -59,6 +59,7 @@ public class getPin extends HttpServlet {
             if (validSubmission.equals(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessGetPin process = new ProcessGetPin(req);
                 GetPinSuccessResponse SResp = process.processRequest();
+                process.closeConnection();
                 ck.setValue(SResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(SResp.toString());

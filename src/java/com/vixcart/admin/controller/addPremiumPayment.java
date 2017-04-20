@@ -62,6 +62,7 @@ public class addPremiumPayment extends HttpServlet {
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessAddPremiumPayment process = new ProcessAddPremiumPayment(req);
                 AddPremiumPaymentSuccessResponse SResp = process.processRequest();
+                process.closeConnection();
                 ck.setValue(SResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(SResp.toString());

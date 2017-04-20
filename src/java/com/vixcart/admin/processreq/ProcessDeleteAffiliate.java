@@ -70,5 +70,11 @@ public class ProcessDeleteAffiliate implements DeleteAffiliateProcessor {
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

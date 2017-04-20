@@ -74,5 +74,11 @@ public class ProcessSearchBrand implements SearchBrandProcessor{
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

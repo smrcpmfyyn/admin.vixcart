@@ -140,6 +140,7 @@ public class AddAffiliateConstraints implements AddAffiliateValidator {
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
 
 }

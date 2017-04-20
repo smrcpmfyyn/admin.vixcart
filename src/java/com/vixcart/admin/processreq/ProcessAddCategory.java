@@ -71,5 +71,11 @@ public class ProcessAddCategory implements AddCategoryProcessor{
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

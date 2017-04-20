@@ -57,8 +57,9 @@ public class getNoOfMembers extends HttpServlet {
             String validSubmission = reqR.getValidationResult();
             UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "get_no_of_members", "affiliate", "valid");
             if (validSubmission.equals(CorrectMsg.CORRECT_MESSAGE)) {
-                ProcessGetNoOfMembers processor = new ProcessGetNoOfMembers(req);
-                GetNoOfMembersSuccessResponse SResp = processor.processRequest();
+                ProcessGetNoOfMembers process = new ProcessGetNoOfMembers(req);
+                GetNoOfMembersSuccessResponse SResp = process.processRequest();
+                process.closeConnection();
                 ck.setValue(SResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(SResp.toString());

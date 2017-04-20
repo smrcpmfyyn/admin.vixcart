@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.vixcart.admin.validation;
 
 import com.vixcart.admin.db.DB;
@@ -16,14 +15,15 @@ import com.vixcart.admin.mongo.mod.AdminID;
 import com.vixcart.admin.regx.RegX;
 import com.vixcart.admin.req.mod.DeleteAffiliateUsers;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
  * @company techvay
  * @author rifaie
  */
-public class DeleteAffiliateUsersConstraints implements DeleteAffiliateUsersValiadtor{
-    
+public class DeleteAffiliateUsersConstraints implements DeleteAffiliateUsersValiadtor {
+
     private final DeleteAffiliateUsers req;
     private final DBConnect dbc;
     private final MongoConnect mdbc;
@@ -38,13 +38,22 @@ public class DeleteAffiliateUsersConstraints implements DeleteAffiliateUsersVali
     public String validateAuid() throws Exception {
         String valid = ErrMsg.ERR_AFFILIATE;
         String regx = RegX.REGX_DIGIT;
-        String auid = req.getAuid();
-        if (validate(auid,regx)) {
-            if (dbc.validateAuid(auid)) {
-                valid = CorrectMsg.CORRECT_AFFILIATE_USER;
-            }else{
-                valid = ErrMsg.ERR_AFFILIATE_USER_NOT_EXISTS;
+        ArrayList<String> auids = req.getAuids();
+        ArrayList<String> remove = new ArrayList<>();
+        for (String auid : auids) {
+            if (validate(auid, regx)) {
+                if (!dbc.validateAuid(auid)) {
+                    remove.add(auid);
+                }
+            } else {
+                remove.add(auid);
             }
+        }
+        auids.removeAll(remove);
+        if (!auids.isEmpty()) {
+            valid = CorrectMsg.CORRECT_AFFILIATE_USER;
+        } else {
+            valid = ErrMsg.ERR_AFFILIATE_USER_NOT_EXISTS;
         }
         return valid;
     }

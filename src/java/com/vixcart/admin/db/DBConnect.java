@@ -236,7 +236,7 @@ public class DBConnect {
         ps.setString(1, uName);
         int c = ps.executeUpdate();
         ps.close();
-        return c==1;
+        return c == 1;
     }
 
     public HashSet<String> getSubTypes(String type) throws SQLException {
@@ -274,7 +274,7 @@ public class DBConnect {
         ps.setString(1, admin_id);
         int count = ps.executeUpdate();
         ps.close();
-        return count==1;
+        return count == 1;
     }
 
     public int checkNBUname(String uname) throws SQLException {
@@ -664,7 +664,6 @@ public class DBConnect {
         PreparedStatement ps = con.prepareStatement("UPDATE affiliate SET status = 2 WHERE `company` = ?");
         ps.setString(1, affiliate);
         int affl = ps.executeUpdate();
-        rs.close();
         ps.close();
         return affl == 1;
     }
@@ -865,12 +864,15 @@ public class DBConnect {
         return affl == 1;
     }
 
-    public boolean blockAffiliateUsers(String auid) throws SQLException {
+    public boolean blockAffiliateUsers(ArrayList<String> auids) throws SQLException {
         PreparedStatement ps = con.prepareStatement("UPDATE affiliate_user SET affiliate_user_status = 2 WHERE affiliate_user_id = ?");
-        ps.setString(1, auid);
-        int affl = ps.executeUpdate();
+        int affl = 0;
+        for (String auid : auids) {
+            ps.setString(1, auid);
+            affl += ps.executeUpdate();
+        }
         ps.close();
-        return affl == 1;
+        return affl == auids.size();
     }
 
     public void getAffiliates(ArrayList<AffiliateCompany> affiliates) throws SQLException {
@@ -996,7 +998,7 @@ public class DBConnect {
         ArrayList<SuperCategory> result = new ArrayList<>();
         rs = ps.executeQuery();
         while (rs.next()) {
-            SuperCategory sc = new SuperCategory(rs.getString(1), rs.getString(2),rs.getString(3), rs.getString(4));
+            SuperCategory sc = new SuperCategory(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
             result.add(sc);
         }
         rs.close();
@@ -1236,6 +1238,7 @@ public class DBConnect {
         return c == 1;
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     public boolean deleteSpecification(DeleteSpecification req) {
         boolean res = false;
         return res;
@@ -1512,5 +1515,24 @@ public class DBConnect {
             res = exe.getInt(1);
         }
         return res;
+    }
+
+    public boolean checkNBAffiliateID(String user_id) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("SELECT count(*) FROM affiliate_logger_not_blocked WHERE affiliate_user_id = ?");
+        ps.setString(1, user_id);
+        rs = ps.executeQuery();
+        rs.next();
+        int c = rs.getInt(1);
+        rs.close();
+        ps.close();
+        return c == 1;
+    }
+
+    public boolean changeAffiliateUserStatus(String user_id, String status) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("UPDATE affiliate_user SET affiliate_user_status = ? WHERE affiliate_user_id = ?");
+        ps.setString(1, status);
+        ps.setString(3, user_id);
+        int c = ps.executeUpdate();
+        return c==1;
     }
 }

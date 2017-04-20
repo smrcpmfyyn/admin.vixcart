@@ -70,5 +70,11 @@ public class ProcessUpdateSpecification implements UpdateSpecificationProcessor{
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

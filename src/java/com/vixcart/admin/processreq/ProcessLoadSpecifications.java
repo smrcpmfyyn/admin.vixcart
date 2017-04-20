@@ -74,5 +74,11 @@ public class ProcessLoadSpecifications implements LoadSpecificationsProcessor{
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

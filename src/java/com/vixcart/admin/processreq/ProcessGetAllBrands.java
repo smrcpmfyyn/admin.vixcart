@@ -71,5 +71,11 @@ public class ProcessGetAllBrands implements GetAllBrandsProcessor {
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

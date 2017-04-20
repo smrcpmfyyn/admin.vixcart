@@ -73,5 +73,11 @@ public class ProcessGetBPaC implements GetBPaCProcessor{
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

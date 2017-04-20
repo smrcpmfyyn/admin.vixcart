@@ -59,6 +59,7 @@ public class getNoOfWebsites extends HttpServlet {
             if (validSubmission.equals(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessGetNoOfWebsites process = new ProcessGetNoOfWebsites(req);
                 GetNoOfWebsitesSuccessResponse SResp = process.processRequest();
+                process.closeConnection();
                 ck.setValue(SResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(SResp.toString());

@@ -93,6 +93,7 @@ public class addAffiliate extends HttpServlet {
                 if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                     ProcessAddAffiliate process = new ProcessAddAffiliate(req);
                     AddAffiliateSuccessResponse SResp = process.processRequest();
+                    process.closeConnection();
                     ck.setValue(SResp.getAccessToken());
                     response.addCookie(ck);
                     out.write(SResp.toString());

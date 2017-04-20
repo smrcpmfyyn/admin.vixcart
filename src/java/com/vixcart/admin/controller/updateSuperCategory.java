@@ -54,6 +54,7 @@ public class updateSuperCategory extends HttpServlet {
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessUpdateSuperCategory process = new ProcessUpdateSuperCategory(req);
                 UpdateSuperCategorySuccessResponse rSucc = process.processRequest();
+                process.closeConnection();
                 ck.setValue(rSucc.getAccessToken());
                 response.addCookie(ck);
                 out.write(rSucc.toString());

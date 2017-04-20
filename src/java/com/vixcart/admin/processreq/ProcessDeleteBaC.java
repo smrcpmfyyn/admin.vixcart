@@ -70,5 +70,11 @@ public class ProcessDeleteBaC implements DeleteBaCProcessor{
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

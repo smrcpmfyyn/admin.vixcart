@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-
     <servlet>
         <servlet-name>loadSpecifications</servlet-name>
         <servlet-class>com.vixcart.admin.controller.loadSpecifications</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>changeAffiliateUserStatus</servlet-name>
+        <servlet-class>com.vixcart.admin.controller.changeAffiliateUserStatus</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>loadSpecifications</servlet-name>
         <url-pattern>/loadSpecifications</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>getSpecification</servlet-name>
         <servlet-class>com.vixcart.admin.controller.getSpecification</servlet-class>
@@ -18,7 +20,6 @@
         <servlet-name>getSpecification</servlet-name>
         <url-pattern>/getSpecification</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>getBrand</servlet-name>
         <servlet-class>com.vixcart.admin.controller.getBrand</servlet-class>
@@ -27,7 +28,6 @@
         <servlet-name>getBrand</servlet-name>
         <url-pattern>/getBrand</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>getProductTypes</servlet-name>
         <servlet-class>com.vixcart.admin.controller.getProductTypes</servlet-class>
@@ -36,7 +36,6 @@
         <servlet-name>getProductTypes</servlet-name>
         <url-pattern>/getProductTypes</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>getProductType</servlet-name>
         <servlet-class>com.vixcart.admin.controller.getProductType</servlet-class>
@@ -45,7 +44,6 @@
         <servlet-name>getProductType</servlet-name>
         <url-pattern>/getProductType</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>getSuperCategory</servlet-name>
         <servlet-class>com.vixcart.admin.controller.getSuperCategory</servlet-class>
@@ -54,7 +52,6 @@
         <servlet-name>getSuperCategory</servlet-name>
         <url-pattern>/getSuperCategory</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>getTaC</servlet-name>
         <servlet-class>com.vixcart.admin.controller.getTaC</servlet-class>
@@ -63,7 +60,6 @@
         <servlet-name>getTaC</servlet-name>
         <url-pattern>/getTaC</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>getAllBrands</servlet-name>
         <servlet-class>com.vixcart.admin.controller.getAllBrands</servlet-class>
@@ -72,7 +68,6 @@
         <servlet-name>getAllBrands</servlet-name>
         <url-pattern>/getAllBrands</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>getBPaC2</servlet-name>
         <servlet-class>com.vixcart.admin.controller.getBPaC2</servlet-class>
@@ -81,7 +76,6 @@
         <servlet-name>getBPaC2</servlet-name>
         <url-pattern>/getBPaC2</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>getSubCategory</servlet-name>
         <servlet-class>com.vixcart.admin.controller.getSubCategory</servlet-class>
@@ -90,7 +84,6 @@
         <servlet-name>getSubCategory</servlet-name>
         <url-pattern>/getSubCategory</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>getCategory</servlet-name>
         <servlet-class>com.vixcart.admin.controller.getCategory</servlet-class>
@@ -99,7 +92,6 @@
         <servlet-name>getCategory</servlet-name>
         <url-pattern>/getCategory</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>getBPaC</servlet-name>
         <servlet-class>com.vixcart.admin.controller.getBPaC</servlet-class>
@@ -108,7 +100,6 @@
         <servlet-name>getBPaC</servlet-name>
         <url-pattern>/getBPaC</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>searchBrand</servlet-name>
         <servlet-class>com.vixcart.admin.controller.searchBrand</servlet-class>
@@ -117,7 +108,6 @@
         <servlet-name>searchBrand</servlet-name>
         <url-pattern>/searchBrand</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>getCategories</servlet-name>
         <servlet-class>com.vixcart.admin.controller.getCategories</servlet-class>
@@ -126,7 +116,6 @@
         <servlet-name>getCategories</servlet-name>
         <url-pattern>/getCategories</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>getAllTaC</servlet-name>
         <servlet-class>com.vixcart.admin.controller.getAllTaC</servlet-class>
@@ -135,7 +124,6 @@
         <servlet-name>getAllTaC</servlet-name>
         <url-pattern>/getAllTaC</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>getAllProductTypes</servlet-name>
         <servlet-class>com.vixcart.admin.controller.getAllProductTypes</servlet-class>
@@ -144,7 +132,6 @@
         <servlet-name>getAllProductTypes</servlet-name>
         <url-pattern>/getAllProductTypes</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>searchProductType</servlet-name>
         <servlet-class>com.vixcart.admin.controller.searchProductType</servlet-class>
@@ -153,7 +140,6 @@
         <servlet-name>searchProductType</servlet-name>
         <url-pattern>/searchProductType</url-pattern>
     </servlet-mapping>
-   
     <servlet>
         <servlet-name>addBrand</servlet-name>
         <servlet-class>com.vixcart.admin.controller.addBrand</servlet-class>
@@ -162,7 +148,6 @@
         <servlet-name>addBrand</servlet-name>
         <url-pattern>/addBrand</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>updateBaC</servlet-name>
         <servlet-class>com.vixcart.admin.controller.updateBaC</servlet-class>
@@ -171,7 +156,6 @@
         <servlet-name>updateBaC</servlet-name>
         <url-pattern>/updateBaC</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>deleteBaC</servlet-name>
         <servlet-class>com.vixcart.admin.controller.deleteBaC</servlet-class>
@@ -180,7 +164,6 @@
         <servlet-name>deleteBaC</servlet-name>
         <url-pattern>/deleteBaC</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>addBaC</servlet-name>
         <servlet-class>com.vixcart.admin.controller.addBaC</servlet-class>
@@ -189,7 +172,6 @@
         <servlet-name>addBaC</servlet-name>
         <url-pattern>/addBaC</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>deleteBrand</servlet-name>
         <servlet-class>com.vixcart.admin.controller.deleteBrand</servlet-class>
@@ -198,7 +180,6 @@
         <servlet-name>deleteBrand</servlet-name>
         <url-pattern>/deleteBrand</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>updateBrand</servlet-name>
         <servlet-class>com.vixcart.admin.controller.updateBrand</servlet-class>
@@ -207,7 +188,6 @@
         <servlet-name>updateBrand</servlet-name>
         <url-pattern>/updateBrand</url-pattern>
     </servlet-mapping>
-   
     <servlet>
         <servlet-name>login</servlet-name>
         <servlet-class>com.vixcart.admin.controller.login</servlet-class>
@@ -416,7 +396,6 @@
         <servlet-name>updateSpecification</servlet-name>
         <url-pattern>/updateSpecification</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>deleteSpecification</servlet-name>
         <servlet-class>com.vixcart.admin.controller.deleteSpecification</servlet-class>
@@ -425,7 +404,6 @@
         <servlet-name>deleteSpecification</servlet-name>
         <url-pattern>/deleteSpecification</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>addSpecification</servlet-name>
         <servlet-class>com.vixcart.admin.controller.addSpecification</servlet-class>
@@ -434,7 +412,6 @@
         <servlet-name>addSpecification</servlet-name>
         <url-pattern>/addSpecification</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>deleteTaC</servlet-name>
         <servlet-class>com.vixcart.admin.controller.deleteTaC</servlet-class>
@@ -443,7 +420,6 @@
         <servlet-name>deleteTaC</servlet-name>
         <url-pattern>/deleteTaC</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>addProductType</servlet-name>
         <servlet-class>com.vixcart.admin.controller.addProductType</servlet-class>
@@ -452,7 +428,6 @@
         <servlet-name>addProductType</servlet-name>
         <url-pattern>/addProductType</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>updateProductType</servlet-name>
         <servlet-class>com.vixcart.admin.controller.updateProductType</servlet-class>
@@ -461,7 +436,6 @@
         <servlet-name>updateProductType</servlet-name>
         <url-pattern>/updateProductType</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>updateTaC</servlet-name>
         <servlet-class>com.vixcart.admin.controller.updateTaC</servlet-class>
@@ -470,7 +444,6 @@
         <servlet-name>updateTaC</servlet-name>
         <url-pattern>/updateTaC</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>addTaC</servlet-name>
         <servlet-class>com.vixcart.admin.controller.addTaC</servlet-class>
@@ -671,7 +644,10 @@
         <servlet-name>updateCategory</servlet-name>
         <url-pattern>/updateCategory</url-pattern>
     </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>changeAffiliateUserStatus</servlet-name>
+        <url-pattern>/changeAffiliateUserStatus</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

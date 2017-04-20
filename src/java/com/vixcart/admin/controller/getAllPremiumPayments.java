@@ -59,8 +59,9 @@ public class getAllPremiumPayments extends HttpServlet {
             String validSubmission = reqR.getValidationResult();
             UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "get_all_premium_payments", "affiliate", "valid");
             if (validSubmission.equals(CorrectMsg.CORRECT_MESSAGE)) {
-                ProcessGetAllPremiumPayments processor = new ProcessGetAllPremiumPayments(req);
-                GetAllPremiumPaymentsSuccessResponse SResp = processor.processRequest();
+                ProcessGetAllPremiumPayments process = new ProcessGetAllPremiumPayments(req);
+                GetAllPremiumPaymentsSuccessResponse SResp = process.processRequest();
+                process.closeConnection();
                 ck.setValue(SResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(SResp.toString());

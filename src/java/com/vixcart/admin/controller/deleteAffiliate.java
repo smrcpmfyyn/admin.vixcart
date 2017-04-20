@@ -60,6 +60,7 @@ public class deleteAffiliate extends HttpServlet {
             if (validSubmission.equals(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessDeleteAffiliate process = new ProcessDeleteAffiliate(req);
                 DeleteAffiliateSuccessResponse SResp = process.processRequest();
+                process.closeConnection();
                 ck.setValue(SResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(SResp.toString());

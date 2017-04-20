@@ -73,5 +73,11 @@ public class ProcessGetSuperCategory implements GetSuperCategoryProcessor{
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

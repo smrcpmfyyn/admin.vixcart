@@ -50,8 +50,9 @@ public class getAllSubCategories extends HttpServlet {
             GetSubCategoriesResult typeR = JSONParser.parseJSONGSubCategs(sCategV.toString());
             String validSubmission = typeR.getValidationResult();
             if(validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)){
-                ProcessGetSubCategories pCategs = new ProcessGetSubCategories(sCategs);
-                SubCategorySuccessResponse sCategsSResp = pCategs.processRequest();
+                ProcessGetSubCategories process = new ProcessGetSubCategories(sCategs);
+                SubCategorySuccessResponse sCategsSResp = process.processRequest();
+                process.closeConnection();
                 ck.setValue(sCategsSResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(sCategsSResp.toString());

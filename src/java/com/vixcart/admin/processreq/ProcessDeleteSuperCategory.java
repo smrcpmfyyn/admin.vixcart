@@ -70,5 +70,11 @@ public class ProcessDeleteSuperCategory implements DeleteSuperCategoryProcessor 
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

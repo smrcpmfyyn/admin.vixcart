@@ -26,6 +26,7 @@ import com.vixcart.admin.result.AddSuperCategoryResult;
 import com.vixcart.admin.result.AddTaCResult;
 import com.vixcart.admin.result.AddUserResult;
 import com.vixcart.admin.result.AddUserTypeResult;
+import com.vixcart.admin.result.ChangeAffiliateUserStatusResult;
 import com.vixcart.admin.result.CheckUserIDResult;
 import com.vixcart.admin.result.CheckUserTypeResult;
 import com.vixcart.admin.result.DeleteAffiliateResult;
@@ -428,7 +429,7 @@ public final class JSONParser {
     }
 
     public static UpdateBaCResult parseJSONUpdateBaC(String toString) throws IOException {
-        UpdateBaCResult res = null;
+        UpdateBaCResult res ;
         res = MAPPER.readValue(toString, UpdateBaCResult.class);
         return res;
     }
@@ -464,13 +465,13 @@ public final class JSONParser {
     }
 
     public static GetSpecificationResult parseJSONGetSpecification(String toString) throws IOException {
-        GetSpecificationResult res = null;
+        GetSpecificationResult res ;
         res = MAPPER.readValue(toString, GetSpecificationResult.class);
         return res;
     }
 
     public static GetBrandResult parseJSONGetBrand(String toString) throws IOException {
-        GetBrandResult res = null;
+        GetBrandResult res ;
         res = MAPPER.readValue(toString, GetBrandResult.class);
         return res;
     }
@@ -587,6 +588,12 @@ public final class JSONParser {
     public static AddCategoryResult parseJSONAddCategory(String addTypV) throws IOException {
         AddCategoryResult res;
         res = MAPPER.readValue(addTypV, AddCategoryResult.class);
+        return res;
+    }
+
+    public static ChangeAffiliateUserStatusResult parseJSONCAUSR(String reqv) throws IOException {
+        ChangeAffiliateUserStatusResult res;
+        res = MAPPER.readValue(reqv, ChangeAffiliateUserStatusResult.class);
         return res;
     }
 

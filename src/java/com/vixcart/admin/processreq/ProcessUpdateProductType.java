@@ -70,5 +70,11 @@ public class ProcessUpdateProductType implements UpdateProductTypeProcessor{
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

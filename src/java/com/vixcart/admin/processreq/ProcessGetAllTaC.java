@@ -74,5 +74,11 @@ public class ProcessGetAllTaC implements GetAllTaCProcessor{
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

@@ -73,5 +73,11 @@ public class ProcessGetSpecification implements GetSpecificationProcessor{
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

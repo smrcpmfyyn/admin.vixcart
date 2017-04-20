@@ -70,5 +70,11 @@ public class ProcessUpdateSuperCategory implements UpdateSuperCategoryProcessor 
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

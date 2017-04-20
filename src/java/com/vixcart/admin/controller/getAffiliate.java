@@ -60,6 +60,7 @@ public class getAffiliate extends HttpServlet {
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessGetAffiliate process = new ProcessGetAffiliate(req);
                 GetAffiliateSuccessResponse SResp = process.processRequest();
+                process.closeConnection();
                 Cookie ck2 = new Cookie("comp", company);
                 response.addCookie(ck2);
                 ck.setValue(SResp.getAccessToken());

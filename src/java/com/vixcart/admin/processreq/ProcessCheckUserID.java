@@ -68,5 +68,10 @@ public class ProcessCheckUserID implements CheckUserIDProcessor{
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+    }
 
 }

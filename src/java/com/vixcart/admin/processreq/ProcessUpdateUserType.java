@@ -72,4 +72,10 @@ public class ProcessUpdateUserType implements UpdateUserTypeProcessor {
         return resp;
     }
     
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
+    
 }

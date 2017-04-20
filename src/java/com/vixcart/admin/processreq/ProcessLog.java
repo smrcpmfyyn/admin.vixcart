@@ -75,4 +75,10 @@ public class ProcessLog implements LogProcessor {
     public boolean updateLog() throws Exception {
         return dbc.updateLog(log.getuName());
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 }

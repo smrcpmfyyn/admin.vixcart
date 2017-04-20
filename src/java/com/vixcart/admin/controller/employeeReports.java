@@ -59,6 +59,7 @@ public class employeeReports extends HttpServlet {
             if (validSubmission.equals(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessEmpReport process = new ProcessEmpReport(req);
                 EmpReportSuccessResponse SResp = process.processRequest();
+                process.closeConnection();
                 ck.setValue(SResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(SResp.toString());

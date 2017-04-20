@@ -52,11 +52,17 @@ import org.bson.conversions.Bson;
 public class MongoConnect {
 
     private final MongoDatabase db;
+    private final MongoClient mongoClient;
 
     public MongoConnect() throws Exception {
         MongoClientURI uri = new MongoClientURI("mongodb://35.154.242.9/");
-        MongoClient mongoClient = new MongoClient(uri);
+        mongoClient = new MongoClient(uri);
         db = mongoClient.getDatabase("vaydeal");
+        
+    }
+    
+    public void closeConnection(){
+        mongoClient.close();
     }
 
 //    public void addFP(Reg reg) throws Exception {

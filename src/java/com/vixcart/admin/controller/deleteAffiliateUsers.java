@@ -50,8 +50,8 @@ public class deleteAffiliateUsers extends HttpServlet {
             if (ck != null) {
                 at = ck.getValue();
             }
-            String auid = request.getParameter("auid");
-            DeleteAffiliateUsers req = new DeleteAffiliateUsers(at, auid);
+            String [] auids = request.getParameterValues("auid");
+            DeleteAffiliateUsers req = new DeleteAffiliateUsers(at, auids);
             DeleteAffiliateUsersValidation reqV = new DeleteAffiliateUsersValidation(req);
             reqV.validation();
             DeleteAffiliateUsersResult reqR = JSONParser.parseJSONDAU(reqV.toString());
@@ -60,6 +60,7 @@ public class deleteAffiliateUsers extends HttpServlet {
             if (validSubmission.equals(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessDeleteAffiliateUsers process = new ProcessDeleteAffiliateUsers(req);
                 DeleteAffiliateUsersSuccessResponse SResp = process.processRequest();
+                process.closeConnection();
                 ck.setValue(SResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(SResp.toString());

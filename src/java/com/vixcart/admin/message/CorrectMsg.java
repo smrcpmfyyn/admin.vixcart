@@ -72,13 +72,14 @@ public class CorrectMsg {
     public static final String CORRECT_ONLINE_VISIBILITY = "Valid onlinevisibility";
     public static final String CORRECT_OFFLINE_VISIBILITY = "Valid offlinevisibility";
     public static final String CORRECT_SUB_CATEGORY ="Valid subcateg";
-    public static String CORRECT_PTYPE = "Valid producttype";
-    public static String CORRECT_SPECIFIC = "Valid specification";
-    public static String CORRECT_TAC="Valid tac";
-    public static String CORRECT_BRAND="Valid brand";
-    public static String CORRECT_TAC_OFFSET="Valid tacoffset";
-    public static String CORRECT_PTYPE_OFFSET="Valid ptypeoffset";
-    public static String CORRECT_BRAND_OFFSET="Valid brandoffset";
-    public static String CORRECT_NO = "Valid number";
+    public static final String CORRECT_PTYPE = "Valid producttype";
+    public static final String CORRECT_SPECIFIC = "Valid specification";
+    public static final String CORRECT_TAC="Valid tac";
+    public static final String CORRECT_BRAND="Valid brand";
+    public static final String CORRECT_TAC_OFFSET="Valid tacoffset";
+    public static final String CORRECT_PTYPE_OFFSET="Valid ptypeoffset";
+    public static final String CORRECT_BRAND_OFFSET="Valid brandoffset";
+    public static final String CORRECT_NO = "Valid number";
+    public static final String CORRECT_CAUS = "Valid caus";
 
 }

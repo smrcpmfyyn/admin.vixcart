@@ -86,5 +86,11 @@ public class ProcessAddUser implements AddUserProcessor {
         accessToken = Hashing.genAccessToken(ts);
         return mdbc.updateAccessToken(au.getAdmin_id(), accessToken);
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

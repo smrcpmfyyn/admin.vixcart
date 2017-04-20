@@ -72,6 +72,12 @@ public class ProcessSearchAffiliates implements SearchAffiliatesProcessor{
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }
 

@@ -70,5 +70,11 @@ public class ProcessUpdateTaC implements UpdateTaCProcessor{
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

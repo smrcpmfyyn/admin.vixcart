@@ -75,5 +75,11 @@ public class ProcessGetAllAffiliates implements GetAllAffiliatesProcessor{
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

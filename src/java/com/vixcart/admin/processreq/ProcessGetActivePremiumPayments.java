@@ -75,5 +75,11 @@ public class ProcessGetActivePremiumPayments implements GetActivePremiumPayments
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

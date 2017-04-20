@@ -62,6 +62,7 @@ public class checkUserID extends HttpServlet {
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessCheckUserID process = new ProcessCheckUserID(req);
                 CheckUserIDSuccessResponse SResp = process.processRequest();
+                process.closeConnection();
                 ck.setValue(SResp.getAccessToken());
                 response.addCookie(ck);
                 ServletContext context = getServletContext();

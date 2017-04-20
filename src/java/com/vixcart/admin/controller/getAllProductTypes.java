@@ -53,6 +53,7 @@ public class getAllProductTypes extends HttpServlet {
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessGetAllProductTypes process = new ProcessGetAllProductTypes(req);
                 GetAllProductTypesSuccessResponse rSucc = process.processRequest();
+                process.closeConnection();
                 ck.setValue(rSucc.getAccessToken());
                 response.addCookie(ck);
                 out.write(rSucc.toString());

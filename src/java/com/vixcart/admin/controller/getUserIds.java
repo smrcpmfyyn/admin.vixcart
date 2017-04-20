@@ -60,6 +60,7 @@ public class getUserIds extends HttpServlet {
             if (validSubmission.equals(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessGetUserIds process = new ProcessGetUserIds(req);
                 GetUserIdsSuccessResponse SResp = process.processRequest();
+                process.closeConnection();
                 ck.setValue(SResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(SResp.toString());

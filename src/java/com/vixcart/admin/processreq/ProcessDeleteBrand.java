@@ -70,5 +70,11 @@ public class ProcessDeleteBrand implements DeleteBrandProcessor{
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

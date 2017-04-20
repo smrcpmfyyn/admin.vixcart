@@ -71,5 +71,11 @@ public class ProcessDeleteUserType implements DeleteUserTypeProcessor{
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

@@ -70,5 +70,11 @@ public class ProcessDeleteTaC implements DeleteTaCProcessor{
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

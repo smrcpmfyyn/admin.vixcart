@@ -53,6 +53,7 @@ public class deleteSubCategory extends HttpServlet {
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessDeleteSubCategory process = new ProcessDeleteSubCategory(req);
                 DeleteSubCategorySuccessResponse rSucc = process.processRequest();
+                process.closeConnection();
                 ck.setValue(rSucc.getAccessToken());
                 response.addCookie(ck);
                 out.write(rSucc.toString());

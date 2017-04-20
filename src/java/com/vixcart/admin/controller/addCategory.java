@@ -53,8 +53,9 @@ public class addCategory extends HttpServlet {
             String validSubmission = reqR.getValidationResult();
             UserActivities ua = new UserActivities(req.getAdmin_id(), req.getUtype(), "add_affiliate", "affiliate", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
-                ProcessAddCategory pAddTyp = new ProcessAddCategory(req);
-                AddCategorySuccessResponse addTypSResp = pAddTyp.processRequest();
+                ProcessAddCategory process = new ProcessAddCategory(req);
+                AddCategorySuccessResponse addTypSResp = process.processRequest();
+                process.closeConnection();
                 ck.setValue(addTypSResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(addTypSResp.toString());

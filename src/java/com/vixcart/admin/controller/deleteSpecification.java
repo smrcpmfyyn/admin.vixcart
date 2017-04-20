@@ -52,6 +52,7 @@ public class deleteSpecification extends HttpServlet {
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessDeleteSpecification process = new ProcessDeleteSpecification(req);
                 DeleteSpecificationSuccessResponse rSucc = process.processRequest();
+                process.closeConnection();
                 ck.setValue(rSucc.getAccessToken());
                 response.addCookie(ck);
                 out.write(rSucc.toString());

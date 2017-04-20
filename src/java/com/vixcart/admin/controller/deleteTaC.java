@@ -46,12 +46,12 @@ public class deleteTaC extends HttpServlet {
             DeleteTaC req = new DeleteTaC(at, scat);
             DeleteTaCValidation reqV = new DeleteTaCValidation(req);
             reqV.validation();
-            System.out.println("addTypV = " + reqV);
             DeleteTaCResult reqR = JSONParser.parseJSONDeleteTaC(reqV.toString());
             String validSubmission = reqR.getValidationResult();
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessDeleteTaC process = new ProcessDeleteTaC(req);
                 DeleteTaCSuccessResponse rSucc = process.processRequest();
+                process.closeConnection();
                 ck.setValue(rSucc.getAccessToken());
                 response.addCookie(ck);
                 out.write(rSucc.toString());

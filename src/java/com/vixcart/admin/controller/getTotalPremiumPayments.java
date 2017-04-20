@@ -60,8 +60,9 @@ public class getTotalPremiumPayments extends HttpServlet {
             String validSubmission = reqR.getValidationResult();
             UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "get_total_premium_payments", "affiliate", "valid");
             if (validSubmission.equals(CorrectMsg.CORRECT_MESSAGE)) {
-                ProcessGetTotalPremiumPayments processor = new ProcessGetTotalPremiumPayments(req);
-                GetTotalPremiumPaymentsSuccessResponse SResp = processor.processRequest();
+                ProcessGetTotalPremiumPayments process = new ProcessGetTotalPremiumPayments(req);
+                GetTotalPremiumPaymentsSuccessResponse SResp = process.processRequest();
+                process.closeConnection();
                 ck.setValue(SResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(SResp.toString());

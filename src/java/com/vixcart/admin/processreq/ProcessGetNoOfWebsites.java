@@ -69,5 +69,11 @@ public class ProcessGetNoOfWebsites implements GetNoOfWebsitesProcessor{
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

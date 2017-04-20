@@ -6,19 +6,22 @@
 
 package com.vixcart.admin.req.mod;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * @company techvay
  * @author rifaie
  */
 public class DeleteAffiliateUsers {
     private final String at;
-    private final String auid;
+    private ArrayList<String> auids;
     private String admin_id;
     private String type;
 
-    public DeleteAffiliateUsers(String at, String auid) {
+    public DeleteAffiliateUsers(String at, String [] auid) {
         this.at = at;
-        this.auid = auid;
+        this.auids = new ArrayList<>(Arrays.asList(auid));
     }
 
     public void setAdmin_id(String admin_id) {
@@ -33,8 +36,8 @@ public class DeleteAffiliateUsers {
         return at;
     }
 
-    public String getAuid() {
-        return auid;
+    public ArrayList<String> getAuids() {
+        return auids;
     }
 
     public String getAdmin_id() {

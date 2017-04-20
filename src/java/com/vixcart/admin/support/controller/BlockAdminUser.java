@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.vixcart.admin.support.controller;
 
 import com.vixcart.admin.db.DB;
@@ -15,6 +14,7 @@ import java.sql.SQLException;
  * @author rifaie
  */
 public class BlockAdminUser {
+
     private final String admin_id;
     private final DBConnect dbc;
 
@@ -22,11 +22,13 @@ public class BlockAdminUser {
         this.admin_id = admin_id;
         this.dbc = DB.getConnection();
     }
-    
-    public boolean block() throws SQLException{
-        if(dbc.blockAdmin(admin_id)){
-            return true;
+
+    public boolean block() throws SQLException {
+        boolean flag = false;
+        if (dbc.blockAdmin(admin_id)) {
+            flag = true;
         }
-        return false;
+        dbc.closeConnection();
+        return flag;
     }
 }

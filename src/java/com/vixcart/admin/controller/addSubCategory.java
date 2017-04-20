@@ -52,8 +52,9 @@ response.setContentType("application/json");
             AddSubCategoryResult addCategR = JSONParser.parseJSONAddSubCategory(addCategV.toString());
             String validSubmission = addCategR.getValidationResult();
             if(validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)){
-                ProcessAddSubCategory pAddTyp = new ProcessAddSubCategory(addCateg);
-                AddSubCategorySuccessResponse addTypSResp = pAddTyp.processRequest();
+                ProcessAddSubCategory process = new ProcessAddSubCategory(addCateg);
+                AddSubCategorySuccessResponse addTypSResp = process.processRequest();
+                process.closeConnection();
                 ck.setValue(addTypSResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(addTypSResp.toString());

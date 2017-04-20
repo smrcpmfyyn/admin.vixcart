@@ -129,5 +129,6 @@ public class ErrMsg {
     public static final String ERR_SUPER_CATEGORY = "Invalid categ invalid";
     public static final String ERR_CATEGORY = "Invalid categ invalid";
     public static String ERR_NO = "Invalid number invalid";
+    public static String ERR_CAUS = "Invalid caus";
 
 }

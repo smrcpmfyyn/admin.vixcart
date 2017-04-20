@@ -50,8 +50,9 @@ response.setContentType("application/json");
             GetSuperCategoriesResult reqR = JSONParser.parseJSONGSC(reqV.toString());
             String validSubmission = reqR.getValidationResult();
             if(validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)){
-                ProcessGetAllSuperCategories reqP = new ProcessGetAllSuperCategories(req);
-                SuperCategorySuccessResponse reqSResp = reqP.processRequest();
+                ProcessGetAllSuperCategories process = new ProcessGetAllSuperCategories(req);
+                SuperCategorySuccessResponse reqSResp = process.processRequest();
+                process.closeConnection();
                 ck.setValue(reqSResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(reqSResp.toString());

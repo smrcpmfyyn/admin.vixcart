@@ -70,5 +70,11 @@ public class ProcessUpdateBrand implements UpdateBrandProcessor{
         }
         return resp;
     }
+    
+    @Override
+    public void closeConnection() throws Exception {
+        mdbc.closeConnection();
+        dbc.closeConnection();
+    }
 
 }

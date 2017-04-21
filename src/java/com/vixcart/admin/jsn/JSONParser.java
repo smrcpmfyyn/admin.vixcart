@@ -72,6 +72,7 @@ import com.vixcart.admin.result.GetUserResult;
 import com.vixcart.admin.result.LoadSpecificationsResult;
 import com.vixcart.admin.result.LogResult;
 import com.vixcart.admin.result.RPResult;
+import com.vixcart.admin.result.ResetAffiliateUserResult;
 import com.vixcart.admin.result.SearchAffiliatesResult;
 import com.vixcart.admin.result.SearchBrandResult;
 import com.vixcart.admin.result.SearchProductTypeResult;
@@ -594,6 +595,12 @@ public final class JSONParser {
     public static ChangeAffiliateUserStatusResult parseJSONCAUSR(String reqv) throws IOException {
         ChangeAffiliateUserStatusResult res;
         res = MAPPER.readValue(reqv, ChangeAffiliateUserStatusResult.class);
+        return res;
+    }
+
+    public static ResetAffiliateUserResult parseJSONRAU(String reqv) throws IOException {
+        ResetAffiliateUserResult res;
+        res = MAPPER.readValue(reqv, ResetAffiliateUserResult.class);
         return res;
     }
 

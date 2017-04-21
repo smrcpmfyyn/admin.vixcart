@@ -41,6 +41,7 @@ import com.vixcart.admin.req.mod.GetSuperCategory;
 import com.vixcart.admin.req.mod.GetTaC;
 import com.vixcart.admin.req.mod.LoadSpecifications;
 import com.vixcart.admin.req.mod.NewPassword;
+import com.vixcart.admin.req.mod.ResetAffiliateUser;
 import com.vixcart.admin.req.mod.SearchBrand;
 import com.vixcart.admin.req.mod.SearchProductType;
 import com.vixcart.admin.req.mod.UpdateAffiliate;
@@ -546,6 +547,14 @@ public class DBConnect {
         int flag = ps.executeUpdate();
         ps.close();
         return flag;
+    }
+    
+    public boolean changePassword(ResetAffiliateUser req) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("UPDATE affiliate_user_login SET password = ? WHERE affiliate_user_id = ?");
+        ps.setString(1, req.getPassword());
+        ps.setString(3, req.getUser_id());
+        int c = ps.executeUpdate();
+        return c==1;
     }
 
     public void updateUser(EditUser eu) throws SQLException {
@@ -1531,8 +1540,30 @@ public class DBConnect {
     public boolean changeAffiliateUserStatus(String user_id, String status) throws SQLException {
         PreparedStatement ps = con.prepareStatement("UPDATE affiliate_user SET affiliate_user_status = ? WHERE affiliate_user_id = ?");
         ps.setString(1, status);
-        ps.setString(3, user_id);
+        ps.setString(2, user_id);
         int c = ps.executeUpdate();
         return c==1;
+    }
+
+    public boolean checkAffiliateUserId(String param) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("SELECT count(*) FROM affiliate_logger WHERE affiliate_user_id = ?");
+        ps.setString(1, param);
+        rs = ps.executeQuery();
+        rs.next();
+        int c = rs.getInt(1);
+        rs.close();
+        ps.close();
+        return c==1;
+    }   
+    
+    public void getUserDetails(String param, ArrayList<String> al) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("SELECT affiliate_user_email, affiliate_user_name FROM affiliate_logger_not_blocked WHERE affiliate_user_id = ?");
+        ps.setString(1, param);
+        rs = ps.executeQuery();
+        rs.next();
+        al.add(rs.getString(1));
+        al.add(rs.getString(2));
+        rs.close();
+        ps.close();
     }
 }

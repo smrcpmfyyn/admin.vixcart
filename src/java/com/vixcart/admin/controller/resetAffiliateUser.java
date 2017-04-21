@@ -5,7 +5,17 @@
  */
 package com.vixcart.admin.controller;
 
-import com.vixcart.admin.processreq.ProcessLogout;
+import com.vixcart.admin.jsn.JSONParser;
+import com.vixcart.admin.message.CorrectMsg;
+import com.vixcart.admin.message.ErrMsg;
+import com.vixcart.admin.processreq.ProcessResetAffiliateUser;
+import com.vixcart.admin.req.mod.ResetAffiliateUser;
+import com.vixcart.admin.resp.mod.ResetAffiliateUserFailureResponse;
+import com.vixcart.admin.resp.mod.ResetAffiliateUserSuccessResponse;
+import com.vixcart.admin.result.ResetAffiliateUserResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
+import com.vixcart.admin.validation.ResetAffiliateUserValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -20,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author rifaie
  */
-public class logout extends HttpServlet {
+public class resetAffiliateUser extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,18 +43,46 @@ public class logout extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
+            String user_id = request.getParameter("uid");
             Cookie ck = Servlets.getCookie(request, "at");
             String at = "";
             if (ck != null) {
                 at = ck.getValue();
             }
-            ProcessLogout process = new ProcessLogout(at);
-            process.logout();
-            Servlets.removeCookie(request, "at", response);
+            ResetAffiliateUser req = new ResetAffiliateUser(at, user_id);
+            ResetAffiliateUserValidation reqV = new ResetAffiliateUserValidation(req);
+            reqV.validation();
+            ResetAffiliateUserResult reqR = JSONParser.parseJSONRAU(reqV.toString());
+            String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "change_affiliate_user_status", "affiliate", "valid");
+            if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
+                ProcessResetAffiliateUser process = new ProcessResetAffiliateUser(req);
+                ResetAffiliateUserSuccessResponse SResp = process.processRequest();
+                process.closeConnection();
+                ck.setValue(SResp.getAccessToken());
+                response.addCookie(ck);
+                out.write(SResp.toString());
+            } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
+                if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
+                    // do nothing
+                } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+                }
+                ua.setEntryStatus("invalid");
+                ResetAffiliateUserFailureResponse FResp = new ResetAffiliateUserFailureResponse(reqR, validSubmission);
+                out.write(FResp.toString());
+            } else {
+                //exception response
+            }
+            ua.addActivity();
+            out.flush();
+            out.close();
         } catch (Exception ex) {
-            Logger.getLogger(logout.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(resetAffiliateUser.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

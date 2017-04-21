@@ -63,8 +63,6 @@ public class getAffiliateUsers extends HttpServlet {
                 ProcessGetAffiliateUsers process = new ProcessGetAffiliateUsers(req);
                 GetAffiliateUsersSuccessResponse SResp = process.processRequest();
                 process.closeConnection();
-                Cookie ck2 = new Cookie("comp", query);
-                response.addCookie(ck2);
                 ck.setValue(SResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(SResp.toString());

@@ -9,26 +9,27 @@ package com.vixcart.admin.validation;
 import com.vixcart.admin.db.DB;
 import com.vixcart.admin.db.DBConnect;
 import com.vixcart.admin.db.MongoConnect;
-import com.vixcart.admin.intfc.validation.ChangeAffiliateUserStatusValidator;
+import com.vixcart.admin.intfc.validation.ResetAffiliateUserValidator;
 import com.vixcart.admin.message.CorrectMsg;
 import com.vixcart.admin.message.ErrMsg;
 import com.vixcart.admin.mongo.mod.AdminID;
 import com.vixcart.admin.regx.RegX;
-import com.vixcart.admin.req.mod.ChangeAffiliateUserStatus;
+import com.vixcart.admin.req.mod.ResetAffiliateUser;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
  * @company techvay
  * @author rifaie
  */
-public class ChangeAffiliateUserStatusConstraints implements ChangeAffiliateUserStatusValidator {
+public class ResetAffiliateUserConstraints implements ResetAffiliateUserValidator {
 
-    private final ChangeAffiliateUserStatus req;
+    private final ResetAffiliateUser req;
     private final DBConnect dbc;
     private final MongoConnect mdbc;
 
-    public ChangeAffiliateUserStatusConstraints(ChangeAffiliateUserStatus req) throws Exception {
+    public ResetAffiliateUserConstraints(ResetAffiliateUser req) throws Exception {
         this.req = req;
         this.mdbc = DB.getMongoConnection();
         this.dbc = DB.getConnection();
@@ -40,23 +41,14 @@ public class ChangeAffiliateUserStatusConstraints implements ChangeAffiliateUser
         String regX = RegX.REGX_DIGIT;
         String param = req.getUser_id();
         if (validate(param, regX)) {
-            if (dbc.checkAffiliateUserId(param)) {
+            ArrayList<String> al = new ArrayList<>();
+            dbc.getUserDetails(param,al);
+            if (al.size()==2) {
+                req.setEmail(al.get(0));
+                req.setName(al.get(1));
                 valid = CorrectMsg.CORRECT_UID;
             } else {
                 valid = ErrMsg.ERR_UID_NOT_EXISTS;
-            }
-        }
-        return valid;
-    }
-
-    @Override
-    public String validateStatus() throws Exception {
-        String valid = ErrMsg.ERR_STATUS;
-        String regX = RegX.REGX_DIGIT;
-        String status = req.getStatus();
-        if (validate(status, regX)) {
-            if(status.matches("1")||status.matches("2")){
-                valid = CorrectMsg.CORRECT_STATUS;
             }
         }
         return valid;

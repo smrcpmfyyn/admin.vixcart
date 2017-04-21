@@ -8,6 +8,10 @@
         <servlet-name>changeAffiliateUserStatus</servlet-name>
         <servlet-class>com.vixcart.admin.controller.changeAffiliateUserStatus</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>resetAffiliateUser</servlet-name>
+        <servlet-class>com.vixcart.admin.controller.resetAffiliateUser</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loadSpecifications</servlet-name>
         <url-pattern>/loadSpecifications</url-pattern>
@@ -647,6 +651,10 @@
     <servlet-mapping>
         <servlet-name>changeAffiliateUserStatus</servlet-name>
         <url-pattern>/changeAffiliateUserStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>resetAffiliateUser</servlet-name>
+        <url-pattern>/resetAffiliateUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

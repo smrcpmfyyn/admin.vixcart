@@ -26,13 +26,16 @@ public class ErrMsg {
     public static final String ERR_AT_BLOCKED = "Invalid at blocked";
     public static final String ERR_TYPE = "Invalid type invalid";
     public static final String ERR_COMPANY = "Invalid company invalid";
+    public static final String ERR_REQ_ID = "Invalid rid invalid";
     public static final String ERR_CK_COMPANY = "Invalid ckcompany invalid";
     public static final String ERR_FTR_ACTIVITY = "Invalid ftractivity invalid";
+    public static final String ERR_FTR_AFF = "Invalid ftraff invalid";
     public static final String ERR_ENTRY_STATUS = "Invalid ftrentrystatus invalid";
     public static final String ERR_FTR_UTYPE = "Invalid ftrutype invalid";
     public static final String ERR_TYPE_EXISTS = "Invalid type exists";
     public static final String ERR_COMPANY_EXISTS = "Invalid company exists";
     public static final String ERR_COMPANY_NOT_EXISTS = "Invalid company notexists";
+    public static final String ERR_REQ_ID_NOT_EXISTS = "Invalid rid notexists";
     public static final String ERR_QUERY_NO_RESULT = "Invalid query noresult";
     public static final String ERR_CK_COMPANY_NOT_EXISTS = "Invalid ckcompany notexists";
     public static final String ERR_CK_COMPANY_NOT_MATCHES = "Invalid ckcompany notmatches";
@@ -87,6 +90,7 @@ public class ErrMsg {
     public static final String ERR_FTR_UTYPE_NOT_EXISTS = "Invalid ftrutype notexists";
     public static final String ERR_FTR_ACTIVITY_NOT_EXISTS = "Invalid ftractivity notexists";
     public static final String ERR_FTR_UID_NOT_EXISTS = "Invalid ftruid notexists";
+    public static final String ERR_FTR_AFF_NOT_EXISTS = "Invalid ftraff notexists";
     public static final String ERR_UID_STR = "Invalid str";
     public static final String ERR_SLNO_NOT_EXISTS = "Invalid slno notexists";
     public static final String ERR_GET_USER = "Invalid getuser";

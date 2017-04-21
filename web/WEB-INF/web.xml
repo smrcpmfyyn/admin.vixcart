@@ -12,6 +12,22 @@
         <servlet-name>resetAffiliateUser</servlet-name>
         <servlet-class>com.vixcart.admin.controller.resetAffiliateUser</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>filterAffiliateUserActivities</servlet-name>
+        <servlet-class>com.vixcart.admin.controller.filterAffiliateUserActivities</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getAffiliateRequests</servlet-name>
+        <servlet-class>com.vixcart.admin.controller.getAffiliateRequests</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getAffiliateRequest</servlet-name>
+        <servlet-class>com.vixcart.admin.controller.getAffiliateRequest</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>changeAffiliateRequestStatus</servlet-name>
+        <servlet-class>com.vixcart.admin.controller.changeAffiliateRequestStatus</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loadSpecifications</servlet-name>
         <url-pattern>/loadSpecifications</url-pattern>
@@ -655,6 +671,22 @@
     <servlet-mapping>
         <servlet-name>resetAffiliateUser</servlet-name>
         <url-pattern>/resetAffiliateUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>filterAffiliateUserActivities</servlet-name>
+        <url-pattern>/filterAffiliateUserActivities</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getAffiliateRequests</servlet-name>
+        <url-pattern>/getAffiliateRequests</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getAffiliateRequest</servlet-name>
+        <url-pattern>/getAffiliateRequest</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>changeAffiliateRequestStatus</servlet-name>
+        <url-pattern>/changeAffiliateRequestStatus</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

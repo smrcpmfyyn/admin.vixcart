@@ -8,29 +8,28 @@ package com.vixcart.admin.controller;
 import com.vixcart.admin.jsn.JSONParser;
 import com.vixcart.admin.message.CorrectMsg;
 import com.vixcart.admin.message.ErrMsg;
-import com.vixcart.admin.processreq.ProcessGetAffiliate;
-import com.vixcart.admin.req.mod.GetAffiliate;
-import com.vixcart.admin.resp.mod.GetAffiliateFailureResponse;
-import com.vixcart.admin.resp.mod.GetAffiliateSuccessResponse;
-import com.vixcart.admin.result.GetAffiliateResult;
+import com.vixcart.admin.processreq.ProcessFAfUA;
+import com.vixcart.admin.req.mod.FAfUA;
+import com.vixcart.admin.resp.mod.FAfUAFailureResponse;
+import com.vixcart.admin.resp.mod.FAfUASuccessResponse;
+import com.vixcart.admin.result.FAfUAResult;
 import com.vixcart.admin.support.controller.BlockAdminUser;
 import com.vixcart.admin.support.controller.UserActivities;
-import com.vixcart.admin.validation.GetAffiliateValidation;
+import com.vixcart.admin.validation.FAfUAValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 
 /**
  *
  * @author rifaie
  */
-public class getAffiliate extends HttpServlet {
+public class filterAffiliateUserActivities extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,24 +44,24 @@ public class getAffiliate extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
-            String company = request.getParameter("cmp");
+            JSONObject jObj = new JSONObject(request.getParameter("ftr"));
+            String maxEntries = request.getParameter("me");
+            String pageNo = request.getParameter("pn");
             Cookie ck = Servlets.getCookie(request, "at");
             String at = "";
             if (ck != null) {
                 at = ck.getValue();
             }
-            GetAffiliate req = new GetAffiliate(at, company);
-            GetAffiliateValidation reqV = new GetAffiliateValidation(req);
+            FAfUA req = new FAfUA(at, jObj, maxEntries, pageNo);
+            FAfUAValidation reqV = new FAfUAValidation(req);
             reqV.validation();
-            GetAffiliateResult reqR = JSONParser.parseJSONGA(reqV.toString());
+            FAfUAResult reqR = JSONParser.parseJSONFAfUA(reqV.toString());
             String validSubmission = reqR.getValidationResult();
-            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getUtype(), "get_affiliate", "management", "valid");
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getUtype(), "get_affiliate", "affiliate", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
-                ProcessGetAffiliate process = new ProcessGetAffiliate(req);
-                GetAffiliateSuccessResponse SResp = process.processRequest();
+                ProcessFAfUA process = new ProcessFAfUA(req);
+                FAfUASuccessResponse SResp = process.processRequest();
                 process.closeConnection();
-                Cookie ck2 = new Cookie("comp", company);
-                response.addCookie(ck2);
                 ck.setValue(SResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(SResp.toString());
@@ -73,10 +72,9 @@ public class getAffiliate extends HttpServlet {
                     BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
                     bau.block();
                     ua.setEntryStatus("blocked");
-                } else {
-                    ua.setEntryStatus("invalid");
                 }
-                GetAffiliateFailureResponse FResp = new GetAffiliateFailureResponse(reqR, validSubmission);
+                ua.setEntryStatus("invalid");
+                FAfUAFailureResponse FResp = new FAfUAFailureResponse(reqR, validSubmission);
                 out.write(FResp.toString());
             } else {
                 //exception response
@@ -85,7 +83,8 @@ public class getAffiliate extends HttpServlet {
             out.flush();
             out.close();
         } catch (Exception ex) {
-            Logger.getLogger(getAffiliate.class.getName()).log(Level.SEVERE, null, ex);
+//            System.out.println(ex.getCause());
+            ex.printStackTrace();
         }
     }
 

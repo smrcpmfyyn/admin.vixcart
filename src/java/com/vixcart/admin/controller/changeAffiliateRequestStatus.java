@@ -8,14 +8,14 @@ package com.vixcart.admin.controller;
 import com.vixcart.admin.jsn.JSONParser;
 import com.vixcart.admin.message.CorrectMsg;
 import com.vixcart.admin.message.ErrMsg;
-import com.vixcart.admin.processreq.ProcessGetAffiliate;
-import com.vixcart.admin.req.mod.GetAffiliate;
-import com.vixcart.admin.resp.mod.GetAffiliateFailureResponse;
-import com.vixcart.admin.resp.mod.GetAffiliateSuccessResponse;
-import com.vixcart.admin.result.GetAffiliateResult;
+import com.vixcart.admin.processreq.ProcessChangeAffiliateRequestStatus;
+import com.vixcart.admin.req.mod.ChangeAffiliateRequestStatus;
+import com.vixcart.admin.resp.mod.ChangeAffiliateRequestStatusFailureResponse;
+import com.vixcart.admin.resp.mod.ChangeAffiliateRequestStatusSuccessResponse;
+import com.vixcart.admin.result.ChangeAffiliateRequestStatusResult;
 import com.vixcart.admin.support.controller.BlockAdminUser;
 import com.vixcart.admin.support.controller.UserActivities;
-import com.vixcart.admin.validation.GetAffiliateValidation;
+import com.vixcart.admin.validation.ChangeAffiliateRequestStatusValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author rifaie
  */
-public class getAffiliate extends HttpServlet {
+public class changeAffiliateRequestStatus extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,24 +45,23 @@ public class getAffiliate extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
-            String company = request.getParameter("cmp");
+            String request_id = request.getParameter("rid");
+            String status = request.getParameter("st");
             Cookie ck = Servlets.getCookie(request, "at");
             String at = "";
             if (ck != null) {
                 at = ck.getValue();
             }
-            GetAffiliate req = new GetAffiliate(at, company);
-            GetAffiliateValidation reqV = new GetAffiliateValidation(req);
+            ChangeAffiliateRequestStatus req = new ChangeAffiliateRequestStatus(at, request_id, status);
+            ChangeAffiliateRequestStatusValidation reqV = new ChangeAffiliateRequestStatusValidation(req);
             reqV.validation();
-            GetAffiliateResult reqR = JSONParser.parseJSONGA(reqV.toString());
+            ChangeAffiliateRequestStatusResult reqR = JSONParser.parseJSONCARSR(reqV.toString());
             String validSubmission = reqR.getValidationResult();
-            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getUtype(), "get_affiliate", "management", "valid");
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "change_affiliate_request_status", "affiliate", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
-                ProcessGetAffiliate process = new ProcessGetAffiliate(req);
-                GetAffiliateSuccessResponse SResp = process.processRequest();
+                ProcessChangeAffiliateRequestStatus process = new ProcessChangeAffiliateRequestStatus(req);
+                ChangeAffiliateRequestStatusSuccessResponse SResp = process.processRequest();
                 process.closeConnection();
-                Cookie ck2 = new Cookie("comp", company);
-                response.addCookie(ck2);
                 ck.setValue(SResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(SResp.toString());
@@ -73,10 +72,9 @@ public class getAffiliate extends HttpServlet {
                     BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
                     bau.block();
                     ua.setEntryStatus("blocked");
-                } else {
-                    ua.setEntryStatus("invalid");
                 }
-                GetAffiliateFailureResponse FResp = new GetAffiliateFailureResponse(reqR, validSubmission);
+                ua.setEntryStatus("invalid");
+                ChangeAffiliateRequestStatusFailureResponse FResp = new ChangeAffiliateRequestStatusFailureResponse(reqR, validSubmission);
                 out.write(FResp.toString());
             } else {
                 //exception response
@@ -85,7 +83,7 @@ public class getAffiliate extends HttpServlet {
             out.flush();
             out.close();
         } catch (Exception ex) {
-            Logger.getLogger(getAffiliate.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(changeAffiliateRequestStatus.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

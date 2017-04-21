@@ -31,10 +31,13 @@ import com.vixcart.admin.mongo.mod.VerifyToken;
 import com.vixcart.admin.req.mod.ActivityFilter;
 import com.vixcart.admin.req.mod.AddAffiliateUser;
 import com.vixcart.admin.req.mod.AddUser;
+import com.vixcart.admin.req.mod.AffiliateActivityFilter;
 import com.vixcart.admin.req.mod.EditUser;
 import com.vixcart.admin.req.mod.FAUA;
+import com.vixcart.admin.req.mod.FAfUA;
 import com.vixcart.admin.req.mod.NewPassword;
 import com.vixcart.admin.resp.mod.Activity;
+import com.vixcart.admin.resp.mod.AffiliateActivity;
 import com.vixcart.admin.resp.mod.Affiliates;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -58,10 +61,10 @@ public class MongoConnect {
         MongoClientURI uri = new MongoClientURI("mongodb://35.154.242.9/");
         mongoClient = new MongoClient(uri);
         db = mongoClient.getDatabase("vaydeal");
-        
+
     }
-    
-    public void closeConnection(){
+
+    public void closeConnection() {
         mongoClient.close();
     }
 
@@ -290,7 +293,7 @@ public class MongoConnect {
         MongoCollection<Document> otp = db.getCollection("update_type_activity");
         otp.findOneAndDelete(Filters.eq("admin_id", "" + new_admin_id));
     }
-    
+
     private void removeUpdateUserActivity(String new_admin_id) {
         MongoCollection<Document> otp = db.getCollection("update_edit_user_activity");
         otp.findOneAndDelete(Filters.eq("admin_id", "" + new_admin_id));
@@ -384,9 +387,9 @@ public class MongoConnect {
         ArrayList<Activity> al = new ArrayList<>();
         MongoCollection<Document> collection = db.getCollection("admin_user_activities");
         FindIterable<Document> find = null;
-        if(!isFilterParamsExists(req.getFtr())){
+        if (!isFilterParamsExists(req.getFtr())) {
             find = collection.find().sort(Sorts.descending("dateTime")).skip((req.getPageNo() - 1) * req.getMaxEntries()).limit(req.getMaxEntries()).projection(exclude("_id"));
-        }else{
+        } else {
             ArrayList<Bson> filters = new ArrayList<>();
             getFilter(req.getFtr(), filters);
             find = collection.find(Filters.and(filters)).sort(Sorts.descending("dateTime")).skip((req.getPageNo() - 1) * req.getMaxEntries()).limit(req.getMaxEntries()).projection(exclude("_id"));
@@ -399,30 +402,30 @@ public class MongoConnect {
     }
 
     private boolean isFilterParamsExists(ActivityFilter ftr) {
-        if(ftr.getUid() != null){
+        if (ftr.getUid() != null) {
             return true;
-        }else if(ftr.getActivity() != null){
+        } else if (ftr.getActivity() != null) {
             return true;
-        }else if(ftr.getuType() != null){
+        } else if (ftr.getuType() != null) {
             return true;
-        }else if(ftr.getEntryStatus() != null){
+        } else if (ftr.getEntryStatus() != null) {
             return true;
         }
         return false;
     }
-    
-    private void getFilter(ActivityFilter ftr, ArrayList<Bson> filters){
-        if(ftr.getUid() != null){
-            addUIDFilter(ftr.getUid(),filters);
+
+    private void getFilter(ActivityFilter ftr, ArrayList<Bson> filters) {
+        if (ftr.getUid() != null) {
+            addUIDFilter(ftr.getUid(), filters);
         }
-        if(ftr.getuType() != null){
-            addUTypeFilter(ftr.getuType(),filters);
+        if (ftr.getuType() != null) {
+            addUTypeFilter(ftr.getuType(), filters);
         }
-        if(ftr.getActivity() != null){
-            addActivityFilter(ftr.getActivity(),filters);
+        if (ftr.getActivity() != null) {
+            addActivityFilter(ftr.getActivity(), filters);
         }
-        if(ftr.getEntryStatus() != null){
-            addEntryStatusFilter(ftr.getEntryStatus(),filters);
+        if (ftr.getEntryStatus() != null) {
+            addEntryStatusFilter(ftr.getEntryStatus(), filters);
         }
     }
 
@@ -431,37 +434,37 @@ public class MongoConnect {
     }
 
     private void addUTypeFilter(String[] uType, ArrayList<Bson> filters) {
-        if(uType.length>1){
+        if (uType.length > 1) {
             ArrayList<Bson> uTypeFilters = new ArrayList<>();
             for (String uT : uType) {
                 uTypeFilters.add(eq("uType", uT));
             }
             filters.add(Filters.or(uTypeFilters));
-        }else{
+        } else {
             filters.add(eq("uType", uType[0]));
         }
     }
 
     private void addActivityFilter(String[] activity, ArrayList<Bson> filters) {
-        if(activity.length>1){
+        if (activity.length > 1) {
             ArrayList<Bson> activityFilters = new ArrayList<>();
             for (String uT : activity) {
                 activityFilters.add(eq("activity", uT));
             }
             filters.add(Filters.or(activityFilters));
-        }else{
+        } else {
             filters.add(eq("activity", activity[0]));
         }
     }
 
     private void addEntryStatusFilter(String[] entryStatus, ArrayList<Bson> filters) {
-        if(entryStatus.length>1){
+        if (entryStatus.length > 1) {
             ArrayList<Bson> entryStatusFilters = new ArrayList<>();
             for (String uT : entryStatus) {
                 entryStatusFilters.add(eq("entryStatus", uT));
             }
             filters.add(Filters.or(entryStatusFilters));
-        }else{
+        } else {
             filters.add(eq("entryStatus", entryStatus[0]));
         }
     }
@@ -471,7 +474,7 @@ public class MongoConnect {
         Document doc = new Document("query", "" + company).append("query_type", "company");
         at.insertOne(doc);
     }
-    
+
     public void addAffiliateUser(String company) {
         MongoCollection<Document> at = db.getCollection("search_affiliate");
         Document doc = new Document("query", "" + company).append("query_type", "user");
@@ -479,12 +482,12 @@ public class MongoConnect {
     }
 
     public ArrayList<Affiliates> searchAffiliates(String str) throws IOException {
-        Pattern p = Pattern.compile(str+"\\w*");
+        Pattern p = Pattern.compile(str + "\\w*");
         ArrayList<Affiliates> qRes = new ArrayList<>();
         MongoCollection<Document> fgp = db.getCollection("search_affiliate");
         FindIterable<Document> find = fgp.find(Filters.regex("query", p)).limit(7).projection(exclude("query_type", "_id"));
         MongoCursor<Document> itr = find.iterator();
-        while(itr.hasNext()){
+        while (itr.hasNext()) {
             Affiliates af = JSONParser.parseJSONA(itr.next().toJson());
             System.out.println(af.toString());
             qRes.add(af);
@@ -497,7 +500,7 @@ public class MongoConnect {
         MongoCollection<Document> fgp = db.getCollection("search_affiliate");
         FindIterable<Document> find = fgp.find(Filters.eq("query", query)).limit(7).projection(exclude("query", "_id"));
         MongoCursor<Document> itr = find.iterator();
-        if(itr.hasNext()){
+        if (itr.hasNext()) {
             queryType = itr.next().getString("query_type");
         }
         return queryType;
@@ -542,6 +545,110 @@ public class MongoConnect {
     private void removeAUQuery(String new_user_id) {
         MongoCollection<Document> otp = db.getCollection("search_affiliate");
         otp.findOneAndDelete(Filters.eq("query", "" + new_user_id));
+    }
+
+    public boolean updateAUPasswordToken(String user_id, String passwordToken) {
+        boolean status = false;
+        MongoCollection<Document> fgp = db.getCollection("affiliate_user_password_token");
+        UpdateResult updateOne = fgp.updateOne(eq("user_id", user_id), combine(set("token", "" + passwordToken), set("status", "not changed"), set("toe", "" + (System.currentTimeMillis() + 300000))));
+        if (updateOne.getMatchedCount() == 1) {
+            status = true;
+        }
+        return status;
+    }
+
+    public ArrayList<AffiliateActivity> getAllFAfUA(FAfUA req) throws IOException {
+        ArrayList<AffiliateActivity> al = new ArrayList<>();
+        MongoCollection<Document> collection = db.getCollection("affiliate_user_activities");
+        FindIterable<Document> find = null;
+        ArrayList<Bson> filters = new ArrayList<>();
+//        filters.add(eq("affiliate", req.getA));
+        if (!isFilterParamsExists(req.getFtr())) {
+            find = collection.find(Filters.and(filters)).sort(Sorts.descending("dateTime")).skip((req.getPageNo() - 1) * req.getMaxEntries()).limit(req.getMaxEntries()).projection(exclude("_id"));
+        } else {
+            getFilter(req.getFtr(), filters);
+            find = collection.find(Filters.and(filters)).sort(Sorts.descending("dateTime")).skip((req.getPageNo() - 1) * req.getMaxEntries()).limit(req.getMaxEntries()).projection(exclude("_id"));
+        }
+        for (Document document : find) {
+            AffiliateActivity act = JSONParser.parseJSONAffActivity(document.toJson());
+            al.add(act);
+        }
+        return al;
+    }
+
+    private boolean isFilterParamsExists(AffiliateActivityFilter ftr) {
+        if (ftr.getUid() != null) {
+            return true;
+        } else if (ftr.getActivity() != null) {
+            return true;
+        } else if (ftr.getuType() != null) {
+            return true;
+        } else if (ftr.getEntryStatus() != null) {
+            return true;
+        }
+        return false;
+    }
+
+    private void getFilter(AffiliateActivityFilter ftr, ArrayList<Bson> filters) {
+        if (ftr.getUid() != null) {
+            addAffUIDFilter(ftr.getUid(), filters);
+        }
+        if(ftr.getAff() != null){
+            addAffFilter(ftr.getAff(),filters);
+        }
+        if (ftr.getuType() != null) {
+            addAffUTypeFilter(ftr.getuType(), filters);
+        }
+        if (ftr.getActivity() != null) {
+            addAffActivityFilter(ftr.getActivity(), filters);
+        }
+        if (ftr.getEntryStatus() != null) {
+            addAffEntryStatusFilter(ftr.getEntryStatus(), filters);
+        }
+    }
+
+    private void addAffUIDFilter(String uid, ArrayList<Bson> filters) {
+        filters.add(eq("user_id", uid));
+    }
+
+    private void addAffUTypeFilter(String[] uType, ArrayList<Bson> filters) {
+        if (uType.length > 1) {
+            ArrayList<Bson> uTypeFilters = new ArrayList<>();
+            for (String uT : uType) {
+                uTypeFilters.add(eq("user_type", uT));
+            }
+            filters.add(Filters.or(uTypeFilters));
+        } else {
+            filters.add(eq("user_type", uType[0]));
+        }
+    }
+
+    private void addAffActivityFilter(String[] activity, ArrayList<Bson> filters) {
+        if (activity.length > 1) {
+            ArrayList<Bson> activityFilters = new ArrayList<>();
+            for (String uT : activity) {
+                activityFilters.add(eq("activity", uT));
+            }
+            filters.add(Filters.or(activityFilters));
+        } else {
+            filters.add(eq("activity", activity[0]));
+        }
+    }
+
+    private void addAffEntryStatusFilter(String[] entryStatus, ArrayList<Bson> filters) {
+        if (entryStatus.length > 1) {
+            ArrayList<Bson> entryStatusFilters = new ArrayList<>();
+            for (String uT : entryStatus) {
+                entryStatusFilters.add(eq("entryStatus", uT));
+            }
+            filters.add(Filters.or(entryStatusFilters));
+        } else {
+            filters.add(eq("entryStatus", entryStatus[0]));
+        }
+    }
+
+    private void addAffFilter(String aff, ArrayList<Bson> filters) {
+        filters.add(eq("affiliate", aff));
     }
 
 }

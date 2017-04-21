@@ -8,14 +8,14 @@ package com.vixcart.admin.controller;
 import com.vixcart.admin.jsn.JSONParser;
 import com.vixcart.admin.message.CorrectMsg;
 import com.vixcart.admin.message.ErrMsg;
-import com.vixcart.admin.processreq.ProcessGetAffiliate;
-import com.vixcart.admin.req.mod.GetAffiliate;
-import com.vixcart.admin.resp.mod.GetAffiliateFailureResponse;
-import com.vixcart.admin.resp.mod.GetAffiliateSuccessResponse;
-import com.vixcart.admin.result.GetAffiliateResult;
+import com.vixcart.admin.processreq.ProcessGetAffiliateRequests;
+import com.vixcart.admin.req.mod.GetAffiliateRequests;
+import com.vixcart.admin.resp.mod.GetAffiliateRequestsFailureResponse;
+import com.vixcart.admin.resp.mod.GetAffiliateRequestsSuccessResponse;
+import com.vixcart.admin.result.GetAffiliateRequestsResult;
 import com.vixcart.admin.support.controller.BlockAdminUser;
 import com.vixcart.admin.support.controller.UserActivities;
-import com.vixcart.admin.validation.GetAffiliateValidation;
+import com.vixcart.admin.validation.GetAffiliateRequestsValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author rifaie
  */
-public class getAffiliate extends HttpServlet {
+public class getAffiliateRequests extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,24 +45,24 @@ public class getAffiliate extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
-            String company = request.getParameter("cmp");
+            String pageNo = request.getParameter("pn");
+            String maxEntries = request.getParameter("me");
+            String status = request.getParameter("st");
             Cookie ck = Servlets.getCookie(request, "at");
             String at = "";
             if (ck != null) {
                 at = ck.getValue();
             }
-            GetAffiliate req = new GetAffiliate(at, company);
-            GetAffiliateValidation reqV = new GetAffiliateValidation(req);
+            GetAffiliateRequests req = new GetAffiliateRequests(at, pageNo, maxEntries, status);
+            GetAffiliateRequestsValidation reqV = new GetAffiliateRequestsValidation(req);
             reqV.validation();
-            GetAffiliateResult reqR = JSONParser.parseJSONGA(reqV.toString());
+            GetAffiliateRequestsResult reqR = JSONParser.parseJSONGAR(reqV.toString());
             String validSubmission = reqR.getValidationResult();
-            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getUtype(), "get_affiliate", "management", "valid");
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getUtype(), "get_affiliate_requests", "affiliate", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
-                ProcessGetAffiliate process = new ProcessGetAffiliate(req);
-                GetAffiliateSuccessResponse SResp = process.processRequest();
+                ProcessGetAffiliateRequests process = new ProcessGetAffiliateRequests(req);
+                GetAffiliateRequestsSuccessResponse SResp = process.processRequest();
                 process.closeConnection();
-                Cookie ck2 = new Cookie("comp", company);
-                response.addCookie(ck2);
                 ck.setValue(SResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(SResp.toString());
@@ -76,7 +76,7 @@ public class getAffiliate extends HttpServlet {
                 } else {
                     ua.setEntryStatus("invalid");
                 }
-                GetAffiliateFailureResponse FResp = new GetAffiliateFailureResponse(reqR, validSubmission);
+                GetAffiliateRequestsFailureResponse FResp = new GetAffiliateRequestsFailureResponse(reqR, validSubmission);
                 out.write(FResp.toString());
             } else {
                 //exception response

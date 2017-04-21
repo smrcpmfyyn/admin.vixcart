@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.vixcart.admin.processreq;
 
 import com.vixcart.admin.db.DB;
@@ -46,7 +45,7 @@ public class ProcessResetAffiliateUser implements ResetAffiliateUserProcessor {
     @Override
     public boolean resetAffiliateUser() throws Exception {
         boolean flag = false;
-        if(dbc.changePassword(req)){
+        if (dbc.changePassword(req)) {
             sendSetPasswordEmail(req.getEmail(), req.getPasswordToken(), req.getName());
             flag = true;
         }
@@ -58,7 +57,9 @@ public class ProcessResetAffiliateUser implements ResetAffiliateUserProcessor {
         ResetAffiliateUserSuccessResponse obj = null;
         if (generateToken()) {
             if (resetAffiliateUser()) {
-                obj = generateResponse(true);
+                if (mdbc.updateAUPasswordToken(req.getUser_id(), req.getPasswordToken())) {
+                    obj = generateResponse(true);
+                }
             } else {
                 obj = generateResponse(false);
             }
@@ -82,7 +83,7 @@ public class ProcessResetAffiliateUser implements ResetAffiliateUserProcessor {
     private void sendSetPasswordEmail(String email, String passwordToken, String name) throws Exception {
         AdminEmail.sendAffiliateUserResetPassword(email, passwordToken, name);
     }
-    
+
     @Override
     public void closeConnection() throws Exception {
         dbc.closeConnection();
@@ -90,4 +91,3 @@ public class ProcessResetAffiliateUser implements ResetAffiliateUserProcessor {
     }
 
 }
-

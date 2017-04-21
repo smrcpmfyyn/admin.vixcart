@@ -22,6 +22,7 @@ public class CorrectMsg {
     public static final String CORRECT_ADMIN_TYPE = "Valid adminType";
     public static final String CORRECT_TYPE = "Valid type";
     public static final String CORRECT_COMPANY = "Valid company";
+    public static final String CORRECT_REQ_ID = "Valid rid";
     public static final String CORRECT_QUERY = "Valid query";
     public static final String CORRECT_CK_COMPANY = "Valid ckcompany";
     public static final String CORRECT_SUPER_TYPE = "Valid supertype";
@@ -66,6 +67,7 @@ public class CorrectMsg {
     public static final String CORRECT_FTR_UID = "Valid ftruid";
     public static final String CORRECT_FTR_UTYPE = "Valid ftrutype";
     public static final String CORRECT_FTR_ACTIVITY = "Valid ftractivity";
+    public static final String CORRECT_FTR_AFF = "Valid ftraff";
     public static final String CORRECT_FTR_ENTRY_STATUS = "Valid ftrentrystatus";
     public static final String CORRECT_CATEGORY = "Valid categ";
     public static final String CORRECT_SUPER_CATEGORY = "Valid supercateg";

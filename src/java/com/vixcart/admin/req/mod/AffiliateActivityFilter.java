@@ -1,0 +1,62 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package com.vixcart.admin.req.mod;
+
+/**
+ * @company techvay
+ * @author rifaie
+ */
+public class AffiliateActivityFilter {
+    private String uid;
+    private String aff;
+    private String [] uType;
+    private String [] activity;
+    private String [] entryStatus ;
+
+    public String getAff() {
+        return aff;
+    }
+
+    public void setAff(String aff) {
+        this.aff = aff;
+    }
+    
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String[] getuType() {
+        return uType;
+    }
+
+    public void setuType(String[] uType) {
+        this.uType = uType;
+    }
+
+    public String[] getActivity() {
+        return activity;
+    }
+
+    public void setActivity(String[] activity) {
+        this.activity = activity;
+    }
+
+    public String[] getEntryStatus() {
+        return entryStatus;
+    }
+
+    public void setEntryStatus(String[] entryStatus) {
+        this.entryStatus = entryStatus;
+    }
+    
+}
+
+

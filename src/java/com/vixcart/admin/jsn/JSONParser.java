@@ -11,7 +11,9 @@ import com.vixcart.admin.mongo.mod.UTA;
 import com.vixcart.admin.mongo.mod.UUA;
 import com.vixcart.admin.mongo.mod.VerifyToken;
 import com.vixcart.admin.req.mod.ActivityFilter;
+import com.vixcart.admin.req.mod.AffiliateActivityFilter;
 import com.vixcart.admin.resp.mod.Activity;
+import com.vixcart.admin.resp.mod.AffiliateActivity;
 import com.vixcart.admin.resp.mod.Affiliates;
 import com.vixcart.admin.result.AddAffiliateResult;
 import com.vixcart.admin.result.AddAffiliateUserResult;
@@ -26,6 +28,7 @@ import com.vixcart.admin.result.AddSuperCategoryResult;
 import com.vixcart.admin.result.AddTaCResult;
 import com.vixcart.admin.result.AddUserResult;
 import com.vixcart.admin.result.AddUserTypeResult;
+import com.vixcart.admin.result.ChangeAffiliateRequestStatusResult;
 import com.vixcart.admin.result.ChangeAffiliateUserStatusResult;
 import com.vixcart.admin.result.CheckUserIDResult;
 import com.vixcart.admin.result.CheckUserTypeResult;
@@ -41,7 +44,10 @@ import com.vixcart.admin.result.DeleteTaCResult;
 import com.vixcart.admin.result.EditUserResult;
 import com.vixcart.admin.result.EmpReportResult;
 import com.vixcart.admin.result.FAUAResult;
+import com.vixcart.admin.result.FAfUAResult;
 import com.vixcart.admin.result.GetActivePremiumPaymentsResult;
+import com.vixcart.admin.result.GetAffiliateRequestResult;
+import com.vixcart.admin.result.GetAffiliateRequestsResult;
 import com.vixcart.admin.result.GetAffiliateResult;
 import com.vixcart.admin.result.GetAffiliateUsersResult;
 import com.vixcart.admin.result.GetAffiliatesResult;
@@ -601,6 +607,42 @@ public final class JSONParser {
     public static ResetAffiliateUserResult parseJSONRAU(String reqv) throws IOException {
         ResetAffiliateUserResult res;
         res = MAPPER.readValue(reqv, ResetAffiliateUserResult.class);
+        return res;
+    }
+
+    public static AffiliateActivityFilter parseJSONAfF(String ftr) throws IOException {
+        AffiliateActivityFilter res;
+        res = MAPPER.readValue(ftr, AffiliateActivityFilter.class);
+        return res;
+    }
+
+    public static FAfUAResult parseJSONFAfUA(String reqv) throws IOException {
+        FAfUAResult res;
+        res = MAPPER.readValue(reqv, FAfUAResult.class);
+        return res;
+    }
+
+    public static AffiliateActivity parseJSONAffActivity(String act) throws IOException {
+        AffiliateActivity res;
+        res = MAPPER.readValue(act, AffiliateActivity.class);
+        return res;
+    }
+
+    public static GetAffiliateRequestsResult parseJSONGAR(String reqv) throws IOException {
+        GetAffiliateRequestsResult res;
+        res = MAPPER.readValue(reqv, GetAffiliateRequestsResult.class);
+        return res;
+    }
+
+    public static GetAffiliateRequestResult parseJSONGARR(String reqv) throws IOException {
+        GetAffiliateRequestResult res;
+        res = MAPPER.readValue(reqv, GetAffiliateRequestResult.class);
+        return res;
+    }
+
+    public static ChangeAffiliateRequestStatusResult parseJSONCARSR(String reqv) throws IOException {
+        ChangeAffiliateRequestStatusResult res;
+        res = MAPPER.readValue(reqv, ChangeAffiliateRequestStatusResult.class);
         return res;
     }
 

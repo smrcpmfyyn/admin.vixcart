@@ -40,6 +40,14 @@
         <servlet-name>getMembers</servlet-name>
         <servlet-class>com.vixcart.admin.controller.getMembers</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>changeMemberStatus</servlet-name>
+        <servlet-class>com.vixcart.admin.controller.changeMemberStatus</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getMember</servlet-name>
+        <servlet-class>com.vixcart.admin.controller.getMember</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loadSpecifications</servlet-name>
         <url-pattern>/loadSpecifications</url-pattern>
@@ -711,6 +719,14 @@
     <servlet-mapping>
         <servlet-name>getMembers</servlet-name>
         <url-pattern>/getMembers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>changeMemberStatus</servlet-name>
+        <url-pattern>/changeMemberStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getMember</servlet-name>
+        <url-pattern>/getMember</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

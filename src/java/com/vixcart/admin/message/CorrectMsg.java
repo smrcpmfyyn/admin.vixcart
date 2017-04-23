@@ -61,6 +61,7 @@ public class CorrectMsg {
     public static final String CORRECT_GET_AFFILIATE = "Valid getaffiliate";
     public static final String CORRECT_FTR = "Valid filter";
     public static final String CORRECT_UID = "Valid uid";
+    public static final String CORRECT_MID = "Valid mid";
     public static final String CORRECT_TOKEN = "Valid token";
     public static final String CORRECT_OFFSET = "Valid offset";
     public static final String CORRECT_AFFILIATE = "Valid affiliate";

@@ -8,14 +8,14 @@ package com.vixcart.admin.controller;
 import com.vixcart.admin.jsn.JSONParser;
 import com.vixcart.admin.message.CorrectMsg;
 import com.vixcart.admin.message.ErrMsg;
-import com.vixcart.admin.processreq.ProcessGetMembers;
-import com.vixcart.admin.req.mod.GetMembers;
-import com.vixcart.admin.resp.mod.GetMembersFailureResponse;
-import com.vixcart.admin.resp.mod.GetMembersSuccessResponse;
-import com.vixcart.admin.result.GetMembersResult;
+import com.vixcart.admin.processreq.ProcessChangeMemberStatus;
+import com.vixcart.admin.req.mod.ChangeMemberStatus;
+import com.vixcart.admin.resp.mod.ChangeMemberStatusFailureResponse;
+import com.vixcart.admin.resp.mod.ChangeMemberStatusSuccessResponse;
+import com.vixcart.admin.result.ChangeMemberStatusResult;
 import com.vixcart.admin.support.controller.BlockAdminUser;
 import com.vixcart.admin.support.controller.UserActivities;
-import com.vixcart.admin.validation.GetMembersValidation;
+import com.vixcart.admin.validation.ChangeMemberStatusValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author rifaie
  */
-public class getMembers extends HttpServlet {
+public class changeMemberStatus extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,23 +45,22 @@ public class getMembers extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
-            String pageNo = request.getParameter("pn");
-            String maxEntries = request.getParameter("me");
-            String query = request.getParameter("q");
+            String member_id = request.getParameter("mid");
+            String status = request.getParameter("st");
             Cookie ck = Servlets.getCookie(request, "at");
             String at = "";
             if (ck != null) {
                 at = ck.getValue();
             }
-            GetMembers req = new GetMembers(at, query, maxEntries, pageNo);
-            GetMembersValidation reqV = new GetMembersValidation(req);
+            ChangeMemberStatus req = new ChangeMemberStatus(at, member_id, status);
+            ChangeMemberStatusValidation reqV = new ChangeMemberStatusValidation(req);
             reqV.validation();
-            GetMembersResult reqR = JSONParser.parseJSONGMR(reqV.toString());
+            ChangeMemberStatusResult reqR = JSONParser.parseJSONCMSR(reqV.toString());
             String validSubmission = reqR.getValidationResult();
-            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getUtype(), "get_members", "management", "valid");
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "change_member_status", "affiliate", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
-                ProcessGetMembers process = new ProcessGetMembers(req);
-                GetMembersSuccessResponse SResp = process.processRequest();
+                ProcessChangeMemberStatus process = new ProcessChangeMemberStatus(req);
+                ChangeMemberStatusSuccessResponse SResp = process.processRequest();
                 process.closeConnection();
                 ck.setValue(SResp.getAccessToken());
                 response.addCookie(ck);
@@ -75,7 +74,7 @@ public class getMembers extends HttpServlet {
                     ua.setEntryStatus("blocked");
                 }
                 ua.setEntryStatus("invalid");
-                GetMembersFailureResponse FResp = new GetMembersFailureResponse(reqR, validSubmission);
+                ChangeMemberStatusFailureResponse FResp = new ChangeMemberStatusFailureResponse(reqR, validSubmission);
                 out.write(FResp.toString());
             } else {
                 //exception response
@@ -84,7 +83,7 @@ public class getMembers extends HttpServlet {
             out.flush();
             out.close();
         } catch (Exception ex) {
-            Logger.getLogger(getAffiliate.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(changeMemberStatus.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -32,6 +32,7 @@ import com.vixcart.admin.result.AddUserResult;
 import com.vixcart.admin.result.AddUserTypeResult;
 import com.vixcart.admin.result.ChangeAffiliateRequestStatusResult;
 import com.vixcart.admin.result.ChangeAffiliateUserStatusResult;
+import com.vixcart.admin.result.ChangeMemberStatusResult;
 import com.vixcart.admin.result.CheckUserIDResult;
 import com.vixcart.admin.result.CheckUserTypeResult;
 import com.vixcart.admin.result.DeleteAffiliateResult;
@@ -63,6 +64,8 @@ import com.vixcart.admin.result.GetBPaCResult;
 import com.vixcart.admin.result.GetBrandResult;
 import com.vixcart.admin.result.GetCategoriesResult;
 import com.vixcart.admin.result.GetCategoryResult;
+import com.vixcart.admin.result.GetMemberResult;
+import com.vixcart.admin.result.GetMembersResult;
 import com.vixcart.admin.result.GetNoOfMembersResult;
 import com.vixcart.admin.result.GetNoOfWebsitesResult;
 import com.vixcart.admin.result.GetPinResult;
@@ -664,6 +667,24 @@ public final class JSONParser {
     public static MemberID parseJSONMID(String mid) throws IOException {
         MemberID res;
         res = MAPPER.readValue(mid, MemberID.class);
+        return res;
+    }
+
+    public static GetMembersResult parseJSONGMR(String reqv) throws IOException {
+        GetMembersResult res;
+        res = MAPPER.readValue(reqv, GetMembersResult.class);
+        return res;
+    }
+
+    public static ChangeMemberStatusResult parseJSONCMSR(String reqv) throws IOException {
+        ChangeMemberStatusResult res;
+        res = MAPPER.readValue(reqv, ChangeMemberStatusResult.class);
+        return res;
+    }
+
+    public static GetMemberResult parseJSONGM(String reqv) throws IOException {
+        GetMemberResult res;
+        res = MAPPER.readValue(reqv, GetMemberResult.class);
         return res;
     }
 

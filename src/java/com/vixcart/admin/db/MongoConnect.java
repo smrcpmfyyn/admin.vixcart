@@ -727,4 +727,15 @@ public class MongoConnect {
         return qRes;
     }
 
+    public String getSearchMemeberQueryType(String query) {
+        String queryType = "nothing";
+        MongoCollection<Document> fgp = db.getCollection("search_member");
+        FindIterable<Document> find = fgp.find(Filters.eq("query", query)).limit(7).projection(exclude("query", "_id"));
+        MongoCursor<Document> itr = find.iterator();
+        if (itr.hasNext()) {
+            queryType = itr.next().getString("query_type");
+        }
+        return queryType;
+    }
+
 }

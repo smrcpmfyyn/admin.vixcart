@@ -3,25 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.vixcart.admin.resp.mod;
 
 /**
  * @company techvay
  * @author rifaie
  */
-public class GetAffiliateSuccessResponse {
+public class GetMemberSuccessResponse {
 
     private final String status;
     private final String accessToken;
-    private final AffiliateDetails ad;
+    private final MemberAllDetails ad;
 
-    public GetAffiliateSuccessResponse(String status, String accessToken) {
+    public GetMemberSuccessResponse(String status, String accessToken) {
         this.status = status;
         this.accessToken = accessToken;
-        this.ad = new AffiliateDetails();
+        ad = new MemberAllDetails();
     }
 
-    public GetAffiliateSuccessResponse(String status, String accessToken, AffiliateDetails ud) {
+    public GetMemberSuccessResponse(String status, String accessToken, MemberAllDetails ud) {
         this.status = status;
         this.accessToken = accessToken;
         this.ad = ud;
@@ -35,14 +36,14 @@ public class GetAffiliateSuccessResponse {
         return accessToken;
     }
 
-    public AffiliateDetails getAd() {
+    public MemberAllDetails getAd() {
         return ad;
     }
 
     @Override
     public String toString() {
         String response = "";
-        if (ad.getCompany().equals("invalid")) {
+        if (ad.getMid().equals("invalid")) {
             response = "{\"status\":\"" + status + "\"}";
         } else {
             response = "{\"status\":\"" + status + "\",\"ad\":" + ad.toString();
@@ -51,3 +52,4 @@ public class GetAffiliateSuccessResponse {
         return response;
     }
 }
+

@@ -35,6 +35,7 @@ import com.vixcart.admin.req.mod.GetBPaC2;
 import com.vixcart.admin.req.mod.GetBrand;
 import com.vixcart.admin.req.mod.GetCategories;
 import com.vixcart.admin.req.mod.GetCategory;
+import com.vixcart.admin.req.mod.GetMembers;
 import com.vixcart.admin.req.mod.GetProductType;
 import com.vixcart.admin.req.mod.GetProductTypes;
 import com.vixcart.admin.req.mod.GetSpecification;
@@ -66,6 +67,8 @@ import com.vixcart.admin.resp.mod.AllPremiumPayments;
 import com.vixcart.admin.resp.mod.BPaC;
 import com.vixcart.admin.resp.mod.Brand;
 import com.vixcart.admin.resp.mod.Category;
+import com.vixcart.admin.resp.mod.MemberAllDetails;
+import com.vixcart.admin.resp.mod.MemberDetails;
 import com.vixcart.admin.resp.mod.PremiumPayments;
 import com.vixcart.admin.resp.mod.ProductType;
 import com.vixcart.admin.resp.mod.ProductTypes;
@@ -754,7 +757,7 @@ public class DBConnect {
         if (rs.next()) {
             ad = new AffiliateDetails(rs.getString("company"), rs.getString("max_premium_payment"), rs.getString("company_factor"), rs.getString("status"));
         } else {
-            ad = new AffiliateDetails("invalid", "invalid", "invalid", "invalid");
+            ad = new AffiliateDetails();
         }
         rs.close();
         ps.close();
@@ -1639,7 +1642,7 @@ public class DBConnect {
         AffiliateRequest ar = null;
         if (rs.next()) {
             ar = new AffiliateRequest(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
-        }else{
+        } else {
             ar = new AffiliateRequest("invalid", "invalid", "invalid", "invalid", "invalid", "invalid", "invalid", "invalid", "invalid");
         }
         rs.close();
@@ -1726,6 +1729,67 @@ public class DBConnect {
         ps.setString(1, new_member_id);
         ps.executeUpdate();
         ps.close();
+    }
+
+    public void getMemberDetails(GetMembers req, ArrayList<MemberDetails> md) throws SQLException {
+        PreparedStatement ps = null;
+        int me = Integer.parseInt(req.getMaxEntries());
+        int pn = Integer.parseInt(req.getPageNo());
+        int start = (pn - 1) * me;
+        switch (req.getQueryType()) {
+            case "member":
+                ps = con.prepareStatement("SELECT a.member_id,a.member_name,b.product_month_uploaded,b.product_day_updated,b.amount_pending,a.member_status FROM members a INNER JOIN member_report b ON a.member_id = b.member_id WHERE member_id = ? LIMIT ?,?");
+                ps.setString(1, req.getQuery());
+                ps.setInt(2, start);
+                ps.setInt(3, me);
+                break;
+            case "all":
+                ps = con.prepareStatement("SELECT a.member_id,a.member_name,b.product_month_uploaded,b.product_day_updated,b.amount_pending,a.member_status FROM members a INNER JOIN member_report b ON a.member_id = b.member_id LIMIT ?,?");
+                ps.setInt(1, start);
+                ps.setInt(2, me);
+                break;
+        }
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            MemberDetails mds = new MemberDetails(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),rs.getString(6));
+            md.add(mds);
+        }
+        rs.close();
+        ps.close();
+    }
+
+    public boolean checkMemberId(String param) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("SELECT count(*) FROM member_logger WHERE member_id = ?");
+        ps.setString(1, param);
+        rs = ps.executeQuery();
+        rs.next();
+        int c = rs.getInt(1);
+        rs.close();
+        ps.close();
+        return c == 1;
+    }
+
+    public boolean changeMemberStatus(String member_id, String status) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("UPDATE member SET member_status = ? WHERE member_id = ?");
+        ps.setString(1, status);
+        ps.setString(2, member_id);
+        int c = ps.executeUpdate();
+        return c == 1;
+    }
+
+    public MemberAllDetails getMemberAllDetails(String member_id) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM member_profile WHERE member_id = ?");
+        ps.setString(1, member_id);
+        rs = ps.executeQuery();
+        MemberAllDetails ad;
+        if (rs.next()) {
+            ad = new MemberAllDetails(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getString(15), rs.getString(16), rs.getString(17), rs.getString(18), rs.getString(19), rs.getString(20), rs.getString(21), rs.getString(22), rs.getString(23), rs.getString(24), rs.getString(25), rs.getString(26), rs.getString(27), rs.getString(28), rs.getString(29), rs.getString(30), rs.getString(31), rs.getString(32), rs.getString(33), rs.getString(34));
+        } else {
+            ad = new MemberAllDetails();
+        }
+        rs.close();
+        ps.close();
+        return ad;
     }
 
 }

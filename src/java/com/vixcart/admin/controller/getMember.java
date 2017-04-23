@@ -8,14 +8,14 @@ package com.vixcart.admin.controller;
 import com.vixcart.admin.jsn.JSONParser;
 import com.vixcart.admin.message.CorrectMsg;
 import com.vixcart.admin.message.ErrMsg;
-import com.vixcart.admin.processreq.ProcessGetMembers;
-import com.vixcart.admin.req.mod.GetMembers;
-import com.vixcart.admin.resp.mod.GetMembersFailureResponse;
-import com.vixcart.admin.resp.mod.GetMembersSuccessResponse;
-import com.vixcart.admin.result.GetMembersResult;
+import com.vixcart.admin.processreq.ProcessGetMember;
+import com.vixcart.admin.req.mod.GetMember;
+import com.vixcart.admin.resp.mod.GetMemberFailureResponse;
+import com.vixcart.admin.resp.mod.GetMemberSuccessResponse;
+import com.vixcart.admin.result.GetMemberResult;
 import com.vixcart.admin.support.controller.BlockAdminUser;
 import com.vixcart.admin.support.controller.UserActivities;
-import com.vixcart.admin.validation.GetMembersValidation;
+import com.vixcart.admin.validation.GetMemberValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author rifaie
  */
-public class getMembers extends HttpServlet {
+public class getMember extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,24 +45,24 @@ public class getMembers extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
-            String pageNo = request.getParameter("pn");
-            String maxEntries = request.getParameter("me");
-            String query = request.getParameter("q");
+            String member_id = request.getParameter("mid");
             Cookie ck = Servlets.getCookie(request, "at");
             String at = "";
             if (ck != null) {
                 at = ck.getValue();
             }
-            GetMembers req = new GetMembers(at, query, maxEntries, pageNo);
-            GetMembersValidation reqV = new GetMembersValidation(req);
+            GetMember req = new GetMember(at, member_id);
+            GetMemberValidation reqV = new GetMemberValidation(req);
             reqV.validation();
-            GetMembersResult reqR = JSONParser.parseJSONGMR(reqV.toString());
+            GetMemberResult reqR = JSONParser.parseJSONGM(reqV.toString());
             String validSubmission = reqR.getValidationResult();
-            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getUtype(), "get_members", "management", "valid");
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getUtype(), "get_affiliate", "management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
-                ProcessGetMembers process = new ProcessGetMembers(req);
-                GetMembersSuccessResponse SResp = process.processRequest();
+                ProcessGetMember process = new ProcessGetMember(req);
+                GetMemberSuccessResponse SResp = process.processRequest();
                 process.closeConnection();
+                Cookie ck2 = new Cookie("comp", member_id);
+                response.addCookie(ck2);
                 ck.setValue(SResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(SResp.toString());
@@ -73,9 +73,10 @@ public class getMembers extends HttpServlet {
                     BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
                     bau.block();
                     ua.setEntryStatus("blocked");
+                } else {
+                    ua.setEntryStatus("invalid");
                 }
-                ua.setEntryStatus("invalid");
-                GetMembersFailureResponse FResp = new GetMembersFailureResponse(reqR, validSubmission);
+                GetMemberFailureResponse FResp = new GetMemberFailureResponse(reqR, validSubmission);
                 out.write(FResp.toString());
             } else {
                 //exception response
@@ -84,7 +85,7 @@ public class getMembers extends HttpServlet {
             out.flush();
             out.close();
         } catch (Exception ex) {
-            Logger.getLogger(getAffiliate.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(getMember.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

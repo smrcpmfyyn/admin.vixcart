@@ -40,12 +40,13 @@ public class updateProductType extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
+            String ptypeId = request.getParameter("ptypeId");
             String ptype = request.getParameter("ptype");
             String on_status = request.getParameter("on_status");
             String off_status = request.getParameter("off_status");
             Cookie ck = Servlets.getCookie(request, "at");
             String at = ck.getValue();
-            UpdateProductType req = new UpdateProductType(at, ptype, on_status, off_status);
+            UpdateProductType req = new UpdateProductType(at, ptypeId, ptype, on_status, off_status);
             UpdateProductTypeValidation reqV = new UpdateProductTypeValidation(req);
             reqV.validation();
             System.out.println("addTypV = " + reqV);

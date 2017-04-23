@@ -113,4 +113,19 @@ public class UpdateProductTypeConstraints implements UpdateProductTypeValidator 
         }
         return valid;
     }
+
+    @Override
+    public String validatePTypeId() throws SQLException {
+        String valid = ErrMsg.ERR_SUB_CATEGORY;
+        String regX = RegX.REGX_DIGIT;
+        String category = req.getpTypeid();
+        if (validate(category, regX)) {
+            if (dbc.checkPTypeId(category) == 0) {
+                valid = CorrectMsg.CORRECT_PTYPE;
+            } else {
+                valid = ErrMsg.ERR_PTYPE_NOT_EXISTS;
+            }
+        }
+        return valid;
+    }
 }

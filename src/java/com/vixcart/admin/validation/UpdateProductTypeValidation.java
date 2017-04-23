@@ -32,6 +32,7 @@ public class UpdateProductTypeValidation implements Validation{
             String valid1 = reqC.validateUserType("product management");
             valid += "#" + valid1;
             if(valid1.startsWith(CorrectMsg.CORRECT_MESSAGE)){
+                valid += "#"+reqC.validatePTypeId();
                 valid += "#"+reqC.validatePType();
                 valid += "#"+reqC.validateOn_status();
                 valid += "#"+reqC.validateOff_status();

@@ -11,6 +11,7 @@ public class UpdateProductType {
     private final String at;
     private String admin_id;
     private String type;
+    private final String pTypeid;
     private final String pType;
     private final String on_status;
     private final String off_status;
@@ -23,10 +24,19 @@ public class UpdateProductType {
         return pType;
     }
 
+    public String getpTypeid() {
+        return pTypeid;
+    }
+
+    public String getpType() {
+        return pType;
+    }
+
     
     
-    public UpdateProductType(String at, String pType, String on_status, String off_status) {
+    public UpdateProductType(String at, String pTypeid, String pType, String on_status, String off_status) {
         this.at = at;
+        this.pTypeid = pTypeid;
         this.pType = pType;
         this.on_status = on_status;
         this.off_status = off_status;

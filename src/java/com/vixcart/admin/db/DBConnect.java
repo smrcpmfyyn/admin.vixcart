@@ -87,8 +87,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @company techvay
@@ -1263,9 +1261,15 @@ public class DBConnect {
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public boolean deleteSpecification(DeleteSpecification req) {
+    public boolean deleteSpecification(DeleteSpecification req) throws SQLException {
         boolean res = false;
-        return res;
+        PreparedStatement ps = con.prepareStatement("UPDATE product_type_and_specification SET online_visibility_status=?, offline_visibility_status=? WHERE id=?");
+        ps.setString(1, "2");
+        ps.setString(2, "2");
+        ps.setString(3, req.getpSpecId());
+        int exe = ps.executeUpdate();
+        ps.close();
+        return exe == 1;
     }
 
     public boolean addTaC(AddTaC req) throws SQLException {
@@ -1277,19 +1281,37 @@ public class DBConnect {
         return c == 1;
     }
 
-    public boolean updateTaC(UpdateTaC req) {
-        boolean res = false;
-        return res;
+    public boolean updateTaC(UpdateTaC req) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("UPDATE product_type_and_category SET online_visibility_status=?, offline_visibility_status=? WHERE product_type=? AND category=?");
+        ps.setString(1, req.getOn_status());
+        ps.setString(2, req.getOff_status());
+        ps.setString(3, req.getpType());
+        ps.setString(4, req.getCategory());
+        int exe = ps.executeUpdate();
+        ps.close();
+        return exe == 1;
     }
 
-    public boolean updateSpecification(UpdateSpecification req) {
-        boolean res = false;
-        return res;
+    public boolean updateSpecification(UpdateSpecification req) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("UPDATE product_type_and_specification SET online_visibility_status=?, offline_visibility_status=? WHERE product_type=? AND specification=?");
+        ps.setString(1, req.getOn_status());
+        ps.setString(2, req.getOff_status());
+        ps.setString(3, req.getPType());
+        ps.setString(4, req.getSpecific());
+        int exe = ps.executeUpdate();
+        ps.close();
+        return exe == 1;
     }
 
-    public boolean updateProductType(UpdateProductType req) {
-        boolean res = false;
-        return res;
+    public boolean updateProductType(UpdateProductType req) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("UPDATE product_type SET online_visibility_status=?, offline_visibility_status=?, product_type=? WHERE product_type_id=?");
+        ps.setString(1, req.getOn_status());
+        ps.setString(2, req.getOff_status());
+        ps.setString(3, req.getPType());
+        ps.setString(4, req.getpTypeid());
+        int exe = ps.executeUpdate();
+        ps.close();
+        return exe == 1;
     }
 
     public int checkPType(String ptype) throws SQLException {
@@ -1328,24 +1350,48 @@ public class DBConnect {
         return res;
     }
 
-    public int checkBrand(String brand) {
+    public int checkBrand(String brand) throws SQLException {
         int res = 0;
+        PreparedStatement stmt = con.prepareStatement("SELECT COUNT(*) FROM brand WHERE brand_id=?");
+        stmt.setString(1, brand);
+
+        ResultSet exe = stmt.executeQuery();
+        if (exe.next()) {
+            res = exe.getInt(1);
+        }
         return res;
     }
 
-    public boolean updateBrand(UpdateBrand req) {
-        boolean res = false;
-        return res;
+    public boolean updateBrand(UpdateBrand req) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("UPDATE brand SET online_visibility_status=?, offline_visibility_status=?, brand=? WHERE brand_id=?");
+        ps.setString(1, req.getOn_status());
+        ps.setString(2, req.getOff_status());
+        ps.setString(3, req.getBrand());
+        ps.setString(4, req.getBrandid());
+        int exe = ps.executeUpdate();
+        ps.close();
+        return exe == 1;
     }
 
-    public boolean updateBaC(UpdateBaC req) {
-        boolean res = false;
-        return res;
+    public boolean updateBaC(UpdateBaC req) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("UPDATE product_type SET online_visibility_status=?, offline_visibility_status=?, product_type=? WHERE product_type_id=?");
+        ps.setString(1, req.getOn_status());
+        ps.setString(2, req.getOff_status());
+//        ps.setString(3, req.getPType());
+//        ps.setString(4, req.getpTypeid());
+        int exe = ps.executeUpdate();
+        ps.close();
+        return exe == 1;
     }
 
-    public boolean deleteBrand(DeleteBrand req) {
-        boolean res = false;
-        return res;
+    public boolean deleteBrand(DeleteBrand req) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("UPDATE brand SET online_visibility_status=?, offline_visibility_status=? WHERE brand=?");
+        ps.setString(1, "2");
+        ps.setString(2, "2");
+        ps.setString(3, req.getBrand());
+        int exe = ps.executeUpdate();
+        ps.close();
+        return exe == 1;
     }
 
     public boolean deleteBaC(DeleteBaC req) {

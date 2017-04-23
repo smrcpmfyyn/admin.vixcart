@@ -3,21 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.vixcart.admin.resp.mod;
 
 import com.vixcart.admin.message.ResponseMsg;
-import com.vixcart.admin.result.SearchAffiliatesResult;
+import com.vixcart.admin.result.SearchMemberIDsResult;
 
 /**
  * @company techvay
  * @author rifaie
  */
-public class SearchAffiliatesFailiureResponse {
+public class SearchMemberIDsFailiureResponse {
 
-    private final SearchAffiliatesResult reqR;
+    private final SearchMemberIDsResult reqR;
     private final String error;
 
-    public SearchAffiliatesFailiureResponse(SearchAffiliatesResult reqR, String error) {
+    public SearchMemberIDsFailiureResponse(SearchMemberIDsResult reqR, String error) {
         this.reqR = reqR;
         this.error = error;
     }
@@ -52,3 +53,4 @@ public class SearchAffiliatesFailiureResponse {
         return "{" + json + "}";
     }
 }
+

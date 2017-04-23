@@ -3,22 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.vixcart.admin.resp.mod;
 
 import com.vixcart.admin.message.ResponseMsg;
-import com.vixcart.admin.result.SearchAffiliatesResult;
+import com.vixcart.admin.result.AddMemberResult;
 
 /**
  * @company techvay
  * @author rifaie
  */
-public class SearchAffiliatesFailiureResponse {
+public class AddMemberFailureResponse {
 
-    private final SearchAffiliatesResult reqR;
+    private final AddMemberResult reqR;
     private final String error;
 
-    public SearchAffiliatesFailiureResponse(SearchAffiliatesResult reqR, String error) {
-        this.reqR = reqR;
+    public AddMemberFailureResponse(AddMemberResult reqrR, String error) {
+        this.reqR = reqrR;
         this.error = error;
     }
 
@@ -41,9 +42,24 @@ public class SearchAffiliatesFailiureResponse {
                     resp = admType.substring(admType.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
-                case "str":
-                    String str = reqR.getStr();
-                    resp = str.substring(str.lastIndexOf(" ") + 1);
+                case "mtype":
+                    String company = reqR.getMtype();
+                    resp = company.substring(company.lastIndexOf(" ") + 1);
+                    json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
+                    break;
+                case "name":
+                    String name = reqR.getName();
+                    resp = name.substring(name.lastIndexOf(" ") + 1);
+                    json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
+                    break;
+                case "email":
+                    String email = reqR.getEmail();
+                    resp = email.substring(email.lastIndexOf(" ") + 1);
+                    json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
+                    break;
+                case "mobile":
+                    String mobile = reqR.getMobile();
+                    resp = mobile.substring(mobile.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
             }
@@ -52,3 +68,4 @@ public class SearchAffiliatesFailiureResponse {
         return "{" + json + "}";
     }
 }
+

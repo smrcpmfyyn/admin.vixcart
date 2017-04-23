@@ -11,6 +11,7 @@ import com.vixcart.admin.req.mod.AddAffiliateUser;
 import com.vixcart.admin.req.mod.AddBaC;
 import com.vixcart.admin.req.mod.AddBrand;
 import com.vixcart.admin.req.mod.AddCategory;
+import com.vixcart.admin.req.mod.AddMember;
 import com.vixcart.admin.req.mod.AddPremiumPayment;
 import com.vixcart.admin.req.mod.AddProductType;
 import com.vixcart.admin.req.mod.AddSpecification;
@@ -1653,6 +1654,78 @@ public class DBConnect {
         int c = ps.executeUpdate();
         ps.close();
         return c == 1;
+    }
+
+    public boolean checkMemberMobile(String mobile) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("SELECT count(*) FROM members WHERE member_mobile = ?");
+        ps.setString(1, mobile);
+        rs = ps.executeQuery();
+        rs.next();
+        int c = rs.getInt(1);
+        rs.close();
+        ps.close();
+        return c == 0;
+    }
+
+    public boolean checkMemberEmail(String email) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("SELECT count(*) FROM members WHERE member_email = ?");
+        ps.setString(1, email);
+        rs = ps.executeQuery();
+        rs.next();
+        int c = rs.getInt(1);
+        rs.close();
+        ps.close();
+        return c == 0;
+    }
+
+    public String getNewMemberId() throws SQLException {
+        PreparedStatement ps = con.prepareStatement("SELECT affiliate_user_id FROM member_logger");
+        ArrayList<String> al = new ArrayList<>();
+        String new_member_id = "";
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            al.add(rs.getString(1));
+        }
+        rs.close();
+        ps.close();
+        Random random = new Random();
+        new_member_id = "" + (random.nextInt(9999999) + 45573456);
+        while (al.contains(new_member_id)) {
+            new_member_id = "" + (random.nextInt(9999999) + 45573456);
+        }
+        return new_member_id;
+    }
+
+    public void addMember(AddMember req) throws SQLException {
+        addMemberDetails(req);
+        addMemberLogin(req);
+    }
+
+    private void addMemberDetails(AddMember req) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("INSERT INTO member(member_id,member_type,member_name,member_email,member_mobile,member_date) VALUES(?,?,?,?,?,NOW())");
+        ps.setString(1, req.getNew_member_id());
+        ps.setString(2, req.getmType());
+        ps.setString(3, req.getName());
+        ps.setString(4, req.getEmail());
+        ps.setString(5, req.getMobile());
+        ps.executeUpdate();
+        ps.close();
+    }
+
+    private void addMemberLogin(AddMember req) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("INSERT INTO member_login(member_id,password,salt,last_logged) VALUES (?,?,?,NOW())");
+        ps.setString(1, req.getNew_member_id());
+        ps.setString(2, req.getPassword());
+        ps.setString(3, req.getSalt());
+        ps.executeUpdate();
+        ps.close();
+    }
+
+    public void removeMember(String new_member_id) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("DELETE FROM member WHERE member_id = ?");
+        ps.setString(1, new_member_id);
+        ps.executeUpdate();
+        ps.close();
     }
 
 }

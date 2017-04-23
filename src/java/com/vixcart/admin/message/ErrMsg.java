@@ -26,6 +26,7 @@ public class ErrMsg {
     public static final String ERR_AT_BLOCKED = "Invalid at blocked";
     public static final String ERR_TYPE = "Invalid type invalid";
     public static final String ERR_COMPANY = "Invalid company invalid";
+    public static final String ERR_MTYPE = "Invalid mtype invalid";
     public static final String ERR_REQ_ID = "Invalid rid invalid";
     public static final String ERR_CK_COMPANY = "Invalid ckcompany invalid";
     public static final String ERR_FTR_ACTIVITY = "Invalid ftractivity invalid";

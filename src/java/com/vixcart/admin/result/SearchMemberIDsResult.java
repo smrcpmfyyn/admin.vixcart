@@ -15,7 +15,7 @@ import com.vixcart.admin.message.ValidationMsg;
  * @company techvay
  * @author rifaie
  */
-public class SearchAffiliatesResult implements Result{
+public class SearchMemberIDsResult implements Result{
     private String at;
     private String admintype;
     private String str;

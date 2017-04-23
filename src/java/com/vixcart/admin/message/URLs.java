@@ -14,6 +14,7 @@ public class URLs {
     
     private static final String PASSWORD_GENERATION = "http://localhost:8080/admin.vixcart/resetPassword?token=";
     private static final String AFFILIATE_PASSWORD_GENERATION = "http://localhost:8080/partner.vaydeal/resetPassword?token=";
+    private static final String MEMBER_PASSWORD_GENERATION = "http://localhost:8080/member.vaydeal/resetPassword?token=";
 
     public static String getPASSWORD_GENERATION() {
         return PASSWORD_GENERATION;
@@ -21,6 +22,10 @@ public class URLs {
 
     public static String getAFFILIATE_PASSWORD_GENERATION() {
         return AFFILIATE_PASSWORD_GENERATION;
+    }
+
+    public static String getMEMBER_PASSWORD_GENERATION() {
+        return MEMBER_PASSWORD_GENERATION;
     }
     
     

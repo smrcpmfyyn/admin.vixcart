@@ -15,11 +15,13 @@ import com.vixcart.admin.req.mod.AffiliateActivityFilter;
 import com.vixcart.admin.resp.mod.Activity;
 import com.vixcart.admin.resp.mod.AffiliateActivity;
 import com.vixcart.admin.resp.mod.Affiliates;
+import com.vixcart.admin.resp.mod.MemberID;
 import com.vixcart.admin.result.AddAffiliateResult;
 import com.vixcart.admin.result.AddAffiliateUserResult;
 import com.vixcart.admin.result.AddBaCResult;
 import com.vixcart.admin.result.AddBrandResult;
 import com.vixcart.admin.result.AddCategoryResult;
+import com.vixcart.admin.result.AddMemberResult;
 import com.vixcart.admin.result.AddPremiumPaymentResult;
 import com.vixcart.admin.result.AddProductTypeResult;
 import com.vixcart.admin.result.AddSpecificationResult;
@@ -81,6 +83,7 @@ import com.vixcart.admin.result.RPResult;
 import com.vixcart.admin.result.ResetAffiliateUserResult;
 import com.vixcart.admin.result.SearchAffiliatesResult;
 import com.vixcart.admin.result.SearchBrandResult;
+import com.vixcart.admin.result.SearchMemberIDsResult;
 import com.vixcart.admin.result.SearchProductTypeResult;
 import com.vixcart.admin.result.SuperUserTypesResult;
 import com.vixcart.admin.result.UpdateAffiliateResult;
@@ -643,6 +646,24 @@ public final class JSONParser {
     public static ChangeAffiliateRequestStatusResult parseJSONCARSR(String reqv) throws IOException {
         ChangeAffiliateRequestStatusResult res;
         res = MAPPER.readValue(reqv, ChangeAffiliateRequestStatusResult.class);
+        return res;
+    }
+
+    public static AddMemberResult parseJSONAMR(String reqv) throws IOException {
+        AddMemberResult res;
+        res = MAPPER.readValue(reqv, AddMemberResult.class);
+        return res;
+    }
+
+    public static SearchMemberIDsResult parseJSONSM(String reqv) throws IOException {
+        SearchMemberIDsResult res;
+        res = MAPPER.readValue(reqv, SearchMemberIDsResult.class);
+        return res;
+    }
+
+    public static MemberID parseJSONMID(String mid) throws IOException {
+        MemberID res;
+        res = MAPPER.readValue(mid, MemberID.class);
         return res;
     }
 

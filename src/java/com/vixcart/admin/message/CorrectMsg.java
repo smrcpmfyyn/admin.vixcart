@@ -22,6 +22,7 @@ public class CorrectMsg {
     public static final String CORRECT_ADMIN_TYPE = "Valid adminType";
     public static final String CORRECT_TYPE = "Valid type";
     public static final String CORRECT_COMPANY = "Valid company";
+    public static final String CORRECT_MTYPE = "Valid mtype";
     public static final String CORRECT_REQ_ID = "Valid rid";
     public static final String CORRECT_QUERY = "Valid query";
     public static final String CORRECT_CK_COMPANY = "Valid ckcompany";

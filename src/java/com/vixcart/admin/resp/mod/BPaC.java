@@ -11,11 +11,7 @@ package com.vixcart.admin.resp.mod;
 public class BPaC {
 
     public BPaC() {
-    }
-
-    public static void main(String[] args) {
-        BPaC obj = new BPaC();
-    }    
+    } 
 
     public Object getBrand() {
         Object res = null;

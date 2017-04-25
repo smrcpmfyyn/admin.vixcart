@@ -35,7 +35,6 @@ public class AddSuperCategoryValidation implements Validation{
                 valid += "#"+auc.validateSuperCategory();
             }
         }
-        System.out.println("valid = " + valid);
         auc.closeConnection();
         int count = 0;
         for (String str : valid.split("#")) {

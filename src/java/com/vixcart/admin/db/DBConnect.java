@@ -611,7 +611,7 @@ public class DBConnect {
     }
 
     public int getNoOfMembers() throws SQLException {
-        PreparedStatement ps = con.prepareStatement("SELECT count(*) FROM members");
+        PreparedStatement ps = con.prepareStatement("SELECT count(*) FROM member_profile");
         rs = ps.executeQuery();
         rs.next();
         int count = rs.getInt(1);
@@ -1767,7 +1767,7 @@ public class DBConnect {
     }
 
     public boolean checkMemberMobile(String mobile) throws SQLException {
-        PreparedStatement ps = con.prepareStatement("SELECT count(*) FROM members WHERE member_mobile = ?");
+        PreparedStatement ps = con.prepareStatement("SELECT count(*) FROM member_profile WHERE member_mobile = ?");
         ps.setString(1, mobile);
         rs = ps.executeQuery();
         rs.next();
@@ -1778,7 +1778,7 @@ public class DBConnect {
     }
 
     public boolean checkMemberEmail(String email) throws SQLException {
-        PreparedStatement ps = con.prepareStatement("SELECT count(*) FROM members WHERE member_email = ?");
+        PreparedStatement ps = con.prepareStatement("SELECT count(*) FROM member_profile WHERE member_email = ?");
         ps.setString(1, email);
         rs = ps.executeQuery();
         rs.next();
@@ -1812,7 +1812,7 @@ public class DBConnect {
     }
 
     private void addMemberDetails(AddMember req) throws SQLException {
-        PreparedStatement ps = con.prepareStatement("INSERT INTO member(member_id,member_type,member_name,member_email,member_mobile,member_date) VALUES(?,?,?,?,?,NOW())");
+        PreparedStatement ps = con.prepareStatement("INSERT INTO member(member_id,member_type,member_name,member_email,member_mobile,member_date) VALUES(?,?,?,?,?,CURDATE())");
         ps.setString(1, req.getNew_member_id());
         ps.setString(2, req.getmType());
         ps.setString(3, req.getName());
@@ -1845,13 +1845,13 @@ public class DBConnect {
         int start = (pn - 1) * me;
         switch (req.getQueryType()) {
             case "member":
-                ps = con.prepareStatement("SELECT a.member_id,a.member_name,b.product_month_uploaded,b.product_day_updated,b.amount_pending,a.member_status FROM members a INNER JOIN member_report b ON a.member_id = b.member_id WHERE member_id = ? LIMIT ?,?");
+                ps = con.prepareStatement("SELECT a.member_id,a.member_name,b.product_month_uploaded,b.product_day_updated,b.amount_pending,a.member_status FROM member_profile a INNER JOIN member_report b ON a.member_id = b.member_id WHERE member_id = ? LIMIT ?,?");
                 ps.setString(1, req.getQuery());
                 ps.setInt(2, start);
                 ps.setInt(3, me);
                 break;
             case "all":
-                ps = con.prepareStatement("SELECT a.member_id,a.member_name,b.product_month_uploaded,b.product_day_updated,b.amount_pending,a.member_status FROM members a INNER JOIN member_report b ON a.member_id = b.member_id LIMIT ?,?");
+                ps = con.prepareStatement("SELECT a.member_id,a.member_name,b.product_month_uploaded,b.product_day_updated,b.amount_pending,a.member_status FROM member_profile a INNER JOIN member_report b ON a.member_id = b.member_id LIMIT ?,?");
                 ps.setInt(1, start);
                 ps.setInt(2, me);
                 break;

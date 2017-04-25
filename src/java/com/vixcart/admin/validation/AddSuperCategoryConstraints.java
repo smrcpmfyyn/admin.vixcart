@@ -89,6 +89,7 @@ public class AddSuperCategoryConstraints implements AddSuperCategoryValidator{
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
 
 }

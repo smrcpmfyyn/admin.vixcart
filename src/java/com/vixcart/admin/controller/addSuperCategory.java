@@ -44,7 +44,10 @@ public class addSuperCategory extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             String scat = request.getParameter("scat");
             Cookie ck = Servlets.getCookie(request, "at");
-            String at = ck.getValue();
+            String at = "";
+            if (ck != null) {
+                at = ck.getValue();
+            }
             AddSuperCategory req = new AddSuperCategory(at, scat);
             AddSuperCategoryValidation reqV = new AddSuperCategoryValidation(req);
             reqV.validation();
@@ -61,12 +64,14 @@ public class addSuperCategory extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
                     BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
                     bau.block();
                     ua.setEntryStatus("blocked");
+                } else {
+                    ua.setEntryStatus("invalid");
                 }
-                ua.setEntryStatus("invalid");
                 AddSuperCategoryFailureResponse rFail = new AddSuperCategoryFailureResponse(reqR, validSubmission);
                 out.write(rFail.toString());
             } else {

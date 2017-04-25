@@ -677,7 +677,7 @@ public class MongoConnect {
 
     private void addMAT(String member_id, String token, String user_type) {
         MongoCollection<Document> at = db.getCollection("member_access_token");
-        Document doc = new Document("member_id", "" + member_id).append("token", token).append("user_type", user_type).append("status", "not logged");
+        Document doc = new Document("member_id", "" + member_id).append("token", token).append("member_type", user_type).append("status", "not logged");
         at.insertOne(doc);
     }
 

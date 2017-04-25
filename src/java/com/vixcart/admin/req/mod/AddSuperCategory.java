@@ -47,8 +47,5 @@ public class AddSuperCategory {
     public void setSuper_category(String super_category) {
         this.super_category = super_category;
     }
-
-    
-    
-    
+ 
 }

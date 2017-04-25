@@ -8,7 +8,7 @@ package com.vixcart.admin.resp.mod;
  */
 public class GetBPaCSuccessResponse {
 
-    private final String status;
+    private final String  status;
     private final String accessToken;
 
     public GetBPaCSuccessResponse(String status, String accessToken) {

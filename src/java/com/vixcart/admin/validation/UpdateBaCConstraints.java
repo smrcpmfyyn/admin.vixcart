@@ -9,7 +9,7 @@ import com.vixcart.admin.message.CorrectMsg;
 import com.vixcart.admin.message.ErrMsg;
 import com.vixcart.admin.mongo.mod.AdminID;
 import com.vixcart.admin.regx.RegX;
-import com.vixcart.admin.req.mod.UpdateBaC;
+import com.vixcart.admin.req.mod.UpdateBPaC;
 import java.sql.SQLException;
 import java.util.HashSet;
 
@@ -20,11 +20,11 @@ import java.util.HashSet;
  */
 public class UpdateBaCConstraints implements UpdateBaCValidator {
 
-    private final UpdateBaC req;
+    private final UpdateBPaC req;
     private final DBConnect dbc;
     private final MongoConnect mdbc;
 
-    public UpdateBaCConstraints(UpdateBaC req) throws Exception {
+    public UpdateBaCConstraints(UpdateBPaC req) throws Exception {
         this.req = req;
         this.dbc = DB.getConnection();
         this.mdbc = DB.getMongoConnection();

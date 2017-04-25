@@ -6,11 +6,11 @@ import com.vixcart.admin.db.DB;
 import com.vixcart.admin.db.DBConnect;
 import com.vixcart.admin.db.MongoConnect;
 import com.vixcart.admin.hash.Hashing;
-import com.vixcart.admin.intfc.processreq.DeleteBaCProcessor;
 import com.vixcart.admin.message.ResponseMsg;
-import com.vixcart.admin.req.mod.DeleteBaC;
+import com.vixcart.admin.req.mod.DeleteBPaC;
 import com.vixcart.admin.resp.mod.DeleteBaCSuccessResponse;
 import java.util.Random;
+import com.vixcart.admin.intfc.processreq.DeleteBPaCProcessor;
 
 
 
@@ -19,14 +19,14 @@ import java.util.Random;
  *
  * @author Vineeth K
  */
-public class ProcessDeleteBaC implements DeleteBaCProcessor{
+public class ProcessDeleteBPaC implements DeleteBPaCProcessor{
     
-    private final DeleteBaC req;
+    private final DeleteBPaC req;
     private final MongoConnect mdbc;
     private final DBConnect dbc;
     private String accessToken;
 
-    public ProcessDeleteBaC(DeleteBaC req) throws Exception {
+    public ProcessDeleteBPaC(DeleteBPaC req) throws Exception {
         this.req = req;
         this.mdbc = DB.getMongoConnection();
         this.dbc = DB.getConnection();
@@ -41,15 +41,15 @@ public class ProcessDeleteBaC implements DeleteBaCProcessor{
     }
 
     @Override
-    public boolean deleteBaC() throws Exception {
-        return dbc.deleteBaC(req);
+    public boolean deleteBPaC() throws Exception {
+        return dbc.deleteBPaC(req);
     }
 
     @Override
     public DeleteBaCSuccessResponse processRequest() throws Exception {
         DeleteBaCSuccessResponse obj = null;
         if (generateToken()) {
-            if (deleteBaC()) {
+            if (deleteBPaC()) {
                 obj = generateResponse(true);
             } else {
                 obj = generateResponse(false);

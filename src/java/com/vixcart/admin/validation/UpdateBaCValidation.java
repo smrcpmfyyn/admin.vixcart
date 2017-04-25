@@ -5,7 +5,7 @@ package com.vixcart.admin.validation;
 import com.vixcart.admin.intfc.validation.Validation;
 import com.vixcart.admin.message.CorrectMsg;
 import com.vixcart.admin.message.ErrMsg;
-import com.vixcart.admin.req.mod.UpdateBaC;
+import com.vixcart.admin.req.mod.UpdateBPaC;
 
 
 
@@ -15,11 +15,11 @@ import com.vixcart.admin.req.mod.UpdateBaC;
  * @author Vineeth K
  */
 public class UpdateBaCValidation implements Validation{
-    private final UpdateBaC req;
+    private final UpdateBPaC req;
     private String paramValue = "";
     private String paramName = "";
 
-    public UpdateBaCValidation(UpdateBaC req) {
+    public UpdateBaCValidation(UpdateBPaC req) {
         this.req = req;
     }
 

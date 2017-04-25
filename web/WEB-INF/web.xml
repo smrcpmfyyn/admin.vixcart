@@ -169,28 +169,28 @@
         <url-pattern>/addBrand</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>updateBaC</servlet-name>
-        <servlet-class>com.vixcart.admin.controller.updateBaC</servlet-class>
+        <servlet-name>updateBPaC</servlet-name>
+        <servlet-class>com.vixcart.admin.controller.updateBPaC</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>updateBaC</servlet-name>
-        <url-pattern>/updateBaC</url-pattern>
+        <servlet-name>updateBPaC</servlet-name>
+        <url-pattern>/updateBPaC</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>deleteBaC</servlet-name>
-        <servlet-class>com.vixcart.admin.controller.deleteBaC</servlet-class>
+        <servlet-name>deleteBPaC</servlet-name>
+        <servlet-class>com.vixcart.admin.controller.deleteBPaC</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>deleteBaC</servlet-name>
-        <url-pattern>/deleteBaC</url-pattern>
+        <servlet-name>deleteBPaC</servlet-name>
+        <url-pattern>/deleteBPaC</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>addBaC</servlet-name>
-        <servlet-class>com.vixcart.admin.controller.addBaC</servlet-class>
+        <servlet-name>addBPaC</servlet-name>
+        <servlet-class>com.vixcart.admin.controller.addBPaC</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>addBaC</servlet-name>
-        <url-pattern>/addBaC</url-pattern>
+        <servlet-name>addBPaC</servlet-name>
+        <url-pattern>/addBPaC</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>deleteBrand</servlet-name>

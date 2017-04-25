@@ -5,7 +5,7 @@ package com.vixcart.admin.validation;
 import com.vixcart.admin.intfc.validation.Validation;
 import com.vixcart.admin.message.CorrectMsg;
 import com.vixcart.admin.message.ErrMsg;
-import com.vixcart.admin.req.mod.DeleteBaC;
+import com.vixcart.admin.req.mod.DeleteBPaC;
 
 
 
@@ -15,11 +15,11 @@ import com.vixcart.admin.req.mod.DeleteBaC;
  * @author Vineeth K
  */
 public class DeleteBaCValidation implements Validation{
-    private final DeleteBaC req;
+    private final DeleteBPaC req;
     private String paramValue = "";
     private String paramName = "";
 
-    public DeleteBaCValidation(DeleteBaC req) {
+    public DeleteBaCValidation(DeleteBPaC req) {
         this.req = req;
     }
 

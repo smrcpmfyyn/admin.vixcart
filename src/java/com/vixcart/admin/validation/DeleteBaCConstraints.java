@@ -9,7 +9,7 @@ import com.vixcart.admin.message.CorrectMsg;
 import com.vixcart.admin.message.ErrMsg;
 import com.vixcart.admin.mongo.mod.AdminID;
 import com.vixcart.admin.regx.RegX;
-import com.vixcart.admin.req.mod.DeleteBaC;
+import com.vixcart.admin.req.mod.DeleteBPaC;
 import java.sql.SQLException;
 import java.util.HashSet;
 
@@ -20,11 +20,11 @@ import java.util.HashSet;
  */
 public class DeleteBaCConstraints implements DeleteBaCValidator {
 
-    private final DeleteBaC req;
+    private final DeleteBPaC req;
     private final DBConnect dbc;
     private final MongoConnect mdbc;
 
-    public DeleteBaCConstraints(DeleteBaC req) throws Exception {
+    public DeleteBaCConstraints(DeleteBPaC req) throws Exception {
         this.req = req;
         this.dbc = DB.getConnection();
         this.mdbc = DB.getMongoConnection();

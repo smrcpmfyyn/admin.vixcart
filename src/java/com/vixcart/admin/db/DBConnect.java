@@ -6,78 +6,8 @@
 package com.vixcart.admin.db;
 
 import com.vixcart.admin.imgpath.ImagePath;
-import com.vixcart.admin.req.mod.AddAffiliate;
-import com.vixcart.admin.req.mod.AddAffiliateUser;
-import com.vixcart.admin.req.mod.AddBaC;
-import com.vixcart.admin.req.mod.AddBrand;
-import com.vixcart.admin.req.mod.AddCategory;
-import com.vixcart.admin.req.mod.AddPremiumPayment;
-import com.vixcart.admin.req.mod.AddProductType;
-import com.vixcart.admin.req.mod.AddSpecification;
-import com.vixcart.admin.req.mod.AddSubCategory;
-import com.vixcart.admin.req.mod.AddSuperCategory;
-import com.vixcart.admin.req.mod.AddTaC;
-import com.vixcart.admin.req.mod.AddUser;
-import com.vixcart.admin.req.mod.AddUserType;
-import com.vixcart.admin.req.mod.DeleteBaC;
-import com.vixcart.admin.req.mod.DeleteBrand;
-import com.vixcart.admin.req.mod.DeleteCategory;
-import com.vixcart.admin.req.mod.DeleteSpecification;
-import com.vixcart.admin.req.mod.DeleteSubCategory;
-import com.vixcart.admin.req.mod.DeleteSuperCategory;
-import com.vixcart.admin.req.mod.DeleteTaC;
-import com.vixcart.admin.req.mod.EditUser;
-import com.vixcart.admin.req.mod.GetAffiliateRequests;
-import com.vixcart.admin.req.mod.GetAffiliateUsers;
-import com.vixcart.admin.req.mod.GetBPaC;
-import com.vixcart.admin.req.mod.GetBPaC2;
-import com.vixcart.admin.req.mod.GetBrand;
-import com.vixcart.admin.req.mod.GetCategories;
-import com.vixcart.admin.req.mod.GetCategory;
-import com.vixcart.admin.req.mod.GetProductType;
-import com.vixcart.admin.req.mod.GetProductTypes;
-import com.vixcart.admin.req.mod.GetSpecification;
-import com.vixcart.admin.req.mod.GetSubCategory;
-import com.vixcart.admin.req.mod.GetSuperCategory;
-import com.vixcart.admin.req.mod.GetTaC;
-import com.vixcart.admin.req.mod.LoadSpecifications;
-import com.vixcart.admin.req.mod.NewPassword;
-import com.vixcart.admin.req.mod.ResetAffiliateUser;
-import com.vixcart.admin.req.mod.SearchBrand;
-import com.vixcart.admin.req.mod.SearchProductType;
-import com.vixcart.admin.req.mod.UpdateAffiliate;
-import com.vixcart.admin.req.mod.UpdateBaC;
-import com.vixcart.admin.req.mod.UpdateBrand;
-import com.vixcart.admin.req.mod.UpdateCategory;
-import com.vixcart.admin.req.mod.UpdateProductType;
-import com.vixcart.admin.req.mod.UpdateSpecification;
-import com.vixcart.admin.req.mod.UpdateSubCategory;
-import com.vixcart.admin.req.mod.UpdateSuperCategory;
-import com.vixcart.admin.req.mod.UpdateTaC;
-import com.vixcart.admin.req.mod.UpdateUserType;
-import com.vixcart.admin.resp.mod.AffiliateCompany;
-import com.vixcart.admin.resp.mod.AffiliateDetails;
-import com.vixcart.admin.resp.mod.AffiliateRequest;
-import com.vixcart.admin.resp.mod.AffiliateRequests;
-import com.vixcart.admin.resp.mod.AffiliateUserDetails;
-import com.vixcart.admin.resp.mod.AllAffiliates;
-import com.vixcart.admin.resp.mod.AllPremiumPayments;
-import com.vixcart.admin.resp.mod.BPaC;
-import com.vixcart.admin.resp.mod.Brand;
-import com.vixcart.admin.resp.mod.Category;
-import com.vixcart.admin.resp.mod.PremiumPayments;
-import com.vixcart.admin.resp.mod.ProductType;
-import com.vixcart.admin.resp.mod.ProductTypes;
-import com.vixcart.admin.resp.mod.Specifications;
-import com.vixcart.admin.resp.mod.SubCategory;
-import com.vixcart.admin.resp.mod.SuperCategory;
-import com.vixcart.admin.resp.mod.SuperUserType;
-import com.vixcart.admin.resp.mod.TaC;
-import com.vixcart.admin.resp.mod.User;
-import com.vixcart.admin.resp.mod.UserDetails;
-import com.vixcart.admin.resp.mod.UserIds;
-import com.vixcart.admin.resp.mod.UserType;
-import com.vixcart.admin.resp.mod.UserType1;
+import com.vixcart.admin.req.mod.*;
+import com.vixcart.admin.resp.mod.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -1373,7 +1303,7 @@ public class DBConnect {
         return exe == 1;
     }
 
-    public boolean updateBaC(UpdateBaC req) throws SQLException {
+    public boolean updateBPaC(UpdateBPaC req) throws SQLException {
         PreparedStatement ps = con.prepareStatement("UPDATE product_type SET online_visibility_status=?, offline_visibility_status=?, product_type=? WHERE product_type_id=?");
         ps.setString(1, req.getOn_status());
         ps.setString(2, req.getOff_status());
@@ -1394,28 +1324,48 @@ public class DBConnect {
         return exe == 1;
     }
 
-    public boolean deleteBaC(DeleteBaC req) {
+    public boolean deleteBPaC(DeleteBPaC req) {
         boolean res = false;
         return res;
     }
 
-    public boolean addBrand(AddBrand req) {
-        boolean res = false;
-        return res;
+    public boolean addBrand(AddBrand req) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("INSERT INTO brand (brand) values (?)");
+        ps.setString(1, req.getBrand());
+        int exe = ps.executeUpdate();
+        ps.close();
+        return exe == 1;
     }
 
-    public boolean addBaC(AddBaC req) {
-        boolean res = false;
-        return res;
+    public boolean addBPaC(AddBaC req) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("INSERT INTO brand_category_and_product_type (brand, category, product_type) values (?,?,?)");
+        ps.setString(1, req.getBrand());
+        ps.setString(2, req.getCateg());
+        ps.setString(3, req.getPtype());
+        int exe = ps.executeUpdate();
+        ps.close();
+        return exe == 1;
     }
 
-    public int checkTacId(String tacid) {
+    public int checkTacId(String tacid) throws SQLException {
         int res = 0;
+        PreparedStatement stmt = con.prepareStatement("SELECT COUNT(*) FROM product_type_and_category WHERE id=?");
+        stmt.setString(1, tacid);
+        ResultSet exe = stmt.executeQuery();
+        if (exe.next()) {
+            res = exe.getInt(1);
+        }
         return res;
     }
 
-    public int checkPTypeId(String ptypeid) {
+    public int checkPTypeId(String ptypeid) throws SQLException {
         int res = 0;
+        PreparedStatement stmt = con.prepareStatement("SELECT COUNT(*) FROM product_type WHERE product_type_id=?");
+        stmt.setString(1, ptypeid);
+        ResultSet exe = stmt.executeQuery();
+        if (exe.next()) {
+            res = exe.getInt(1);
+        }
         return res;
     }
 

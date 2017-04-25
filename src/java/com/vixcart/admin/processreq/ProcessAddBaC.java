@@ -42,7 +42,7 @@ public class ProcessAddBaC implements AddBaCProcessor{
 
     @Override
     public boolean addBaC() throws Exception {
-        return dbc.addBaC(req);
+        return dbc.addBPaC(req);
     }
 
     @Override

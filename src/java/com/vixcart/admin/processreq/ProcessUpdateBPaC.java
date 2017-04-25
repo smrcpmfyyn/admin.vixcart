@@ -6,11 +6,11 @@ import com.vixcart.admin.db.DB;
 import com.vixcart.admin.db.DBConnect;
 import com.vixcart.admin.db.MongoConnect;
 import com.vixcart.admin.hash.Hashing;
-import com.vixcart.admin.intfc.processreq.UpdateBaCProcessor;
 import com.vixcart.admin.message.ResponseMsg;
-import com.vixcart.admin.req.mod.UpdateBaC;
+import com.vixcart.admin.req.mod.UpdateBPaC;
 import com.vixcart.admin.resp.mod.UpdateBaCSuccessResponse;
 import java.util.Random;
+import com.vixcart.admin.intfc.processreq.UpdateBPaCProcessor;
 
 
 
@@ -19,14 +19,14 @@ import java.util.Random;
  *
  * @author Vineeth K
  */
-public class ProcessUpdateBaC implements UpdateBaCProcessor{
+public class ProcessUpdateBPaC implements UpdateBPaCProcessor{
     
-    private final UpdateBaC req;
+    private final UpdateBPaC req;
     private final MongoConnect mdbc;
     private final DBConnect dbc;
     private String accessToken;
 
-    public ProcessUpdateBaC(UpdateBaC req) throws Exception {
+    public ProcessUpdateBPaC(UpdateBPaC req) throws Exception {
         this.req = req;
         this.mdbc = DB.getMongoConnection();
         this.dbc = DB.getConnection();
@@ -41,15 +41,15 @@ public class ProcessUpdateBaC implements UpdateBaCProcessor{
     }
 
     @Override
-    public boolean updateBaC() throws Exception {
-        return dbc.updateBaC(req);
+    public boolean updateBPaC() throws Exception {
+        return dbc.updateBPaC(req);
     }
 
     @Override
     public UpdateBaCSuccessResponse processRequest() throws Exception {
         UpdateBaCSuccessResponse obj = null;
         if (generateToken()) {
-            if (updateBaC()) {
+            if (updateBPaC()) {
                 obj = generateResponse(true);
             } else {
                 obj = generateResponse(false);

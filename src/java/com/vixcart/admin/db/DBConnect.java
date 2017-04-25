@@ -1304,7 +1304,7 @@ public class DBConnect {
     }
 
     public boolean updateBPaC(UpdateBPaC req) throws SQLException {
-        PreparedStatement ps = con.prepareStatement("UPDATE product_type SET online_visibility_status=?, offline_visibility_status=?, product_type=? WHERE product_type_id=?");
+        PreparedStatement ps = con.prepareStatement("UPDATE brand_category_and_product_type SET online_visibility_status=?, offline_visibility_status=?, product_type=? WHERE product_type_id=?");
         ps.setString(1, req.getOn_status());
         ps.setString(2, req.getOff_status());
 //        ps.setString(3, req.getPType());
@@ -1324,9 +1324,16 @@ public class DBConnect {
         return exe == 1;
     }
 
-    public boolean deleteBPaC(DeleteBPaC req) {
-        boolean res = false;
-        return res;
+    public boolean deleteBPaC(DeleteBPaC req) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("UPDATE brand_category_and_product_type SET online_visibility_status=?, offline_visibility_status=? WHERE brand=? and category=? and product_type=?");
+        ps.setString(1, "2");
+        ps.setString(2, "2");
+        ps.setString(3, req.getBrand());
+        ps.setString(4, req.getCateg());
+        ps.setString(5, req.getPtype());
+        int exe = ps.executeUpdate();
+        ps.close();
+        return exe == 1;
     }
 
     public boolean addBrand(AddBrand req) throws SQLException {
@@ -1413,13 +1420,29 @@ public class DBConnect {
         return res;
     }
 
-    public Category getCategories(GetCategories req) {
-        Category res = null;
-        return res;
+    public ArrayList<Category> getCategories(GetCategories req) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("SELECT c.category_id, c.category, c.super_category, c.online_visibility_status, c.offline_visibility_status FROM categories AS c ");
+        ArrayList<Category> categs = new ArrayList<>();
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            Category category = new Category(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+            categs.add(category);
+        }
+        rs.close();
+        ps.close();
+        return categs;
     }
 
-    public Category getCategory(GetCategory req) {
+    public Category getCategory(GetCategory req) throws SQLException {
         Category res = null;
+        PreparedStatement ps = con.prepareStatement("SELECT c.category_id, c.category, c.super_category, c.online_visibility_status, c.offline_visibility_status FROM categories AS c WHERE c.category_id=?");
+        ps.setString(1, req.getCategid());
+        rs = ps.executeQuery();
+        if (rs.next()) {
+            res = new Category(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+        }
+        rs.close();
+        ps.close();
         return res;
     }
 
@@ -1529,7 +1552,7 @@ public class DBConnect {
 
     public Brand getBrand(GetBrand req) throws SQLException {
         Brand res = null;
-         PreparedStatement stmt = con.prepareStatement("SELECT * FROM super_categories WHERE super_category_id=?");
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM super_categories WHERE super_category_id=?");
         stmt.setString(1, req.getBrandid());
         ResultSet r = stmt.executeQuery();
         if (r.next()) {

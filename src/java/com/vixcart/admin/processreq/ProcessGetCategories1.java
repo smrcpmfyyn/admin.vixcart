@@ -11,6 +11,7 @@ import com.vixcart.admin.message.ResponseMsg;
 import com.vixcart.admin.req.mod.GetCategories;
 import com.vixcart.admin.resp.mod.Category;
 import com.vixcart.admin.resp.mod.GetCategoriesSuccessResponse;
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -23,7 +24,7 @@ import java.util.Random;
 public class ProcessGetCategories1 implements GetCategoriesProcessor{
     
     private final GetCategories req;
-    private Category res;
+    private ArrayList<Category> res;
     private final MongoConnect mdbc;
     private final DBConnect dbc;
     private String accessToken;
@@ -45,7 +46,7 @@ public class ProcessGetCategories1 implements GetCategoriesProcessor{
     @Override
     public boolean getCategories() throws Exception {
         res= dbc.getCategories(req);
-        return !res.getCategory().equals("invalid");
+        return !res.isEmpty();
     }
 
     @Override
@@ -67,7 +68,7 @@ public class ProcessGetCategories1 implements GetCategoriesProcessor{
     public GetCategoriesSuccessResponse generateResponse(boolean status) {
         GetCategoriesSuccessResponse resp;
         if (status) {
-            resp = new GetCategoriesSuccessResponse(ResponseMsg.RESP_OK, accessToken);
+            resp = new GetCategoriesSuccessResponse(ResponseMsg.RESP_OK, accessToken, res);
         } else {
             resp = new GetCategoriesSuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken);
         }

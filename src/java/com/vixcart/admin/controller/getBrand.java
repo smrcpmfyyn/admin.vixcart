@@ -40,9 +40,10 @@ public class getBrand extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
+            String brand = request.getParameter("brand");
             Cookie ck = Servlets.getCookie(request, "at");
             String at = ck.getValue();
-            GetBrand req = new GetBrand(at);
+            GetBrand req = new GetBrand(at, brand);
             GetBrandValidation reqV = new GetBrandValidation(req);
             reqV.validation();
             System.out.println("addTypV = " + reqV);

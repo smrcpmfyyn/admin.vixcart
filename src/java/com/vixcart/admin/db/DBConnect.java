@@ -1490,13 +1490,25 @@ public class DBConnect {
         return res;
     }
 
-    public SuperCategory getSuperCategory(GetSuperCategory req) {
+    public SuperCategory getSuperCategory(GetSuperCategory req) throws SQLException {
         SuperCategory res = null;
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM super_categories WHERE super_category_id=?");
+        stmt.setString(1, req.getSupcategid());
+        ResultSet r = stmt.executeQuery();
+        if (r.next()) {
+            res = new SuperCategory(r.getString(1), r.getString(2), r.getString(3), r.getString(4));
+        }
         return res;
     }
 
-    public SubCategory getSubCategory(GetSubCategory req) {
+    public SubCategory getSubCategory(GetSubCategory req) throws SQLException {
         SubCategory res = null;
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM sub_categories WHERE sub_category_id=?");
+        stmt.setString(1, req.getSubcategid());
+        ResultSet r = stmt.executeQuery();
+        if (r.next()) {
+            res = new SubCategory(r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5));
+        }
         return res;
     }
 
@@ -1515,8 +1527,14 @@ public class DBConnect {
         return res;
     }
 
-    public Brand getBrand(GetBrand req) {
+    public Brand getBrand(GetBrand req) throws SQLException {
         Brand res = null;
+         PreparedStatement stmt = con.prepareStatement("SELECT * FROM super_categories WHERE super_category_id=?");
+        stmt.setString(1, req.getBrandid());
+        ResultSet r = stmt.executeQuery();
+        if (r.next()) {
+            res = new Brand(r.getString(1), r.getString(2), r.getString(3), r.getString(4));
+        }
         return res;
     }
 
@@ -1634,7 +1652,7 @@ public class DBConnect {
         AffiliateRequest ar = null;
         if (rs.next()) {
             ar = new AffiliateRequest(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
-        }else{
+        } else {
             ar = new AffiliateRequest("invalid", "invalid", "invalid", "invalid", "invalid", "invalid", "invalid", "invalid", "invalid");
         }
         rs.close();

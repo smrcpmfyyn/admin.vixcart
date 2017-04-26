@@ -26,6 +26,7 @@ public class ErrMsg {
     public static final String ERR_AT_BLOCKED = "Invalid at blocked";
     public static final String ERR_TYPE = "Invalid type invalid";
     public static final String ERR_COMPANY = "Invalid company invalid";
+    public static final String ERR_MTYPE = "Invalid mtype invalid";
     public static final String ERR_REQ_ID = "Invalid rid invalid";
     public static final String ERR_CK_COMPANY = "Invalid ckcompany invalid";
     public static final String ERR_FTR_ACTIVITY = "Invalid ftractivity invalid";
@@ -96,7 +97,9 @@ public class ErrMsg {
     public static final String ERR_GET_USER = "Invalid getuser";
     public static final String ERR_GET_AFFILIATE = "Invalid getaffiliate";
     public static final String ERR_UID = "Invalid uid invalid";
+    public static final String ERR_MID = "Invalid mid invalid";
     public static final String ERR_UID_NOT_EXISTS = "Invalid uid notexists";
+    public static final String ERR_MID_NOT_EXISTS = "Invalid mid notexists";
     public static final String ERR_TOKEN_USED = "Invalid Token used";
     public static final String ERR_TOKEN_EXPIRED = "Invalid Token expired";
     public static final String ERR_TOKEN = "Invalid Token invalid";

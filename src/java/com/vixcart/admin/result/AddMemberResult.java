@@ -15,10 +15,13 @@ import com.vixcart.admin.message.ValidationMsg;
  * @company techvay
  * @author rifaie
  */
-public class SearchAffiliatesResult implements Result{
+public class AddMemberResult implements Result {
     private String at;
     private String admintype;
-    private String str;
+    private String mtype;
+    private String name;
+    private String email;
+    private String mobile;
     private String reqValidation;
 
     public String getAt() {
@@ -29,20 +32,44 @@ public class SearchAffiliatesResult implements Result{
         this.at = at;
     }
 
-    public String getStr() {
-        return str;
-    }
-
-    public void setStr(String str) {
-        this.str = str;
-    }
-
     public String getAdmintype() {
         return admintype;
     }
 
     public void setAdmintype(String admintype) {
         this.admintype = admintype;
+    }
+
+    public String getMtype() {
+        return mtype;
+    }
+
+    public void setMtype(String mtype) {
+        this.mtype = mtype;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getReqValidation() {
@@ -80,9 +107,18 @@ public class SearchAffiliatesResult implements Result{
             error += "at#";
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
-        }else{
-            if(str.startsWith(ErrMsg.ERR_MESSAGE)){
-                error += "str";
+        } else {
+            if (name.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "name#";
+            }
+            if (mtype.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "mtype#";
+            }
+            if (email.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "email#";
+            }
+            if (mobile.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "mobile#";
             }
         }
         return error.substring(0, error.length() - 1);

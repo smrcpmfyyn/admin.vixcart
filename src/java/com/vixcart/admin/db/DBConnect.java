@@ -6,8 +6,82 @@
 package com.vixcart.admin.db;
 
 import com.vixcart.admin.imgpath.ImagePath;
-import com.vixcart.admin.req.mod.*;
-import com.vixcart.admin.resp.mod.*;
+import com.vixcart.admin.req.mod.AddAffiliate;
+import com.vixcart.admin.req.mod.AddAffiliateUser;
+import com.vixcart.admin.req.mod.AddBaC;
+import com.vixcart.admin.req.mod.AddBrand;
+import com.vixcart.admin.req.mod.AddCategory;
+import com.vixcart.admin.req.mod.AddMember;
+import com.vixcart.admin.req.mod.AddPremiumPayment;
+import com.vixcart.admin.req.mod.AddProductType;
+import com.vixcart.admin.req.mod.AddSpecification;
+import com.vixcart.admin.req.mod.AddSubCategory;
+import com.vixcart.admin.req.mod.AddSuperCategory;
+import com.vixcart.admin.req.mod.AddTaC;
+import com.vixcart.admin.req.mod.AddUser;
+import com.vixcart.admin.req.mod.AddUserType;
+import com.vixcart.admin.req.mod.DeleteBPaC;
+import com.vixcart.admin.req.mod.DeleteBrand;
+import com.vixcart.admin.req.mod.DeleteCategory;
+import com.vixcart.admin.req.mod.DeleteSpecification;
+import com.vixcart.admin.req.mod.DeleteSubCategory;
+import com.vixcart.admin.req.mod.DeleteSuperCategory;
+import com.vixcart.admin.req.mod.DeleteTaC;
+import com.vixcart.admin.req.mod.EditUser;
+import com.vixcart.admin.req.mod.GetAffiliateRequests;
+import com.vixcart.admin.req.mod.GetAffiliateUsers;
+import com.vixcart.admin.req.mod.GetBPaC;
+import com.vixcart.admin.req.mod.GetBPaC2;
+import com.vixcart.admin.req.mod.GetBrand;
+import com.vixcart.admin.req.mod.GetCategories;
+import com.vixcart.admin.req.mod.GetCategory;
+import com.vixcart.admin.req.mod.GetMembers;
+import com.vixcart.admin.req.mod.GetProductType;
+import com.vixcart.admin.req.mod.GetProductTypes;
+import com.vixcart.admin.req.mod.GetSpecification;
+import com.vixcart.admin.req.mod.GetSubCategory;
+import com.vixcart.admin.req.mod.GetSuperCategory;
+import com.vixcart.admin.req.mod.GetTaC;
+import com.vixcart.admin.req.mod.LoadSpecifications;
+import com.vixcart.admin.req.mod.NewPassword;
+import com.vixcart.admin.req.mod.ResetAffiliateUser;
+import com.vixcart.admin.req.mod.SearchBrand;
+import com.vixcart.admin.req.mod.SearchProductType;
+import com.vixcart.admin.req.mod.UpdateAffiliate;
+import com.vixcart.admin.req.mod.UpdateBPaC;
+import com.vixcart.admin.req.mod.UpdateBrand;
+import com.vixcart.admin.req.mod.UpdateCategory;
+import com.vixcart.admin.req.mod.UpdateProductType;
+import com.vixcart.admin.req.mod.UpdateSpecification;
+import com.vixcart.admin.req.mod.UpdateSubCategory;
+import com.vixcart.admin.req.mod.UpdateSuperCategory;
+import com.vixcart.admin.req.mod.UpdateTaC;
+import com.vixcart.admin.req.mod.UpdateUserType;
+import com.vixcart.admin.resp.mod.AffiliateCompany;
+import com.vixcart.admin.resp.mod.AffiliateDetails;
+import com.vixcart.admin.resp.mod.AffiliateRequest;
+import com.vixcart.admin.resp.mod.AffiliateRequests;
+import com.vixcart.admin.resp.mod.AffiliateUserDetails;
+import com.vixcart.admin.resp.mod.AllAffiliates;
+import com.vixcart.admin.resp.mod.AllPremiumPayments;
+import com.vixcart.admin.resp.mod.BPaC;
+import com.vixcart.admin.resp.mod.Brand;
+import com.vixcart.admin.resp.mod.Category;
+import com.vixcart.admin.resp.mod.MemberAllDetails;
+import com.vixcart.admin.resp.mod.MemberDetails;
+import com.vixcart.admin.resp.mod.PremiumPayments;
+import com.vixcart.admin.resp.mod.ProductType;
+import com.vixcart.admin.resp.mod.ProductTypes;
+import com.vixcart.admin.resp.mod.Specifications;
+import com.vixcart.admin.resp.mod.SubCategory;
+import com.vixcart.admin.resp.mod.SuperCategory;
+import com.vixcart.admin.resp.mod.SuperUserType;
+import com.vixcart.admin.resp.mod.TaC;
+import com.vixcart.admin.resp.mod.User;
+import com.vixcart.admin.resp.mod.UserDetails;
+import com.vixcart.admin.resp.mod.UserIds;
+import com.vixcart.admin.resp.mod.UserType;
+import com.vixcart.admin.resp.mod.UserType1;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -681,7 +755,7 @@ public class DBConnect {
         if (rs.next()) {
             ad = new AffiliateDetails(rs.getString("company"), rs.getString("max_premium_payment"), rs.getString("company_factor"), rs.getString("status"));
         } else {
-            ad = new AffiliateDetails("invalid", "invalid", "invalid", "invalid");
+            ad = new AffiliateDetails();
         }
         rs.close();
         ps.close();
@@ -1690,6 +1764,139 @@ public class DBConnect {
         int c = ps.executeUpdate();
         ps.close();
         return c == 1;
+    }
+
+    public boolean checkMemberMobile(String mobile) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("SELECT count(*) FROM members WHERE member_mobile = ?");
+        ps.setString(1, mobile);
+        rs = ps.executeQuery();
+        rs.next();
+        int c = rs.getInt(1);
+        rs.close();
+        ps.close();
+        return c == 0;
+    }
+
+    public boolean checkMemberEmail(String email) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("SELECT count(*) FROM members WHERE member_email = ?");
+        ps.setString(1, email);
+        rs = ps.executeQuery();
+        rs.next();
+        int c = rs.getInt(1);
+        rs.close();
+        ps.close();
+        return c == 0;
+    }
+
+    public String getNewMemberId() throws SQLException {
+        PreparedStatement ps = con.prepareStatement("SELECT affiliate_user_id FROM member_logger");
+        ArrayList<String> al = new ArrayList<>();
+        String new_member_id = "";
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            al.add(rs.getString(1));
+        }
+        rs.close();
+        ps.close();
+        Random random = new Random();
+        new_member_id = "" + (random.nextInt(9999999) + 45573456);
+        while (al.contains(new_member_id)) {
+            new_member_id = "" + (random.nextInt(9999999) + 45573456);
+        }
+        return new_member_id;
+    }
+
+    public void addMember(AddMember req) throws SQLException {
+        addMemberDetails(req);
+        addMemberLogin(req);
+    }
+
+    private void addMemberDetails(AddMember req) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("INSERT INTO member(member_id,member_type,member_name,member_email,member_mobile,member_date) VALUES(?,?,?,?,?,NOW())");
+        ps.setString(1, req.getNew_member_id());
+        ps.setString(2, req.getmType());
+        ps.setString(3, req.getName());
+        ps.setString(4, req.getEmail());
+        ps.setString(5, req.getMobile());
+        ps.executeUpdate();
+        ps.close();
+    }
+
+    private void addMemberLogin(AddMember req) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("INSERT INTO member_login(member_id,password,salt,last_logged) VALUES (?,?,?,NOW())");
+        ps.setString(1, req.getNew_member_id());
+        ps.setString(2, req.getPassword());
+        ps.setString(3, req.getSalt());
+        ps.executeUpdate();
+        ps.close();
+    }
+
+    public void removeMember(String new_member_id) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("DELETE FROM member WHERE member_id = ?");
+        ps.setString(1, new_member_id);
+        ps.executeUpdate();
+        ps.close();
+    }
+
+    public void getMemberDetails(GetMembers req, ArrayList<MemberDetails> md) throws SQLException {
+        PreparedStatement ps = null;
+        int me = Integer.parseInt(req.getMaxEntries());
+        int pn = Integer.parseInt(req.getPageNo());
+        int start = (pn - 1) * me;
+        switch (req.getQueryType()) {
+            case "member":
+                ps = con.prepareStatement("SELECT a.member_id,a.member_name,b.product_month_uploaded,b.product_day_updated,b.amount_pending,a.member_status FROM members a INNER JOIN member_report b ON a.member_id = b.member_id WHERE member_id = ? LIMIT ?,?");
+                ps.setString(1, req.getQuery());
+                ps.setInt(2, start);
+                ps.setInt(3, me);
+                break;
+            case "all":
+                ps = con.prepareStatement("SELECT a.member_id,a.member_name,b.product_month_uploaded,b.product_day_updated,b.amount_pending,a.member_status FROM members a INNER JOIN member_report b ON a.member_id = b.member_id LIMIT ?,?");
+                ps.setInt(1, start);
+                ps.setInt(2, me);
+                break;
+        }
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            MemberDetails mds = new MemberDetails(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),rs.getString(6));
+            md.add(mds);
+        }
+        rs.close();
+        ps.close();
+    }
+
+    public boolean checkMemberId(String param) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("SELECT count(*) FROM member_logger WHERE member_id = ?");
+        ps.setString(1, param);
+        rs = ps.executeQuery();
+        rs.next();
+        int c = rs.getInt(1);
+        rs.close();
+        ps.close();
+        return c == 1;
+    }
+
+    public boolean changeMemberStatus(String member_id, String status) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("UPDATE member SET member_status = ? WHERE member_id = ?");
+        ps.setString(1, status);
+        ps.setString(2, member_id);
+        int c = ps.executeUpdate();
+        return c == 1;
+    }
+
+    public MemberAllDetails getMemberAllDetails(String member_id) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM member_profile WHERE member_id = ?");
+        ps.setString(1, member_id);
+        rs = ps.executeQuery();
+        MemberAllDetails ad;
+        if (rs.next()) {
+            ad = new MemberAllDetails(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getString(15), rs.getString(16), rs.getString(17), rs.getString(18), rs.getString(19), rs.getString(20), rs.getString(21), rs.getString(22), rs.getString(23), rs.getString(24), rs.getString(25), rs.getString(26), rs.getString(27), rs.getString(28), rs.getString(29), rs.getString(30), rs.getString(31), rs.getString(32), rs.getString(33), rs.getString(34));
+        } else {
+            ad = new MemberAllDetails();
+        }
+        rs.close();
+        ps.close();
+        return ad;
     }
 
 }

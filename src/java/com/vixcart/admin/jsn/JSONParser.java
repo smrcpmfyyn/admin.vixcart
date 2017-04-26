@@ -15,11 +15,13 @@ import com.vixcart.admin.req.mod.AffiliateActivityFilter;
 import com.vixcart.admin.resp.mod.Activity;
 import com.vixcart.admin.resp.mod.AffiliateActivity;
 import com.vixcart.admin.resp.mod.Affiliates;
+import com.vixcart.admin.resp.mod.MemberID;
 import com.vixcart.admin.result.AddAffiliateResult;
 import com.vixcart.admin.result.AddAffiliateUserResult;
 import com.vixcart.admin.result.AddBaCResult;
 import com.vixcart.admin.result.AddBrandResult;
 import com.vixcart.admin.result.AddCategoryResult;
+import com.vixcart.admin.result.AddMemberResult;
 import com.vixcart.admin.result.AddPremiumPaymentResult;
 import com.vixcart.admin.result.AddProductTypeResult;
 import com.vixcart.admin.result.AddSpecificationResult;
@@ -30,6 +32,7 @@ import com.vixcart.admin.result.AddUserResult;
 import com.vixcart.admin.result.AddUserTypeResult;
 import com.vixcart.admin.result.ChangeAffiliateRequestStatusResult;
 import com.vixcart.admin.result.ChangeAffiliateUserStatusResult;
+import com.vixcart.admin.result.ChangeMemberStatusResult;
 import com.vixcart.admin.result.CheckUserIDResult;
 import com.vixcart.admin.result.CheckUserTypeResult;
 import com.vixcart.admin.result.DeleteAffiliateResult;
@@ -61,6 +64,8 @@ import com.vixcart.admin.result.GetBPaCResult;
 import com.vixcart.admin.result.GetBrandResult;
 import com.vixcart.admin.result.GetCategoriesResult;
 import com.vixcart.admin.result.GetCategoryResult;
+import com.vixcart.admin.result.GetMemberResult;
+import com.vixcart.admin.result.GetMembersResult;
 import com.vixcart.admin.result.GetNoOfMembersResult;
 import com.vixcart.admin.result.GetNoOfWebsitesResult;
 import com.vixcart.admin.result.GetPinResult;
@@ -81,6 +86,7 @@ import com.vixcart.admin.result.RPResult;
 import com.vixcart.admin.result.ResetAffiliateUserResult;
 import com.vixcart.admin.result.SearchAffiliatesResult;
 import com.vixcart.admin.result.SearchBrandResult;
+import com.vixcart.admin.result.SearchMemberIDsResult;
 import com.vixcart.admin.result.SearchProductTypeResult;
 import com.vixcart.admin.result.SuperUserTypesResult;
 import com.vixcart.admin.result.UpdateAffiliateResult;
@@ -643,6 +649,42 @@ public final class JSONParser {
     public static ChangeAffiliateRequestStatusResult parseJSONCARSR(String reqv) throws IOException {
         ChangeAffiliateRequestStatusResult res;
         res = MAPPER.readValue(reqv, ChangeAffiliateRequestStatusResult.class);
+        return res;
+    }
+
+    public static AddMemberResult parseJSONAMR(String reqv) throws IOException {
+        AddMemberResult res;
+        res = MAPPER.readValue(reqv, AddMemberResult.class);
+        return res;
+    }
+
+    public static SearchMemberIDsResult parseJSONSM(String reqv) throws IOException {
+        SearchMemberIDsResult res;
+        res = MAPPER.readValue(reqv, SearchMemberIDsResult.class);
+        return res;
+    }
+
+    public static MemberID parseJSONMID(String mid) throws IOException {
+        MemberID res;
+        res = MAPPER.readValue(mid, MemberID.class);
+        return res;
+    }
+
+    public static GetMembersResult parseJSONGMR(String reqv) throws IOException {
+        GetMembersResult res;
+        res = MAPPER.readValue(reqv, GetMembersResult.class);
+        return res;
+    }
+
+    public static ChangeMemberStatusResult parseJSONCMSR(String reqv) throws IOException {
+        ChangeMemberStatusResult res;
+        res = MAPPER.readValue(reqv, ChangeMemberStatusResult.class);
+        return res;
+    }
+
+    public static GetMemberResult parseJSONGM(String reqv) throws IOException {
+        GetMemberResult res;
+        res = MAPPER.readValue(reqv, GetMemberResult.class);
         return res;
     }
 

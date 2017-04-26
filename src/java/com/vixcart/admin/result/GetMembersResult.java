@@ -15,10 +15,11 @@ import com.vixcart.admin.message.ValidationMsg;
  * @company techvay
  * @author rifaie
  */
-public class SearchAffiliatesResult implements Result{
+public class GetMembersResult implements Result{
     private String at;
     private String admintype;
-    private String str;
+    private String query;
+    private String offset;
     private String reqValidation;
 
     public String getAt() {
@@ -29,20 +30,28 @@ public class SearchAffiliatesResult implements Result{
         this.at = at;
     }
 
-    public String getStr() {
-        return str;
-    }
-
-    public void setStr(String str) {
-        this.str = str;
-    }
-
     public String getAdmintype() {
         return admintype;
     }
 
     public void setAdmintype(String admintype) {
         this.admintype = admintype;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
+    public String getOffset() {
+        return offset;
+    }
+
+    public void setOffset(String offset) {
+        this.offset = offset;
     }
 
     public String getReqValidation() {
@@ -80,9 +89,12 @@ public class SearchAffiliatesResult implements Result{
             error += "at#";
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
-        }else{
-            if(str.startsWith(ErrMsg.ERR_MESSAGE)){
-                error += "str";
+        } else {
+            if (query.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "query#";
+            }
+            if (offset.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "offset#";
             }
         }
         return error.substring(0, error.length() - 1);

@@ -3,30 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.vixcart.admin.resp.mod;
 
 import com.vixcart.admin.message.ResponseMsg;
-import com.vixcart.admin.result.SearchAffiliatesResult;
+import com.vixcart.admin.result.GetMemberResult;
 
 /**
  * @company techvay
  * @author rifaie
  */
-public class SearchAffiliatesFailiureResponse {
-
-    private final SearchAffiliatesResult reqR;
+public class GetMemberFailureResponse {
+    private final GetMemberResult reqR;
     private final String error;
 
-    public SearchAffiliatesFailiureResponse(SearchAffiliatesResult reqR, String error) {
+    public GetMemberFailureResponse(GetMemberResult reqR, String error) {
         this.reqR = reqR;
         this.error = error;
     }
-
+    
     @Override
     public String toString() {
-        String json = "\"status\":\"" + ResponseMsg.RESP_NOT_OK + "\",";
+        String json = "\"status\":\""+ResponseMsg.RESP_NOT_OK + "\",";
         String[] errors = error.split("#");
-
+        
         String resp;
         for (int i = 1; i < errors.length; i++) {
             String parameter = errors[i];
@@ -41,9 +41,9 @@ public class SearchAffiliatesFailiureResponse {
                     resp = admType.substring(admType.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
-                case "str":
-                    String str = reqR.getStr();
-                    resp = str.substring(str.lastIndexOf(" ") + 1);
+                case "mid":
+                    String mid = reqR.getMid();
+                    resp = mid.substring(mid.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
             }
@@ -52,3 +52,4 @@ public class SearchAffiliatesFailiureResponse {
         return "{" + json + "}";
     }
 }
+

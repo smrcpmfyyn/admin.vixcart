@@ -3,17 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.vixcart.admin.validation;
 
 import com.vixcart.admin.db.DB;
 import com.vixcart.admin.db.DBConnect;
 import com.vixcart.admin.db.MongoConnect;
-import com.vixcart.admin.intfc.validation.AddAffiliateUserValidator;
+import com.vixcart.admin.intfc.validation.GetMembersValidator;
 import com.vixcart.admin.message.CorrectMsg;
 import com.vixcart.admin.message.ErrMsg;
 import com.vixcart.admin.mongo.mod.AdminID;
 import com.vixcart.admin.regx.RegX;
-import com.vixcart.admin.req.mod.AddAffiliateUser;
+import com.vixcart.admin.req.mod.GetMembers;
 import java.sql.SQLException;
 import java.util.HashSet;
 
@@ -21,70 +22,42 @@ import java.util.HashSet;
  * @company techvay
  * @author rifaie
  */
-public class AddAffiliateUserConstraints implements AddAffiliateUserValidator {
+public class GetMembersConstraints implements GetMembersValidator {
 
-    private final AddAffiliateUser req;
+    private final GetMembers req;
     private final DBConnect dbc;
     private final MongoConnect mdbc;
 
-    public AddAffiliateUserConstraints(AddAffiliateUser au) throws Exception {
-        this.req = au;
+    public GetMembersConstraints(GetMembers req) throws Exception {
+        this.req = req;
         this.mdbc = DB.getMongoConnection();
         this.dbc = DB.getConnection();
     }
 
     @Override
-    public String validateAffiliate() throws Exception {
-        String valid = ErrMsg.ERR_COMPANY;
+    public String validateQuery() throws Exception {
+        String valid = ErrMsg.ERR_QUERY;
         String regX = RegX.REGX_COMPANY;
-        String company = req.getAffiliate();
-        if (validate(company, regX)) {
-            if (dbc.checkCompany(company) == 1) {
-                valid = CorrectMsg.CORRECT_COMPANY;
+        String query = req.getQuery();
+        if (validate(query, regX)) {
+            String queryType = mdbc.getSearchMemeberQueryType(query);
+            if (!queryType.equals("nothing")) {
+                valid = CorrectMsg.CORRECT_QUERY;
+                req.setQueryType(queryType);
             } else {
-                valid = ErrMsg.ERR_COMPANY_NOT_EXISTS;
+                valid = ErrMsg.ERR_QUERY_NO_RESULT;
             }
         }
         return valid;
     }
 
     @Override
-    public String validateName() throws Exception {
-        String valid = ErrMsg.ERR_NAME;
-        String regX = RegX.REGX_STRING;
-        String name = req.getName();
-        if (validate(name, regX)) {
-            valid = CorrectMsg.CORRECT_NAME;
-        }
-        return valid;
-    }
-
-    @Override
-    public String validateMobile() throws Exception {
-        String valid = ErrMsg.ERR_MOBILE;
-        String regX = RegX.REGX_MOBILE;
-        String mobile = req.getMobile();
-        if (validate(mobile, regX)) {
-            if (dbc.checkAffiliateUserMobile(mobile) == 0) {
-                valid = CorrectMsg.CORRECT_MOBILE;
-            } else {
-                valid = ErrMsg.ERR_MOBILE_EXISTS;
-            }
-        }
-        return valid;
-    }
-
-    @Override
-    public String validateEmail() throws Exception {
-        String valid = ErrMsg.ERR_EMAIL;
-        String regX = RegX.REGX_EMAIL;
-        String email = req.getEmail();
-        if (validate(email, regX)) {
-            if (dbc.checkAffiliateUserEmail(email) == 0) {
-                req.setNew_user_id(dbc.getNewAffiliateUserId());
-                valid = CorrectMsg.CORRECT_EMAIL;
-            } else {
-                valid = ErrMsg.ERR_EMAIL_EXISTS;
+    public String validateOffset() throws Exception {
+        String valid = ErrMsg.ERR_OFFSET;
+        String regx = RegX.REGX_DIGIT;
+        if (validate(req.getPageNo(), regx)) {
+            if (validate(req.getMaxEntries(), regx)) {
+                valid = CorrectMsg.CORRECT_OFFSET;
             }
         }
         return valid;
@@ -99,7 +72,7 @@ public class AddAffiliateUserConstraints implements AddAffiliateUserValidator {
             if (dbc.checkNBAdminID(admin.getProfile_id())) {
                 valid = CorrectMsg.CORRECT_ACCESS_TOKEN;
                 req.setAdmin_id(admin.getProfile_id());
-                req.setType(admin.getType());
+                req.setUtype(admin.getType());
             } else {
                 valid = ErrMsg.ERR_AT_BLOCKED;
             }
@@ -110,7 +83,7 @@ public class AddAffiliateUserConstraints implements AddAffiliateUserValidator {
     @Override
     public String validateUserType(String adminType) throws Exception {
         String valid = ErrMsg.ERR_ADMIN_TYPE;
-        HashSet<String> types = dbc.getSubTypes(req.getType());
+        HashSet<String> types = dbc.getSubTypes(req.getUtype());
         if (types.contains(adminType)) {
             valid = CorrectMsg.CORRECT_ADMIN_TYPE;
         }
@@ -129,7 +102,6 @@ public class AddAffiliateUserConstraints implements AddAffiliateUserValidator {
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
-        mdbc.closeConnection();
     }
-
 }
+

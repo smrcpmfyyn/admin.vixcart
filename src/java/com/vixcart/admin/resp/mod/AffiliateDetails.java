@@ -16,13 +16,22 @@ public class AffiliateDetails {
     private final String mpp;
     private final String cf;
     
+    
+    public AffiliateDetails() {
+        this.company = "invalid";
+        this.status = "invalid";
+        this.mpp = "invalid";
+        this.cf = "invalid";
+    }
 
-    public AffiliateDetails(String company, String mpp, String cf, String status) {
+    public AffiliateDetails(String company, String status, String mpp, String cf) {
         this.company = company;
         this.status = status;
         this.mpp = mpp;
         this.cf = cf;
     }
+    
+    
 
     public String getCompany() {
         return company;

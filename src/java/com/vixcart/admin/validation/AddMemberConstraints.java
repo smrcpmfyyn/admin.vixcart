@@ -3,17 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.vixcart.admin.validation;
 
 import com.vixcart.admin.db.DB;
 import com.vixcart.admin.db.DBConnect;
 import com.vixcart.admin.db.MongoConnect;
-import com.vixcart.admin.intfc.validation.AddAffiliateUserValidator;
+import com.vixcart.admin.intfc.validation.AddMemberValidator;
 import com.vixcart.admin.message.CorrectMsg;
 import com.vixcart.admin.message.ErrMsg;
 import com.vixcart.admin.mongo.mod.AdminID;
 import com.vixcart.admin.regx.RegX;
-import com.vixcart.admin.req.mod.AddAffiliateUser;
+import com.vixcart.admin.req.mod.AddMember;
 import java.sql.SQLException;
 import java.util.HashSet;
 
@@ -21,29 +22,27 @@ import java.util.HashSet;
  * @company techvay
  * @author rifaie
  */
-public class AddAffiliateUserConstraints implements AddAffiliateUserValidator {
+public class AddMemberConstraints implements AddMemberValidator {
 
-    private final AddAffiliateUser req;
+    private final AddMember req;
     private final DBConnect dbc;
     private final MongoConnect mdbc;
 
-    public AddAffiliateUserConstraints(AddAffiliateUser au) throws Exception {
+    public AddMemberConstraints(AddMember au) throws Exception {
         this.req = au;
         this.mdbc = DB.getMongoConnection();
         this.dbc = DB.getConnection();
     }
 
     @Override
-    public String validateAffiliate() throws Exception {
-        String valid = ErrMsg.ERR_COMPANY;
-        String regX = RegX.REGX_COMPANY;
-        String company = req.getAffiliate();
-        if (validate(company, regX)) {
-            if (dbc.checkCompany(company) == 1) {
-                valid = CorrectMsg.CORRECT_COMPANY;
-            } else {
-                valid = ErrMsg.ERR_COMPANY_NOT_EXISTS;
-            }
+    public String validateMType() throws Exception {
+        String valid = ErrMsg.ERR_MTYPE;
+        String regX = RegX.REGX_DIGIT;
+        String mtype = req.getmType();
+        if (validate(mtype, regX)) {
+            if (mtype.equals("1")||mtype.equals("2")) {
+                valid = CorrectMsg.CORRECT_MTYPE;
+            } 
         }
         return valid;
     }
@@ -65,7 +64,7 @@ public class AddAffiliateUserConstraints implements AddAffiliateUserValidator {
         String regX = RegX.REGX_MOBILE;
         String mobile = req.getMobile();
         if (validate(mobile, regX)) {
-            if (dbc.checkAffiliateUserMobile(mobile) == 0) {
+            if (dbc.checkMemberMobile(mobile)) {
                 valid = CorrectMsg.CORRECT_MOBILE;
             } else {
                 valid = ErrMsg.ERR_MOBILE_EXISTS;
@@ -80,8 +79,8 @@ public class AddAffiliateUserConstraints implements AddAffiliateUserValidator {
         String regX = RegX.REGX_EMAIL;
         String email = req.getEmail();
         if (validate(email, regX)) {
-            if (dbc.checkAffiliateUserEmail(email) == 0) {
-                req.setNew_user_id(dbc.getNewAffiliateUserId());
+            if (dbc.checkMemberEmail(email)) {
+                req.setNew_member_id(dbc.getNewMemberId());
                 valid = CorrectMsg.CORRECT_EMAIL;
             } else {
                 valid = ErrMsg.ERR_EMAIL_EXISTS;
@@ -133,3 +132,4 @@ public class AddAffiliateUserConstraints implements AddAffiliateUserValidator {
     }
 
 }
+

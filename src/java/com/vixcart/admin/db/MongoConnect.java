@@ -30,6 +30,7 @@ import com.vixcart.admin.mongo.mod.UUA;
 import com.vixcart.admin.mongo.mod.VerifyToken;
 import com.vixcart.admin.req.mod.ActivityFilter;
 import com.vixcart.admin.req.mod.AddAffiliateUser;
+import com.vixcart.admin.req.mod.AddMember;
 import com.vixcart.admin.req.mod.AddUser;
 import com.vixcart.admin.req.mod.AffiliateActivityFilter;
 import com.vixcart.admin.req.mod.EditUser;
@@ -39,6 +40,7 @@ import com.vixcart.admin.req.mod.NewPassword;
 import com.vixcart.admin.resp.mod.Activity;
 import com.vixcart.admin.resp.mod.AffiliateActivity;
 import com.vixcart.admin.resp.mod.Affiliates;
+import com.vixcart.admin.resp.mod.MemberID;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -475,11 +477,7 @@ public class MongoConnect {
         at.insertOne(doc);
     }
 
-    public void addAffiliateUser(String company) {
-        MongoCollection<Document> at = db.getCollection("search_affiliate");
-        Document doc = new Document("query", "" + company).append("query_type", "user");
-        at.insertOne(doc);
-    }
+    
 
     public ArrayList<Affiliates> searchAffiliates(String str) throws IOException {
         Pattern p = Pattern.compile(str + "\\w*");
@@ -523,6 +521,12 @@ public class MongoConnect {
     private void addAUPasswordToken(String new_user_id, String passwordToken) {
         MongoCollection<Document> at = db.getCollection("affiliate_user_password_token");
         Document doc = new Document("user_id", new_user_id).append("token", passwordToken).append("toe", "" + (System.currentTimeMillis() + 300000)).append("status", "not changed");
+        at.insertOne(doc);
+    }
+    
+    public void addAffiliateUser(String company) {
+        MongoCollection<Document> at = db.getCollection("search_affiliate");
+        Document doc = new Document("query", "" + company).append("query_type", "user");
         at.insertOne(doc);
     }
 
@@ -649,6 +653,89 @@ public class MongoConnect {
 
     private void addAffFilter(String aff, ArrayList<Bson> filters) {
         filters.add(eq("affiliate", aff));
+    }
+
+    public void addMember(AddMember req) {
+        Random ran = new Random();
+        String token = "" + System.currentTimeMillis() + ran.nextLong();
+        String type = "";
+        switch(req.getmType()){
+            case "1":
+                type = "part time";
+                break;
+            case "2":
+                type = "full time";
+                break;
+            case "3":
+                type = "none";
+                break;
+        }
+        addMAT(req.getNew_member_id(), token, type);
+        addMPasswordToken(req.getNew_member_id(), req.getPasswordToken());
+        addMemberUser(req.getNew_member_id());
+    }
+
+    private void addMAT(String member_id, String token, String user_type) {
+        MongoCollection<Document> at = db.getCollection("member_access_token");
+        Document doc = new Document("member_id", "" + member_id).append("token", token).append("user_type", user_type).append("status", "not logged");
+        at.insertOne(doc);
+    }
+
+    private void addMPasswordToken(String new_user_id, String passwordToken) {
+        MongoCollection<Document> at = db.getCollection("member_password_token");
+        Document doc = new Document("member_id", new_user_id).append("token", passwordToken).append("toe", "" + (System.currentTimeMillis() + 300000)).append("status", "not changed");
+        at.insertOne(doc);
+    }
+    
+    public void addMemberUser(String query) {
+        MongoCollection<Document> at = db.getCollection("search_member");
+        Document doc = new Document("query", "" + query).append("query_type", "member");
+        at.insertOne(doc);
+    }
+
+    public void removeMember(String new_user_id) {
+        removeMAT(new_user_id);
+        removeMPasswordToken(new_user_id);
+        removeMQuery(new_user_id);
+    }
+
+    private void removeMAT(String new_user_id) {
+        MongoCollection<Document> otp = db.getCollection("member_access_token");
+        otp.findOneAndDelete(Filters.eq("member_id", "" + new_user_id));
+    }
+
+    private void removeMPasswordToken(String new_user_id) {
+        MongoCollection<Document> otp = db.getCollection("member_password_token");
+        otp.findOneAndDelete(Filters.eq("member_id", "" + new_user_id));
+    }
+
+    private void removeMQuery(String new_user_id) {
+        MongoCollection<Document> otp = db.getCollection("search_member");
+        otp.findOneAndDelete(Filters.eq("query", "" + new_user_id));
+    }
+
+    public ArrayList<MemberID> searchMemberIDs(String str) throws IOException {
+        Pattern p = Pattern.compile(str + "\\w*");
+        ArrayList<MemberID> qRes = new ArrayList<>();
+        MongoCollection<Document> fgp = db.getCollection("search_member");
+        FindIterable<Document> find = fgp.find(Filters.regex("query", p)).limit(7).projection(exclude("query_type", "_id"));
+        MongoCursor<Document> itr = find.iterator();
+        while (itr.hasNext()) {
+            MemberID af = JSONParser.parseJSONMID(itr.next().toJson());
+            qRes.add(af);
+        }
+        return qRes;
+    }
+
+    public String getSearchMemeberQueryType(String query) {
+        String queryType = "nothing";
+        MongoCollection<Document> fgp = db.getCollection("search_member");
+        FindIterable<Document> find = fgp.find(Filters.eq("query", query)).limit(7).projection(exclude("query", "_id"));
+        MongoCursor<Document> itr = find.iterator();
+        if (itr.hasNext()) {
+            queryType = itr.next().getString("query_type");
+        }
+        return queryType;
     }
 
 }

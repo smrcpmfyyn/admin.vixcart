@@ -3,21 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.vixcart.admin.resp.mod;
 
 import com.vixcart.admin.message.ResponseMsg;
-import com.vixcart.admin.result.SearchAffiliatesResult;
+import com.vixcart.admin.result.GetMembersResult;
 
 /**
  * @company techvay
  * @author rifaie
  */
-public class SearchAffiliatesFailiureResponse {
+public class GetMembersFailureResponse {
 
-    private final SearchAffiliatesResult reqR;
+    private final GetMembersResult reqR;
     private final String error;
 
-    public SearchAffiliatesFailiureResponse(SearchAffiliatesResult reqR, String error) {
+    public GetMembersFailureResponse(GetMembersResult reqR, String error) {
         this.reqR = reqR;
         this.error = error;
     }
@@ -41,9 +42,14 @@ public class SearchAffiliatesFailiureResponse {
                     resp = admType.substring(admType.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
-                case "str":
-                    String str = reqR.getStr();
-                    resp = str.substring(str.lastIndexOf(" ") + 1);
+                case "offset":
+                    String offset = reqR.getOffset();
+                    resp = offset.substring(offset.lastIndexOf(" ") + 1);
+                    json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
+                    break;
+                case "query":
+                    String query = reqR.getQuery();
+                    resp = query.substring(query.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
             }
@@ -52,3 +58,4 @@ public class SearchAffiliatesFailiureResponse {
         return "{" + json + "}";
     }
 }
+

@@ -3,28 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.vixcart.admin.resp.mod;
+
+import java.util.ArrayList;
 
 /**
  * @company techvay
  * @author rifaie
  */
-public class GetAffiliateSuccessResponse {
-
+public class SearchMemberIDsSuccessResponse {
     private final String status;
     private final String accessToken;
-    private final AffiliateDetails ad;
+    private ArrayList<MemberID> mids;
 
-    public GetAffiliateSuccessResponse(String status, String accessToken) {
+    public SearchMemberIDsSuccessResponse(String status, String accessToken) {
         this.status = status;
         this.accessToken = accessToken;
-        this.ad = new AffiliateDetails();
+        this.mids = new ArrayList<>();
     }
 
-    public GetAffiliateSuccessResponse(String status, String accessToken, AffiliateDetails ud) {
+    public SearchMemberIDsSuccessResponse(String status, String accessToken, ArrayList<MemberID> mids) {
         this.status = status;
         this.accessToken = accessToken;
-        this.ad = ud;
+        this.mids = mids;
     }
 
     public String getStatus() {
@@ -35,19 +37,16 @@ public class GetAffiliateSuccessResponse {
         return accessToken;
     }
 
-    public AffiliateDetails getAd() {
-        return ad;
+    public ArrayList<MemberID> getMemberIDs() {
+        return mids;
     }
-
+    
     @Override
     public String toString() {
-        String response = "";
-        if (ad.getCompany().equals("invalid")) {
-            response = "{\"status\":\"" + status + "\"}";
-        } else {
-            response = "{\"status\":\"" + status + "\",\"ad\":" + ad.toString();
-            response += "}";
-        }
+        String response = "{\"status\":\""+status + "\",\"affiliates\":[ ";
+        response = mids.stream().map((MemberID mid) -> mid.toString()+",").reduce(response, String::concat);
+        response = response.substring(0, response.length()-1);
+        response += "]}";
         return response;
     }
 }

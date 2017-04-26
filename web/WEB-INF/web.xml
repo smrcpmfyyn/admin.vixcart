@@ -28,6 +28,26 @@
         <servlet-name>changeAffiliateRequestStatus</servlet-name>
         <servlet-class>com.vixcart.admin.controller.changeAffiliateRequestStatus</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addMember</servlet-name>
+        <servlet-class>com.vixcart.admin.controller.addMember</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>searchMemberIDs</servlet-name>
+        <servlet-class>com.vixcart.admin.controller.searchMemberIDs</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getMembers</servlet-name>
+        <servlet-class>com.vixcart.admin.controller.getMembers</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>changeMemberStatus</servlet-name>
+        <servlet-class>com.vixcart.admin.controller.changeMemberStatus</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getMember</servlet-name>
+        <servlet-class>com.vixcart.admin.controller.getMember</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loadSpecifications</servlet-name>
         <url-pattern>/loadSpecifications</url-pattern>
@@ -687,6 +707,26 @@
     <servlet-mapping>
         <servlet-name>changeAffiliateRequestStatus</servlet-name>
         <url-pattern>/changeAffiliateRequestStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addMember</servlet-name>
+        <url-pattern>/addMember</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>searchMemberIDs</servlet-name>
+        <url-pattern>/searchMemberIDs</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getMembers</servlet-name>
+        <url-pattern>/getMembers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>changeMemberStatus</servlet-name>
+        <url-pattern>/changeMemberStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getMember</servlet-name>
+        <url-pattern>/getMember</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

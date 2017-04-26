@@ -15,10 +15,11 @@ import com.vixcart.admin.message.ValidationMsg;
  * @company techvay
  * @author rifaie
  */
-public class SearchAffiliatesResult implements Result{
+public class ChangeMemberStatusResult implements Result {
     private String at;
     private String admintype;
-    private String str;
+    private String mid;
+    private String status;
     private String reqValidation;
 
     public String getAt() {
@@ -29,20 +30,28 @@ public class SearchAffiliatesResult implements Result{
         this.at = at;
     }
 
-    public String getStr() {
-        return str;
-    }
-
-    public void setStr(String str) {
-        this.str = str;
-    }
-
     public String getAdmintype() {
         return admintype;
     }
 
     public void setAdmintype(String admintype) {
         this.admintype = admintype;
+    }
+
+    public String getMid() {
+        return mid;
+    }
+
+    public void setMid(String mid) {
+        this.mid = mid;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getReqValidation() {
@@ -80,9 +89,12 @@ public class SearchAffiliatesResult implements Result{
             error += "at#";
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
-        }else{
-            if(str.startsWith(ErrMsg.ERR_MESSAGE)){
-                error += "str";
+        } else {
+            if (mid.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "uid#";
+            }
+            if (status.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "status#";
             }
         }
         return error.substring(0, error.length() - 1);

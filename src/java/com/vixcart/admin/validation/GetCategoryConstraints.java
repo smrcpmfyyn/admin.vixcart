@@ -70,14 +70,15 @@ public class GetCategoryConstraints implements GetCategoryValidator {
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
     @Override
     public String validateCategId() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
-        String regX = RegX.REGX_STRING;
+        String valid = ErrMsg.ERR_CATEGORY;
+        String regX = RegX.REGX_DIGIT;
         String categid = req.getCategid();
         if (validate(categid, regX)) {
-            if (dbc.checkCategoryById(categid) == 0) {
+            if (dbc.checkCategoryById(categid) == 1) {
                 valid = CorrectMsg.CORRECT_CATEGORY;
             } else {
                 valid = ErrMsg.ERR_CATEGORY_NOT_EXISTS;

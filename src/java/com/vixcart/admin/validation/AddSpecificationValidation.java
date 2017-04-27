@@ -49,9 +49,9 @@ public class AddSpecificationValidation implements Validation{
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_SPECIFIC;
+            paramValue += CorrectMsg.CORRECT_ADD_SPECIFIC;
         } else {
-            paramValue += ErrMsg.ERR_SPECIFIC;
+            paramValue += ErrMsg.ERR_ADD_SPECIFIC;
         }
     }
     

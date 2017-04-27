@@ -70,14 +70,15 @@ public class GetProductTypeConstraints implements GetProductTypeValidator {
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
     @Override
     public String validatePtId() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
-        String regX = RegX.REGX_STRING;
-        String ptid = req.getPtid();
-        if (validate(ptid, regX)) {
-            if (dbc.checkPTypeId(ptid) == 0) {
+        String valid = ErrMsg.ERR_PTYPE;
+        String regX = RegX.REGX_DIGIT;
+        String param = req.getPtid();
+        if (validate(param, regX)) {
+            if (dbc.checkPTypeId(param) == 1) {
                 valid = CorrectMsg.CORRECT_PTYPE;
             } else {
                 valid = ErrMsg.ERR_PTYPE_NOT_EXISTS;

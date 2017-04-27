@@ -38,7 +38,7 @@ public class DeleteCategoryFailureResponse {
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
                 case "categ":
-                    String stype = req.getcateg();
+                    String stype = req.getCateg();
                     resp = stype.substring(stype.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;

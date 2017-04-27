@@ -68,12 +68,14 @@ public class changeAffiliateUserStatus extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
                     BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
                     bau.block();
                     ua.setEntryStatus("blocked");
+                } else {
+                    ua.setEntryStatus("invalid");
                 }
-                ua.setEntryStatus("invalid");
                 ChangeAffiliateUserStatusFailureResponse FResp = new ChangeAffiliateUserStatusFailureResponse(reqR, validSubmission);
                 out.write(FResp.toString());
             } else {

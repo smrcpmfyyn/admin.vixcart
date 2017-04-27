@@ -14,6 +14,14 @@ public class TaC {
     String online_visibility;
     String offline_visibility;
 
+    public TaC() {
+        this.id = "invalid";
+        this.product_type = "invalid";
+        this.category = "invalid";
+        this.online_visibility = "invalid";
+        this.offline_visibility = "invalid";
+    }
+
     public TaC(String id, String product_type, String category, String online_visibility, String offline_visibility) {
         this.id = id;
         this.product_type = product_type;
@@ -61,6 +69,13 @@ public class TaC {
     public void setOffline_visibility(String offline_visibility) {
         this.offline_visibility = offline_visibility;
     }
+
+    @Override
+    public String toString() {
+        return "{\"" + "id\":\"" + id + "\",\"ptype\":\"" + product_type+ "\",\"category\":\"" + category + "\",\"online_visibilty_status\":\"" + online_visibility + "\",\"offline_visibility_status\":\"" + offline_visibility + "\"}";
+    }
+    
+    
     
     
 }

@@ -56,7 +56,7 @@ public class getAffiliateRequest extends HttpServlet {
             reqV.validation();
             GetAffiliateRequestResult reqR = JSONParser.parseJSONGARR(reqV.toString());
             String validSubmission = reqR.getValidationResult();
-            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getUtype(), "get_affiliate", "management", "valid");
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getUtype(), "get_affiliate_request", "management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessGetAffiliateRequest process = new ProcessGetAffiliateRequest(req);
                 GetAffiliateRequestSuccessResponse SResp = process.processRequest();
@@ -71,15 +71,16 @@ public class getAffiliateRequest extends HttpServlet {
                     BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
                     bau.block();
                     ua.setEntryStatus("blocked");
+                    ua.addActivity();
                 } else {
-                    ua.setEntryStatus("invalid");
+//                    ua.setEntryStatus("invalid");
                 }
                 GetAffiliateRequestFailureResponse FResp = new GetAffiliateRequestFailureResponse(reqR, validSubmission);
                 out.write(FResp.toString());
             } else {
                 //exception response
             }
-            ua.addActivity();
+//            ua.addActivity();
             out.flush();
             out.close();
         } catch (Exception ex) {

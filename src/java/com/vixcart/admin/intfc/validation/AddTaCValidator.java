@@ -11,5 +11,7 @@ public interface AddTaCValidator extends EmpReportValidator {
     public String validatePType() throws Exception;
 
     public String validateCategory() throws Exception;
-
+    
+    public String validateTaC() throws Exception;
+ 
 }

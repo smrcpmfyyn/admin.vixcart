@@ -9,6 +9,8 @@ import com.vixcart.admin.req.mod.GetCategory;
 import com.vixcart.admin.resp.mod.GetCategoryFailureResponse;
 import com.vixcart.admin.resp.mod.GetCategorySuccessResponse;
 import com.vixcart.admin.result.GetCategoryResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.GetCategoryValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,13 +44,16 @@ public class getCategory extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             String categId = request.getParameter("categId");
             Cookie ck = Servlets.getCookie(request, "at");
-            String at = ck.getValue();
+            String at = "";
+            if (ck != null) {
+                at = ck.getValue();
+            }
             GetCategory req = new GetCategory(at, categId);
             GetCategoryValidation reqV = new GetCategoryValidation(req);
             reqV.validation();
-            System.out.println("addTypV = " + reqV);
             GetCategoryResult reqR = JSONParser.parseJSONGetCategory(reqV.toString());
             String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "get_category", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessGetCategory process = new ProcessGetCategory(req);
                 GetCategorySuccessResponse rSucc = process.processRequest();
@@ -59,9 +64,14 @@ public class getCategory extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+//                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(addTyp.getAdmin_id());
-//                    bau.block();
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+                    ua.addActivity();
+                } else {
+//                    ua.setEntryStatus("invalid");
                 }
                 GetCategoryFailureResponse rFail = new GetCategoryFailureResponse(reqR, validSubmission);
                 out.write(rFail.toString());

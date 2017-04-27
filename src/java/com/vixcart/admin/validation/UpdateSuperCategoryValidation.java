@@ -19,9 +19,7 @@ public class UpdateSuperCategoryValidation implements Validation {
 
     public UpdateSuperCategoryValidation(UpdateSuperCategory req) {
         this.req = req;
-    }
-    
-    
+    } 
     
     @Override
     public void validation() throws Exception {
@@ -33,9 +31,10 @@ public class UpdateSuperCategoryValidation implements Validation {
             valid += "#" + valid1;
             if (valid1.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 valid += "#" + auc.validateSuperCategory();
+                valid += "#" + auc.validateOnlineVisibilityStatus();
+                valid += "#" + auc.validateOfflineVisibilityStatus();
             }
         }
-        System.out.println("valid = " + valid);
         auc.closeConnection();
         int count = 0;
         for (String str : valid.split("#")) {
@@ -49,9 +48,9 @@ public class UpdateSuperCategoryValidation implements Validation {
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_SUPER_CATEGORY;
+            paramValue += CorrectMsg.CORRECT_UPDATE_SUPER_CATEGORY;
         } else {
-            paramValue += ErrMsg.ERR_SUPER_CATEGORY;
+            paramValue += ErrMsg.ERR_UPDATE_SUPER_CATEGORY;
         }
     }
 

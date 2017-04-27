@@ -67,7 +67,7 @@ public class ProcessGetCategory implements GetCategoryProcessor{
     public GetCategorySuccessResponse generateResponse(boolean status) {
         GetCategorySuccessResponse resp;
         if (status) {
-            resp = new GetCategorySuccessResponse(ResponseMsg.RESP_OK, accessToken);
+            resp = new GetCategorySuccessResponse(ResponseMsg.RESP_OK, accessToken,res);
         } else {
             resp = new GetCategorySuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken);
         }

@@ -45,8 +45,8 @@ public class ProcessGetAllTaC implements GetAllTaCProcessor{
 
     @Override
     public boolean getAllTaC() throws Exception {
-        res= dbc.getAllTaC(req.getNo(), req.getOffset());
-        return true;
+        res= dbc.getAllTaC(req.getPageNo(), req.getMaxEntries());
+        return !res.isEmpty();
     }
 
     @Override

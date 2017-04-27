@@ -70,14 +70,15 @@ public class GetTaCConstraints implements GetTaCValidator {
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
     @Override
     public String validateTacId() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
+        String valid = ErrMsg.ERR_TAC;
         String regX = RegX.REGX_DIGIT;
         String tacid = req.getTacid();
         if (validate(tacid, regX)) {
-            if (dbc.checkTacId(tacid) == 0) {
+            if (dbc.checkTacId(tacid) == 1) {
                 valid = CorrectMsg.CORRECT_TAC;
             } else {
                 valid = ErrMsg.ERR_TAC_NOT_EXISTS;

@@ -70,6 +70,7 @@ public class UpdateProductTypeConstraints implements UpdateProductTypeValidator 
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
     @Override
     public String validatePType() throws Exception {
@@ -87,40 +88,36 @@ public class UpdateProductTypeConstraints implements UpdateProductTypeValidator 
     }
     @Override
     public String validateOn_status() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
+        String valid = ErrMsg.ERR_ONLINE_VISIBILITY;
         String regX = RegX.REGX_DIGIT;
-        String category = req.getOn_status();
-        if (validate(category, regX)) {
-            if (dbc.checkVisibilityStatusById(category) == 0) {
+        String on_status = req.getOn_status();
+        if (validate(on_status, regX)) {
+            if (on_status.equals("1")||on_status.equals("2")) {
                 valid = CorrectMsg.CORRECT_ONLINE_VISIBILITY;
-            } else {
-                valid = ErrMsg.ERR_ONLINE_VISIBILITY_NOT_EXISTS;
-            }
+            } 
         }
         return valid;
     }
     @Override
     public String validateOff_status() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
+        String valid = ErrMsg.ERR_OFFLINE_VISIBILITY;
         String regX = RegX.REGX_DIGIT;
-        String category = req.getOff_status();
-        if (validate(category, regX)) {
-            if (dbc.checkVisibilityStatusById(category) == 0) {
+        String off_status = req.getOff_status();
+        if (validate(off_status, regX)) {
+            if (off_status.equals("1")||off_status.equals("2")) {
                 valid = CorrectMsg.CORRECT_OFFLINE_VISIBILITY;
-            } else {
-                valid = ErrMsg.ERR_OFFLINE_VISIBILITY_NOT_EXISTS;
-            }
+            } 
         }
         return valid;
     }
 
     @Override
     public String validatePTypeId() throws SQLException {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
+        String valid = ErrMsg.ERR_PTYPE;
         String regX = RegX.REGX_DIGIT;
-        String category = req.getpTypeid();
-        if (validate(category, regX)) {
-            if (dbc.checkPTypeId(category) == 0) {
+        String param = req.getpTypeid();
+        if (validate(param, regX)) {
+            if (dbc.checkPTypeId(param) == 1) {
                 valid = CorrectMsg.CORRECT_PTYPE;
             } else {
                 valid = ErrMsg.ERR_PTYPE_NOT_EXISTS;

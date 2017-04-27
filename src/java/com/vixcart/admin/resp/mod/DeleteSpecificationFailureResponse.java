@@ -39,13 +39,8 @@ private final DeleteSpecificationResult req;
                     resp = admType.substring(admType.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
-                case "ptype":
-                    String type = req.getPType();
-                    resp = type.substring(type.lastIndexOf(" ") + 1);
-                    json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
-                    break;
-                case "specific":
-                    type = req.getSpecific();
+                case "taspec":
+                    String type = req.getTaspec();
                     resp = type.substring(type.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;

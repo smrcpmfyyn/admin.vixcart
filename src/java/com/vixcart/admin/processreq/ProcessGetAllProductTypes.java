@@ -45,8 +45,8 @@ public class ProcessGetAllProductTypes implements GetAllProductTypesProcessor{
 
     @Override
     public boolean getAllProductTypes() throws Exception {
-        res= dbc.getAllProductTypes(req.getNo(), req.getOffset());
-        return true;
+        res= dbc.getAllProductTypes(req.getPageNo(), req.getMaxEntries());
+        return !res.isEmpty();
     }
 
     @Override

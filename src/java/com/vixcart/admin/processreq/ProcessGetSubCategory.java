@@ -67,7 +67,7 @@ public class ProcessGetSubCategory implements GetSubCategoryProcessor{
     public GetSubCategorySuccessResponse generateResponse(boolean status) {
         GetSubCategorySuccessResponse resp;
         if (status) {
-            resp = new GetSubCategorySuccessResponse(ResponseMsg.RESP_OK, accessToken);
+            resp = new GetSubCategorySuccessResponse(ResponseMsg.RESP_OK, accessToken,res);
         } else {
             resp = new GetSubCategorySuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken);
         }

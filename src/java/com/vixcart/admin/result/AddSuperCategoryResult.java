@@ -15,7 +15,6 @@ public class AddSuperCategoryResult implements Result {
 
     private String at;
     private String admintype;
-//    private String type;
     private String supercateg;
     private String reqValidation;
 
@@ -34,14 +33,6 @@ public class AddSuperCategoryResult implements Result {
     public void setAdmintype(String admintype) {
         this.admintype = admintype;
     }
-//
-//    public String getType() {
-//        return type;
-//    }
-//
-//    public void setType(String type) {
-//        this.type = type;
-//    }
 
     public String getSupercateg() {
         return supercateg;
@@ -89,11 +80,8 @@ public class AddSuperCategoryResult implements Result {
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
         } else {
-//            if (type.startsWith(ErrMsg.ERR_MESSAGE)) {
-//                error += "type#";
-//            }
             if (supercateg.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "req#";
+                error += "supercateg#";
             }
         }
         return error.substring(0, error.length() - 1);

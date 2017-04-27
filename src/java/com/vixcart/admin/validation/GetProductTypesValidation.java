@@ -29,10 +29,7 @@ public class GetProductTypesValidation implements Validation{
         String valid = "";
         valid += reqC.validateAccessToken();
         if (valid.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
-            String valid1 = reqC.validateUserType("product management");
-            valid += "#" + valid1;
-            if(valid1.startsWith(CorrectMsg.CORRECT_MESSAGE)){
-            }
+            valid += "#" + reqC.validateUserType("product management");
         }
         reqC.closeConnection();
         int count = 0;
@@ -47,9 +44,9 @@ public class GetProductTypesValidation implements Validation{
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_SUB_CATEGORY;
+            paramValue += CorrectMsg.CORRECT_GET_PTYPES;
         } else {
-            paramValue += ErrMsg.ERR_SUB_CATEGORY;
+            paramValue += ErrMsg.ERR_GET_PTYPES;
         }
     }
     

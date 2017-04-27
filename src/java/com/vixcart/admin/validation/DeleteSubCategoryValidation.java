@@ -37,7 +37,6 @@ private final DeleteSubCategory req;
                 valid += "#"+auc.validateSubCategory();
             }
         }
-        System.out.println("valid = " + valid);
         auc.closeConnection();
         int count = 0;
         for (String str : valid.split("#")) {
@@ -51,9 +50,9 @@ private final DeleteSubCategory req;
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_SUB_CATEGORY;
+            paramValue += CorrectMsg.CORRECT_DELETE_SUB_CATEGORY;
         } else {
-            paramValue += ErrMsg.ERR_SUB_CATEGORY;
+            paramValue += ErrMsg.ERR_DELETE_SUB_CATEGORY;
         }
     }
     

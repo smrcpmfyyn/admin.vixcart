@@ -107,7 +107,6 @@ public class addAffiliate extends HttpServlet {
                         ua.setEntryStatus("blocked");
                     } else {
                         ua.setEntryStatus("invalid");
-
                     }
                     AddAffiliateFailureResponse FResp = new AddAffiliateFailureResponse(reqR, validSubmission);
                     out.write(FResp.toString());

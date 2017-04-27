@@ -48,9 +48,9 @@ public class GetSuperCategoryValidation implements Validation{
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_SUB_CATEGORY;
+            paramValue += CorrectMsg.CORRECT_GET_SUPER_CATEGORY;
         } else {
-            paramValue += ErrMsg.ERR_SUB_CATEGORY;
+            paramValue += ErrMsg.ERR_GET_SUPER_CATEGORY;
         }
     }
     

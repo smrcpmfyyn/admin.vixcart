@@ -80,12 +80,14 @@ public class addUser extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
                     BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
                     bau.block();
                     ua.setEntryStatus("blocked");
+                } else {
+                    ua.setEntryStatus("invalid");
                 }
-                ua.setEntryStatus("invalid");
                 AddUserFailureResponse FResp = new AddUserFailureResponse(reqR, validSubmission);
                 out.write(FResp.toString());
             } else {

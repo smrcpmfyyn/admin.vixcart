@@ -40,8 +40,8 @@ private final AddBrandResult req;
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
                 case "brand":
-                    String type = req.getBrand();
-                    resp = type.substring(type.lastIndexOf(" ") + 1);
+                    String brand = req.getBrand();
+                    resp = brand.substring(brand.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
             }

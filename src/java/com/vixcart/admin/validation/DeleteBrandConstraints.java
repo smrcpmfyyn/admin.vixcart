@@ -73,14 +73,14 @@ public class DeleteBrandConstraints implements DeleteBrandValidator {
     }
     @Override
     public String validateBrand() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
-        String regX = RegX.REGX_STRING;
+        String valid = ErrMsg.ERR_BRAND;
+        String regX = RegX.REGX_STRING_UPPER_AND_LOWER;
         String brand = req.getBrand();
         if (validate(brand, regX)) {
-            if (dbc.checkBrand(brand) == 0) {
+            if (dbc.checkBrand(brand) == 1) {
                 valid = CorrectMsg.CORRECT_BRAND;
             } else {
-                valid = ErrMsg.ERR_BRAND_EXISTS;
+                valid = ErrMsg.ERR_BRAND_NOT_EXISTS;
             }
         }
         return valid;

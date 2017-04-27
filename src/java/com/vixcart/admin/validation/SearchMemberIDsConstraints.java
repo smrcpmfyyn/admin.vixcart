@@ -84,6 +84,7 @@ public class SearchMemberIDsConstraints implements SearcgMemberIDsValiadtor {
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
 
 }

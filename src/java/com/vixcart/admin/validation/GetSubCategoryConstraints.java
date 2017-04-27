@@ -70,14 +70,15 @@ public class GetSubCategoryConstraints implements GetSubCategoryValidator {
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
     @Override
     public String validateSubCategId() throws Exception {
         String valid = ErrMsg.ERR_SUB_CATEGORY;
-        String regX = RegX.REGX_STRING;
+        String regX = RegX.REGX_DIGIT;
         String subcategid = req.getSubcategid();
         if (validate(subcategid, regX)) {
-            if (dbc.checkSubCategoryById(subcategid) == 0) {
+            if (dbc.checkSubCategoryById(subcategid) == 1) {
                 valid = CorrectMsg.CORRECT_SUB_CATEGORY;
             } else {
                 valid = ErrMsg.ERR_SUB_CATEGORY_NOT_EXISTS;

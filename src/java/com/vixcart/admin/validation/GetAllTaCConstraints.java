@@ -70,33 +70,24 @@ public class GetAllTaCConstraints implements GetAllTaCValidator {
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
 
     @Override
     public String validateOffset() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
-        String regX = RegX.REGX_DIGIT;
-        String offset = req.getOffset();
-        if (validate(offset, regX)) {
-            if (dbc.checkTaCOffset(req.getNo(), offset) == 0) {
-                valid = CorrectMsg.CORRECT_TAC_OFFSET;
-            } else {
-                valid = ErrMsg.ERR_TAC_OFFSET_NOT_EXISTS;
+        String valid = ErrMsg.ERR_OFFSET;
+        String regx = RegX.REGX_DIGIT;
+        if (validate(req.getPageNo(), regx)) {
+            if (validate(req.getMaxEntries(), regx)) {
+                int pageNo = Integer.parseInt(req.getPageNo());
+                int maxPageNo = dbc.getMaxPageNo("tac_mapping", Integer.parseInt(req.getMaxEntries()));
+                if (pageNo <= maxPageNo) {
+                    valid = CorrectMsg.CORRECT_OFFSET;
+                }else if(maxPageNo == 0){
+                    valid = ErrMsg.ERR_OFFSET_EMPTY;
+                }
             }
         }
-        return valid;
-    }
-
-    @Override
-    public String validateNo() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
-        String regX = RegX.REGX_DIGIT;
-        String offset = req.getOffset();
-        if (validate(offset, regX)) {
-            valid = CorrectMsg.CORRECT_NO;
-        } else {
-            valid = ErrMsg.ERR_NO;
-        }
-        return valid;
+        return valid;  
     }
 }

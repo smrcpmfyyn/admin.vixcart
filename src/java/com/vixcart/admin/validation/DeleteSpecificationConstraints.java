@@ -70,17 +70,18 @@ public class DeleteSpecificationConstraints implements DeleteSpecificationValida
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
     @Override
     public String validatePSpecId() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
+        String valid = ErrMsg.ERR_TaSPEC;
         String regX = RegX.REGX_DIGIT;
-        String category = req.getpSpecId();
-        if (validate(category, regX)) {
-            if (dbc.checkPSpecId(category) == 0) {
-                valid = CorrectMsg.CORRECT_PTYPE;
+        String param = req.getpSpecId();
+        if (validate(param, regX)) {
+            if (dbc.checkPSpecId(param) == 1) {
+                valid = CorrectMsg.CORRECT_TaSPEC;
             } else {
-                valid = ErrMsg.ERR_PTYPE_EXISTS;
+                valid = ErrMsg.ERR_TaSPEC_NOT_EXISTS;
             }
         }
         return valid;

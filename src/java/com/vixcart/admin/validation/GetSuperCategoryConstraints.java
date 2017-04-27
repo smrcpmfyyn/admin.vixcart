@@ -73,11 +73,11 @@ public class GetSuperCategoryConstraints implements GetSuperCategoryValidator {
     }
     @Override
     public String validateSupCategId() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
-        String regX = RegX.REGX_STRING;
+        String valid = ErrMsg.ERR_SUPER_CATEGORY;
+        String regX = RegX.REGX_DIGIT;
         String supcategid = req.getSupcategid();
         if (validate(supcategid, regX)) {
-            if (dbc.checkSuperCategoryById(supcategid) == 0) {
+            if (dbc.checkSuperCategoryById(supcategid) == 1) {
                 valid = CorrectMsg.CORRECT_SUPER_CATEGORY;
             } else {
                 valid = ErrMsg.ERR_SUPER_CATEGORY_NOT_EXISTS;

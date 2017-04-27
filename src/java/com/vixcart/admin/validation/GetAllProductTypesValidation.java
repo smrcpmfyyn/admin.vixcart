@@ -33,7 +33,6 @@ public class GetAllProductTypesValidation implements Validation{
             valid += "#" + valid1;
             if(valid1.startsWith(CorrectMsg.CORRECT_MESSAGE)){
                 valid += "#"+reqC.validateOffset();
-                valid += "#"+reqC.validateNo();
             }
         }
         reqC.closeConnection();
@@ -49,9 +48,9 @@ public class GetAllProductTypesValidation implements Validation{
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_PTYPE;
+            paramValue += CorrectMsg.CORRECT_GET_ALL_PTYPE;
         } else {
-            paramValue += ErrMsg.ERR_PTYPE;
+            paramValue += ErrMsg.ERR_GET_ALL_PTYPE;
         }
     }
     

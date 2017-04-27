@@ -4,11 +4,13 @@ package com.vixcart.admin.controller;
 import com.vixcart.admin.jsn.JSONParser;
 import com.vixcart.admin.message.CorrectMsg;
 import com.vixcart.admin.message.ErrMsg;
-import com.vixcart.admin.processreq.ProcessGetCategories1;
+import com.vixcart.admin.processreq.ProcessGetCategories;
 import com.vixcart.admin.req.mod.GetCategories;
 import com.vixcart.admin.resp.mod.GetCategoriesFailureResponse;
 import com.vixcart.admin.resp.mod.GetCategoriesSuccessResponse;
 import com.vixcart.admin.result.GetCategoriesResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.GetCategoriesValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,15 +43,18 @@ public class getCategories extends HttpServlet {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
             Cookie ck = Servlets.getCookie(request, "at");
-            String at = ck.getValue();
+            String at = "";
+            if (ck != null) {
+                at = ck.getValue();
+            }
             GetCategories req = new GetCategories(at);
             GetCategoriesValidation reqV = new GetCategoriesValidation(req);
             reqV.validation();
-            System.out.println("addTypV = " + reqV);
             GetCategoriesResult reqR = JSONParser.parseJSONGetCategories(reqV.toString());
             String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "get_categories", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
-                ProcessGetCategories1 process = new ProcessGetCategories1(req);
+                ProcessGetCategories process = new ProcessGetCategories(req);
                 GetCategoriesSuccessResponse rSucc = process.processRequest();
                 process.closeConnection();
                 ck.setValue(rSucc.getAccessToken());
@@ -58,9 +63,14 @@ public class getCategories extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+//                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(addTyp.getAdmin_id());
-//                    bau.block();
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+                    ua.addActivity();
+                } else {
+//                    ua.setEntryStatus("invalid");
                 }
                 GetCategoriesFailureResponse rFail = new GetCategoriesFailureResponse(reqR, validSubmission);
                 out.write(rFail.toString());

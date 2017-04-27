@@ -10,6 +10,8 @@ import com.vixcart.admin.req.mod.UpdateSubCategory;
 import com.vixcart.admin.resp.mod.UpdateSubCategoryFailureResponse;
 import com.vixcart.admin.resp.mod.UpdateSubCategorySuccessResponse;
 import com.vixcart.admin.result.UpdateSubCategoryResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.UpdateSubCategoryValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -44,13 +46,16 @@ public class updateSubCategory extends HttpServlet {
             String on_status = request.getParameter("on_status");
             String off_status = request.getParameter("off_status");
             Cookie ck = Servlets.getCookie(request, "at");
-            String at = ck.getValue();
+            String at = "";
+            if (ck != null) {
+                at = ck.getValue();
+            }
             UpdateSubCategory req = new UpdateSubCategory(at, scat,on_status, off_status);
             UpdateSubCategoryValidation reqV = new UpdateSubCategoryValidation(req);
             reqV.validation();
-            System.out.println("addTypV = " + reqV);
             UpdateSubCategoryResult reqR = JSONParser.parseJSONUpdateSubCategory(reqV.toString());
             String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "update_sub_category", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessUpdateSubCategory process = new ProcessUpdateSubCategory(req);
                 UpdateSubCategorySuccessResponse rSucc = process.processRequest();
@@ -61,15 +66,21 @@ public class updateSubCategory extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(addTyp.getAdmin_id());
-//                    bau.block();
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+//                    ua.addActivity();
+                } else {
+                    ua.setEntryStatus("invalid");
                 }
                 UpdateSubCategoryFailureResponse rFail = new UpdateSubCategoryFailureResponse(reqR, validSubmission);
                 out.write(rFail.toString());
             } else {
                 //exception response
             }
+            ua.addActivity();
             out.flush();
             out.close();
         } catch (Exception ex) {

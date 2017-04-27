@@ -38,7 +38,6 @@ public class UpdateCategoryValidation implements Validation {
                 valid += "#" + auc.validateCategory();
             }
         }
-        System.out.println("valid = " + valid);
         auc.closeConnection();
         int count = 0;
         for (String str : valid.split("#")) {
@@ -52,9 +51,9 @@ public class UpdateCategoryValidation implements Validation {
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_CATEGORY;
+            paramValue += CorrectMsg.CORRECT_UPDATE_CATEGORY;
         } else {
-            paramValue += ErrMsg.ERR_CATEGORY;
+            paramValue += ErrMsg.ERR_UPDATE_CATEGORY;
         }
     }
 

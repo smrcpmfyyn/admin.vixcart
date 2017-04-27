@@ -46,9 +46,9 @@ public class GetNoOfWebsitesValidation implements Validation{
         }
         paramName += "gnowValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_USER;
+            paramValue += CorrectMsg.CORRECT_GET_NO_OF_WEBSITES;
         } else {
-            paramValue += ErrMsg.ERR_USER;
+            paramValue += ErrMsg.ERR_GET_NO_OF_WEBSITES;
         }
     }
     

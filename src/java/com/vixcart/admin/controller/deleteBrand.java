@@ -10,6 +10,8 @@ import com.vixcart.admin.req.mod.DeleteBrand;
 import com.vixcart.admin.resp.mod.DeleteBrandFailureResponse;
 import com.vixcart.admin.resp.mod.DeleteBrandSuccessResponse;
 import com.vixcart.admin.result.DeleteBrandResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.DeleteBrandValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,13 +45,16 @@ public class deleteBrand extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             String scat = request.getParameter("scat");
             Cookie ck = Servlets.getCookie(request, "at");
-            String at = ck.getValue();
+            String at = "";
+            if (ck != null) {
+                at = ck.getValue();
+            }
             DeleteBrand req = new DeleteBrand(at, scat);
             DeleteBrandValidation reqV = new DeleteBrandValidation(req);
             reqV.validation();
-            System.out.println("addTypV = " + reqV);
             DeleteBrandResult reqR = JSONParser.parseJSONDeleteBrand(reqV.toString());
             String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "delete_brand", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessDeleteBrand process = new ProcessDeleteBrand(req);
                 DeleteBrandSuccessResponse rSucc = process.processRequest();
@@ -60,15 +65,20 @@ public class deleteBrand extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(addTyp.getAdmin_id());
-//                    bau.block();
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+                } else {
+                    ua.setEntryStatus("invalid");
                 }
                 DeleteBrandFailureResponse rFail = new DeleteBrandFailureResponse(reqR, validSubmission);
                 out.write(rFail.toString());
             } else {
                 //exception response
             }
+            ua.addActivity();
             out.flush();
             out.close();
         } catch (Exception ex) {

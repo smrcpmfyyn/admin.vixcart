@@ -15,7 +15,7 @@ public class GetTaCResult implements Result {
 	 private String at;
 	 private String admintype;
 	 private String reqValidation;
-	 private String tacId;
+	 private String tac;
 
     public void setAt(String at) {
         this.at = at;
@@ -41,12 +41,12 @@ public class GetTaCResult implements Result {
       return  this.reqValidation;
     }
 
-    public void setTacid(String tacId) {
-        this.tacId = tacId;
+    public void setTac(String tacId) {
+        this.tac = tacId;
     }
 
-    public String getTacid() {
-      return  this.tacId;
+    public String getTac() {
+      return  this.tac;
     }
 
     @Override
@@ -77,8 +77,8 @@ public class GetTaCResult implements Result {
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
         } else {
-            if (tacId.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "tacid#";
+            if (tac.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "tac#";
             }
         }
         return error.substring(0, error.length() - 1);

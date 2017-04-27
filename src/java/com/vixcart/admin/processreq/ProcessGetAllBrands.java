@@ -42,8 +42,8 @@ public class ProcessGetAllBrands implements GetAllBrandsProcessor {
 
     @Override
     public boolean getAllBrands() throws Exception {
-        res = dbc.getAllBrands(req.getNo(), req.getOffset());
-        return true;
+        res = dbc.getAllBrands(req.getMaxEntries(), req.getPageNo());
+        return !res.isEmpty();
     }
 
     @Override

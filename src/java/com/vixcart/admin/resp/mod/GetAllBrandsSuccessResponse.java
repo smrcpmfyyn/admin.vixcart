@@ -18,6 +18,7 @@ public class GetAllBrandsSuccessResponse {
     public GetAllBrandsSuccessResponse(String status, String accessToken) {
         this.status = status;
         this.accessToken = accessToken;
+        this.res = new ArrayList<>();
     }
 
     public GetAllBrandsSuccessResponse(String status, String accessToken, ArrayList<Brand> res) {

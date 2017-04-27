@@ -30,6 +30,7 @@ public class RPValidation implements Validation{
         RPConstraints rpc = new RPConstraints(rp);
         String valid = "";
         valid += rpc.validateToken();
+        rpc.closeConnection();
         int count = 0;
         paramName += valid.split(" ")[1].toLowerCase() + "#";
         if (!valid.startsWith(CorrectMsg.CORRECT_MESSAGE)) {

@@ -10,10 +10,18 @@ public class GetSuperCategorySuccessResponse {
 
     private final String status;
     private final String accessToken;
+    private final SuperCategory res ;
 
     public GetSuperCategorySuccessResponse(String status, String accessToken) {
         this.status = status;
         this.accessToken = accessToken;
+        res = new SuperCategory("invalid", "invalid", "invalid", "invalid");
+    }
+
+    public GetSuperCategorySuccessResponse(String status, String accessToken, SuperCategory res) {
+        this.status = status;
+        this.accessToken = accessToken;
+        this.res = res;
     }
 
     public String getStatus() {
@@ -26,6 +34,13 @@ public class GetSuperCategorySuccessResponse {
 
     @Override
     public String toString() {
-        return "{\"status\":\"" + status + "\"}";
+        String response = "";
+        if (res.getSuper_category_id().equals("invalid")) {
+            response = "{\"status\":\"" + status + "\"}";
+        } else {
+            response = "{\"status\":\"" + status + "\",\"superCateg\":" + res.toString();
+            response += "}";
+        }
+        return response;
     }
 }

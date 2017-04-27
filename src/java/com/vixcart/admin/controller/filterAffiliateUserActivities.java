@@ -57,7 +57,7 @@ public class filterAffiliateUserActivities extends HttpServlet {
             reqV.validation();
             FAfUAResult reqR = JSONParser.parseJSONFAfUA(reqV.toString());
             String validSubmission = reqR.getValidationResult();
-            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getUtype(), "get_affiliate", "affiliate", "valid");
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getUtype(), "filter_affiliate_user_activities", "affiliate", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessFAfUA process = new ProcessFAfUA(req);
                 FAfUASuccessResponse SResp = process.processRequest();
@@ -72,14 +72,15 @@ public class filterAffiliateUserActivities extends HttpServlet {
                     BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
                     bau.block();
                     ua.setEntryStatus("blocked");
+                    ua.addActivity();
                 }
-                ua.setEntryStatus("invalid");
+//                ua.setEntryStatus("invalid");
                 FAfUAFailureResponse FResp = new FAfUAFailureResponse(reqR, validSubmission);
                 out.write(FResp.toString());
             } else {
                 //exception response
             }
-            ua.addActivity();
+//            ua.addActivity();
             out.flush();
             out.close();
         } catch (Exception ex) {

@@ -94,7 +94,7 @@ public class UpdateSpecificationConstraints implements UpdateSpecificationValida
         String category = req.getSpecific();
         if (validate(category, regX)) {
             if (dbc.checkSpecId(category) == 0) {
-                valid = CorrectMsg.CORRECT_SPECIFIC;
+                valid = CorrectMsg.CORRECT_SPECIFIC_ALL;
             } else {
                 valid = ErrMsg.ERR_SPECIFIC_EXISTS;
             }
@@ -110,7 +110,7 @@ public class UpdateSpecificationConstraints implements UpdateSpecificationValida
             if (dbc.checkVisibilityStatusById(category) == 0) {
                 valid = CorrectMsg.CORRECT_ONLINE_VISIBILITY;
             } else {
-                valid = ErrMsg.ERR_ONLINE_VISIBILITY_NOT_EXISTS;
+                valid = ErrMsg.ERR_ONLINE_VISIBILITY;
             }
         }
         return valid;
@@ -124,7 +124,7 @@ public class UpdateSpecificationConstraints implements UpdateSpecificationValida
             if (dbc.checkVisibilityStatusById(category) == 0) {
                 valid = CorrectMsg.CORRECT_OFFLINE_VISIBILITY;
             } else {
-                valid = ErrMsg.ERR_OFFLINE_VISIBILITY_NOT_EXISTS;
+                valid = ErrMsg.ERR_OFFLINE_VISIBILITY;
             }
         }
         return valid;

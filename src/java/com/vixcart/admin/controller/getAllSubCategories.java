@@ -10,6 +10,8 @@ import com.vixcart.admin.req.mod.GetSubCategories;
 import com.vixcart.admin.resp.mod.SubCategoryFailureResponse;
 import com.vixcart.admin.resp.mod.SubCategorySuccessResponse;
 import com.vixcart.admin.result.GetSubCategoriesResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.GetSubCategoriesValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,29 +43,36 @@ public class getAllSubCategories extends HttpServlet {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
             Cookie ck = Servlets.getCookie(request, "at");
-            String at = ck.getValue();
-//            System.out.println("at = " + at);
-            GetSubCategories sCategs = new GetSubCategories(at);
-            GetSubCategoriesValidation sCategV = new GetSubCategoriesValidation(sCategs);
-            sCategV.validation();
-//            out.println("sCategV = " + sCategV);
-            GetSubCategoriesResult typeR = JSONParser.parseJSONGSubCategs(sCategV.toString());
-            String validSubmission = typeR.getValidationResult();
+            String at = "";
+            if (ck != null) {
+                at = ck.getValue();
+            }
+            GetSubCategories req = new GetSubCategories(at);
+            GetSubCategoriesValidation reqV = new GetSubCategoriesValidation(req);
+            reqV.validation();
+            GetSubCategoriesResult reqR = JSONParser.parseJSONGSubCategs(reqV.toString());
+            String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "get_all_sub_categories", "product management", "valid");
             if(validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)){
-                ProcessGetSubCategories process = new ProcessGetSubCategories(sCategs);
+                ProcessGetSubCategories process = new ProcessGetSubCategories(req);
                 SubCategorySuccessResponse sCategsSResp = process.processRequest();
                 process.closeConnection();
                 ck.setValue(sCategsSResp.getAccessToken());
                 response.addCookie(ck);
                 out.write(sCategsSResp.toString());
             }else if(validSubmission.startsWith(ErrMsg.ERR_ERR)){
-                if (typeR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
+                if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
-                } else if (typeR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(sCategs.getAdmin_id());
-//                    bau.block();
+//                    ua.setEntryStatus("invalid");
+                } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+                    ua.addActivity();
+                } else {
+//                    ua.setEntryStatus("invalid");
                 }
-                SubCategoryFailureResponse usersFResp = new SubCategoryFailureResponse(typeR, validSubmission);
+                SubCategoryFailureResponse usersFResp = new SubCategoryFailureResponse(reqR, validSubmission);
                 out.write(usersFResp.toString());
             }else{
                 //exception response

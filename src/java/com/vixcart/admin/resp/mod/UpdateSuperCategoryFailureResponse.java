@@ -24,6 +24,7 @@ public class UpdateSuperCategoryFailureResponse {
         String json = "\"status\":\"" + ResponseMsg.RESP_NOT_OK + "\",";
         String[] errors = error.split("#");
         String resp;
+        String param;
         for (int i = 1; i < errors.length; i++) {
             String parameter = errors[i];
             switch (parameter) {
@@ -40,6 +41,16 @@ public class UpdateSuperCategoryFailureResponse {
                 case "supercateg":
                     String stype = req.getSupercateg();
                     resp = stype.substring(stype.lastIndexOf(" ") + 1);
+                    json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
+                    break;
+                case "onlinevisibility":
+                    param = req.getOnlinevisibility();
+                    resp = param.substring(param.lastIndexOf(" ") + 1);
+                    json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
+                    break;
+                case "offlinevisibility":
+                    param = req.getOfflinevisibility();
+                    resp = param.substring(param.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
             }

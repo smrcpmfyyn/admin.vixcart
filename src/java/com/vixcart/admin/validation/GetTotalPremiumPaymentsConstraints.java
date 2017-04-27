@@ -106,6 +106,7 @@ public class GetTotalPremiumPaymentsConstraints implements GetTotalPremiumPaymen
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
 
 }

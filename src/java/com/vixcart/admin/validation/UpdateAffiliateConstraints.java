@@ -123,6 +123,7 @@ public class UpdateAffiliateConstraints implements UpdateAffiliateValidator {
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
 
     @Override

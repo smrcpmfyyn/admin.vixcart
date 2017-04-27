@@ -67,7 +67,7 @@ public class ProcessGetSuperCategory implements GetSuperCategoryProcessor{
     public GetSuperCategorySuccessResponse generateResponse(boolean status) {
         GetSuperCategorySuccessResponse resp;
         if (status) {
-            resp = new GetSuperCategorySuccessResponse(ResponseMsg.RESP_OK, accessToken);
+            resp = new GetSuperCategorySuccessResponse(ResponseMsg.RESP_OK, accessToken,res);
         } else {
             resp = new GetSuperCategorySuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken);
         }

@@ -68,13 +68,15 @@ public class addPremiumPayment extends HttpServlet {
                 out.write(SResp.toString());
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
-                    // do nothing
-                } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
-                    bau.block();
-                    ua.setEntryStatus("blocked");
-                }
-                ua.setEntryStatus("invalid");
+                        // do nothing
+                        ua.setEntryStatus("invalid");
+                    } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
+                        BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                        bau.block();
+                        ua.setEntryStatus("blocked");
+                    } else {
+                        ua.setEntryStatus("invalid");
+                    }
                 AddPremiumPaymentFailureResponse FResp = new AddPremiumPaymentFailureResponse(reqR, validSubmission);
                 out.write(FResp.toString());
             } else {

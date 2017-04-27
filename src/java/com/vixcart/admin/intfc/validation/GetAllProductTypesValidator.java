@@ -9,6 +9,5 @@ package com.vixcart.admin.intfc.validation;
 public interface GetAllProductTypesValidator extends EmpReportValidator {
 
     public String validateOffset() throws Exception;
-    public String validateNo() throws Exception;
 
 }

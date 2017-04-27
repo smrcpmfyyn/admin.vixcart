@@ -39,7 +39,6 @@ public class UpdateAffiliateValidation implements Validation {
                 valid += "#"+reqC.validateStatus();
                 valid += "#"+reqC.validateMPP();
                 valid += "#"+reqC.validateCF();
-                
             }
         }
         reqC.closeConnection();
@@ -55,9 +54,9 @@ public class UpdateAffiliateValidation implements Validation {
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_ADD_TYPE;
+            paramValue += CorrectMsg.CORRECT_UPDATE_AFFILIATE;
         } else {
-            paramValue += ErrMsg.ERR_ADD_TYPE;
+            paramValue += ErrMsg.ERR_UPDATE_AFFILIATE;
         }
     }
     

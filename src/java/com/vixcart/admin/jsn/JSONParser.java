@@ -40,6 +40,7 @@ import com.vixcart.admin.result.DeleteAffiliateUsersResult;
 import com.vixcart.admin.result.DeleteBaCResult;
 import com.vixcart.admin.result.DeleteBrandResult;
 import com.vixcart.admin.result.DeleteCategoryResult;
+import com.vixcart.admin.result.DeleteProductTypeResult;
 import com.vixcart.admin.result.DeleteSpecificationResult;
 import com.vixcart.admin.result.DeleteSubCategoryResult;
 import com.vixcart.admin.result.DeleteSuperCategoryResult;
@@ -685,6 +686,12 @@ public final class JSONParser {
     public static GetMemberResult parseJSONGM(String reqv) throws IOException {
         GetMemberResult res;
         res = MAPPER.readValue(reqv, GetMemberResult.class);
+        return res;
+    }
+
+    public static DeleteProductTypeResult parseJSONDeleteProductType(String reqv) throws IOException {
+        DeleteProductTypeResult res;
+        res = MAPPER.readValue(reqv, DeleteProductTypeResult.class);
         return res;
     }
 

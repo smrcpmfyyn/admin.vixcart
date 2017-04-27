@@ -70,14 +70,15 @@ public class users extends HttpServlet {
                     BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
                     bau.block();
                     ua.setEntryStatus("blocked");
+                    ua.addActivity();
                 }
-                ua.setEntryStatus("invalid");
+//                ua.setEntryStatus("invalid");
                 UsersFailureResponse FResp = new UsersFailureResponse(reqR, validSubmission);
                 out.write(FResp.toString());
             } else {
                 //exception response
             }
-            ua.addActivity();
+//            ua.addActivity();
             out.flush();
             out.close();
         } catch (Exception ex) {

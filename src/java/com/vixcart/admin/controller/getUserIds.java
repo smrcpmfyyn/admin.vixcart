@@ -67,18 +67,21 @@ public class getUserIds extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+//                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
                     BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
                     bau.block();
                     ua.setEntryStatus("blocked");
+                    ua.addActivity();
+                } else {
+//                    ua.setEntryStatus("invalid");
                 }
-                ua.setEntryStatus("invalid");
                 GetUserIdsFailureResponse FResp = new GetUserIdsFailureResponse(reqR, validSubmission);
                 out.println(FResp);
             } else {
                 //exception Response
             }
-            ua.addActivity();
+//            ua.addActivity();
             out.flush();
             out.close();
         } catch (Exception ex) {

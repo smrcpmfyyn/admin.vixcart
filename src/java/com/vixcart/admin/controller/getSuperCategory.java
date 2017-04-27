@@ -9,6 +9,8 @@ import com.vixcart.admin.req.mod.GetSuperCategory;
 import com.vixcart.admin.resp.mod.GetSuperCategoryFailureResponse;
 import com.vixcart.admin.resp.mod.GetSuperCategorySuccessResponse;
 import com.vixcart.admin.result.GetSuperCategoryResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.GetSuperCategoryValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -46,9 +48,9 @@ public class getSuperCategory extends HttpServlet {
             GetSuperCategory req = new GetSuperCategory(at, supCategId);
             GetSuperCategoryValidation reqV = new GetSuperCategoryValidation(req);
             reqV.validation();
-            System.out.println("addTypV = " + reqV);
             GetSuperCategoryResult reqR = JSONParser.parseJSONGetSuperCategory(reqV.toString());
             String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "get_super_category", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessGetSuperCategory process = new ProcessGetSuperCategory(req);
                 GetSuperCategorySuccessResponse rSucc = process.processRequest();
@@ -59,9 +61,14 @@ public class getSuperCategory extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+//                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(addTyp.getAdmin_id());
-//                    bau.block();
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+                    ua.addActivity();
+                } else {
+//                    ua.setEntryStatus("invalid");
                 }
                 GetSuperCategoryFailureResponse rFail = new GetSuperCategoryFailureResponse(reqR, validSubmission);
                 out.write(rFail.toString());

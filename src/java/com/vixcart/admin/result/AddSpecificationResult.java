@@ -16,7 +16,7 @@ public class AddSpecificationResult implements Result {
 	 private String admintype;
 	 private String reqValidation;
 	 private String pType;
-	 private String specific;
+	 private String specification;
 
     public String getAt() {
         return at;
@@ -47,12 +47,12 @@ public class AddSpecificationResult implements Result {
       return  this.reqValidation;
     }
 
-    public void setSpecific(String specific) {
-        this.specific = specific;
+    public void setSpecification(String specification) {
+        this.specification = specification;
     }
 
-    public String getSpecific() {
-      return  this.specific;
+    public String getSpecification() {
+      return  this.specification;
     }
 
     @Override
@@ -86,8 +86,8 @@ public class AddSpecificationResult implements Result {
             if (pType.startsWith(ErrMsg.ERR_MESSAGE)) {
                 error += "ptype#";
             }
-            if (specific.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "specific#";
+            if (specification.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "specification#";
             }
         }
         return error.substring(0, error.length() - 1);

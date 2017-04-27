@@ -9,6 +9,8 @@ import com.vixcart.admin.req.mod.UpdateProductType;
 import com.vixcart.admin.resp.mod.UpdateProductTypeFailureResponse;
 import com.vixcart.admin.resp.mod.UpdateProductTypeSuccessResponse;
 import com.vixcart.admin.result.UpdateProductTypeResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.UpdateProductTypeValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -45,13 +47,16 @@ public class updateProductType extends HttpServlet {
             String on_status = request.getParameter("on_status");
             String off_status = request.getParameter("off_status");
             Cookie ck = Servlets.getCookie(request, "at");
-            String at = ck.getValue();
+            String at = "";
+            if (ck != null) {
+                at = ck.getValue();
+            }
             UpdateProductType req = new UpdateProductType(at, ptypeId, ptype, on_status, off_status);
             UpdateProductTypeValidation reqV = new UpdateProductTypeValidation(req);
             reqV.validation();
-            System.out.println("addTypV = " + reqV);
             UpdateProductTypeResult reqR = JSONParser.parseJSONUpdateProductType(reqV.toString());
             String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "update_product_type", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessUpdateProductType process = new ProcessUpdateProductType(req);
                 UpdateProductTypeSuccessResponse rSucc = process.processRequest();
@@ -62,15 +67,21 @@ public class updateProductType extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(addTyp.getAdmin_id());
-//                    bau.block();
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+//                    ua.addActivity();
+                } else {
+                    ua.setEntryStatus("invalid");
                 }
                 UpdateProductTypeFailureResponse rFail = new UpdateProductTypeFailureResponse(reqR, validSubmission);
                 out.write(rFail.toString());
             } else {
                 //exception response
             }
+            ua.addActivity();
             out.flush();
             out.close();
         } catch (Exception ex) {

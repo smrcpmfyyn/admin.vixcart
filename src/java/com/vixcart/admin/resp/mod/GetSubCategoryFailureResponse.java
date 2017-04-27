@@ -39,8 +39,8 @@ private final GetSubCategoryResult req;
                     resp = admType.substring(admType.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
-                case "subcategid":
-                    String type = req.getSubcategid();
+                case "subcateg":
+                    String type = req.getSubcateg();
                     resp = type.substring(type.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;

@@ -15,7 +15,7 @@ public class GetCategoryResult implements Result {
 	 private String at;
 	 private String admintype;
 	 private String reqValidation;
-	 private String categId;
+	 private String categ;
 
     public void setAt(String at) {
         this.at = at;
@@ -41,12 +41,12 @@ public class GetCategoryResult implements Result {
       return  this.reqValidation;
     }
 
-    public void setCategid(String categId) {
-        this.categId = categId;
+    public void setCateg(String categId) {
+        this.categ = categId;
     }
 
-    public String getCategid() {
-      return  this.categId;
+    public String getCateg() {
+      return  this.categ;
     }
 
     @Override
@@ -77,8 +77,8 @@ public class GetCategoryResult implements Result {
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
         } else {
-            if (categId.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "categid#";
+            if (categ.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "categ#";
             }
         }
         return error.substring(0, error.length() - 1);

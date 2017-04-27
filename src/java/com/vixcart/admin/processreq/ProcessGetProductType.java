@@ -67,7 +67,7 @@ public class ProcessGetProductType implements GetProductTypeProcessor{
     public GetProductTypeSuccessResponse generateResponse(boolean status) {
         GetProductTypeSuccessResponse resp;
         if (status) {
-            resp = new GetProductTypeSuccessResponse(ResponseMsg.RESP_OK, accessToken);
+            resp = new GetProductTypeSuccessResponse(ResponseMsg.RESP_OK, accessToken,res);
         } else {
             resp = new GetProductTypeSuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken);
         }

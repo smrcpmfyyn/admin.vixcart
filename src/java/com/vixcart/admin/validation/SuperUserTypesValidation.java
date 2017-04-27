@@ -48,9 +48,9 @@ public class SuperUserTypesValidation implements Validation {
         }
         paramName += "sTypesValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_USER;
+            paramValue += CorrectMsg.CORRECT_SUPER_USER_TYPES;
         } else {
-            paramValue += ErrMsg.ERR_USER;
+            paramValue += ErrMsg.ERR_SUPER_USER_TYPES;
         }
     }
     

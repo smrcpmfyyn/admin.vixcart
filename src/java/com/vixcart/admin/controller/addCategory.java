@@ -45,13 +45,16 @@ public class addCategory extends HttpServlet {
             String category = request.getParameter("category");
             String superCategory = request.getParameter("superCategory");
             Cookie ck = Servlets.getCookie(request, "at");
-            String at = ck.getValue();
+            String at = "";
+            if (ck != null) {
+                at = ck.getValue();
+            }
             AddCategory req = new AddCategory(at, category, superCategory);
             AddCategoryValidation reqV = new AddCategoryValidation(req);
             reqV.validation();
             AddCategoryResult reqR = JSONParser.parseJSONAddCategory(reqV.toString());
             String validSubmission = reqR.getValidationResult();
-            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getUtype(), "add_affiliate", "affiliate", "valid");
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getUtype(), "add_category", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessAddCategory process = new ProcessAddCategory(req);
                 AddCategorySuccessResponse addTypSResp = process.processRequest();
@@ -62,12 +65,14 @@ public class addCategory extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
                     BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
                     bau.block();
                     ua.setEntryStatus("blocked");
+                } else {
+                    ua.setEntryStatus("invalid");
                 }
-                ua.setEntryStatus("invalid");
                 AddCategoryFailureResponse usersFResp = new AddCategoryFailureResponse(reqR, validSubmission);
                 out.write(usersFResp.toString());
             } else {

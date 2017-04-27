@@ -39,12 +39,12 @@ public class AddCategoryFailureResponse {
                     resp = admType.substring(admType.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
-                case "category":
+                case "categ":
                     String type = req.getCateg();
                     resp = type.substring(type.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
-                case "supercategory":
+                case "supercateg":
                     String stype = req.getSupercateg();
                     resp = stype.substring(stype.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";

@@ -9,6 +9,8 @@ import com.vixcart.admin.req.mod.GetTaC;
 import com.vixcart.admin.resp.mod.GetTaCFailureResponse;
 import com.vixcart.admin.resp.mod.GetTaCSuccessResponse;
 import com.vixcart.admin.result.GetTaCResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.GetTaCValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,13 +44,16 @@ public class getTaC extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             String tacId = request.getParameter("tacId");
             Cookie ck = Servlets.getCookie(request, "at");
-            String at = ck.getValue();
+            String at = "";
+            if (ck != null) {
+                at = ck.getValue();
+            }
             GetTaC req = new GetTaC(at, tacId);
             GetTaCValidation reqV = new GetTaCValidation(req);
             reqV.validation();
-            System.out.println("addTypV = " + reqV);
             GetTaCResult reqR = JSONParser.parseJSONGetTaC(reqV.toString());
             String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "get_tac", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessGetTaC process = new ProcessGetTaC(req);
                 GetTaCSuccessResponse rSucc = process.processRequest();
@@ -59,9 +64,14 @@ public class getTaC extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+//                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(addTyp.getAdmin_id());
-//                    bau.block();
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+                    ua.addActivity();
+                } else {
+//                    ua.setEntryStatus("invalid");
                 }
                 GetTaCFailureResponse rFail = new GetTaCFailureResponse(reqR, validSubmission);
                 out.write(rFail.toString());

@@ -9,7 +9,7 @@ import com.vixcart.admin.intfc.processreq.GetSuperCategoriesProcessor;
 import com.vixcart.admin.message.ResponseMsg;
 import com.vixcart.admin.req.mod.GetSuperCategories;
 import com.vixcart.admin.resp.mod.SuperCategory;
-import com.vixcart.admin.resp.mod.SuperCategorySuccessResponse;
+import com.vixcart.admin.resp.mod.GetSuperCategoriesSuccessResponse;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -44,12 +44,11 @@ public class ProcessGetSuperCategories implements GetSuperCategoriesProcessor {
     @Override
     public void getAllSuperCategories() throws Exception {
         superCategories = dbc.getAllSuperCategories();
-        dbc.closeConnection();
     }
 
     @Override
-    public SuperCategorySuccessResponse processRequest() throws Exception {
-        SuperCategorySuccessResponse obj = null;
+    public GetSuperCategoriesSuccessResponse processRequest() throws Exception {
+        GetSuperCategoriesSuccessResponse obj = null;
         if (generateToken()) {
             getAllSuperCategories();
             obj = generateResponse(true);
@@ -61,12 +60,12 @@ public class ProcessGetSuperCategories implements GetSuperCategoriesProcessor {
     }
 
     @Override
-    public SuperCategorySuccessResponse generateResponse(boolean status) {
-        SuperCategorySuccessResponse resp;
+    public GetSuperCategoriesSuccessResponse generateResponse(boolean status) {
+        GetSuperCategoriesSuccessResponse resp;
         if (status) {
-            resp = new SuperCategorySuccessResponse(ResponseMsg.RESP_OK, accessToken, superCategories);
+            resp = new GetSuperCategoriesSuccessResponse(ResponseMsg.RESP_OK, accessToken, superCategories);
         } else {
-            resp = new SuperCategorySuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken);
+            resp = new GetSuperCategoriesSuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken);
         }
         return resp;
 

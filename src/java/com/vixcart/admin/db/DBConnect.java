@@ -23,6 +23,7 @@ import com.vixcart.admin.req.mod.AddUserType;
 import com.vixcart.admin.req.mod.DeleteBPaC;
 import com.vixcart.admin.req.mod.DeleteBrand;
 import com.vixcart.admin.req.mod.DeleteCategory;
+import com.vixcart.admin.req.mod.DeleteProductType;
 import com.vixcart.admin.req.mod.DeleteSpecification;
 import com.vixcart.admin.req.mod.DeleteSubCategory;
 import com.vixcart.admin.req.mod.DeleteSuperCategory;
@@ -71,7 +72,6 @@ import com.vixcart.admin.resp.mod.MemberAllDetails;
 import com.vixcart.admin.resp.mod.MemberDetails;
 import com.vixcart.admin.resp.mod.PremiumPayments;
 import com.vixcart.admin.resp.mod.ProductType;
-import com.vixcart.admin.resp.mod.ProductTypes;
 import com.vixcart.admin.resp.mod.Specifications;
 import com.vixcart.admin.resp.mod.SubCategory;
 import com.vixcart.admin.resp.mod.SuperCategory;
@@ -679,6 +679,7 @@ public class DBConnect {
         ps.setString(1, affiliate);
         int affl = ps.executeUpdate();
         ps.close();
+        blockUsersofAffiliate(affiliate);
         return affl == 1;
     }
 
@@ -1165,7 +1166,7 @@ public class DBConnect {
         ps.setString(2, "2");
         ps.setString(3, req.getCategory());
         int exe = ps.executeUpdate();
-        ps.close();
+        ps.close();  
         return exe == 1;
     }
 
@@ -1263,6 +1264,206 @@ public class DBConnect {
         ps.close();
         return c == 1;
     }
+
+    public boolean addBrand(AddBrand req) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("INSERT INTO brand (brand) values (?)");
+        ps.setString(1, req.getBrand());
+        int exe = ps.executeUpdate();
+        ps.close();
+        return exe == 1;
+    }
+
+    public int checkTaC(String category, String type) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("SELECT count(*) FROM tac_mapping WHERE category = ? AND product_type = ?");
+        ps.setString(1, category);
+        ps.setString(2, type);
+        rs = ps.executeQuery();
+        rs.next();
+        int c = rs.getInt(1);
+        rs.close();
+        ps.close();
+        return c;
+    }
+
+    public boolean addTaC(AddTaC req) throws SQLException {
+        PreparedStatement stmt = con.prepareStatement("INSERT INTO product_type_and_category (product_type, category) values (?,?)");
+        stmt.setString(1, req.getpType());
+        stmt.setString(2, req.getCategory());
+        int c = stmt.executeUpdate();
+        return c == 1;
+    }
+    
+    private void blockUsersofAffiliate(String affiliate) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("UPDATE affiliate_user SET affiliate_user_status = 2 WHERE affiliate = ?");
+        ps.setString(1, affiliate);
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    public boolean deleteBrand(DeleteBrand req) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("UPDATE brand SET online_visibility_status=?, offline_visibility_status=? WHERE brand=?");
+        ps.setString(1, "2");
+        ps.setString(2, "2");
+        ps.setString(3, req.getBrand());
+        int exe = ps.executeUpdate();
+        ps.close();
+        return exe == 1;
+    }
+    
+    public int checkTaCById(String tacId) throws SQLException {
+        int res = 0;
+        PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM tac_mapping WHERE id=?");
+        ps.setString(1, tacId);
+        rs = ps.executeQuery();
+        if (rs.next()) {
+            res = rs.getInt(1);
+        }
+        rs.close();
+        ps.close();
+        return res;
+    }
+    
+    public ArrayList<Brand> getAllBrands(String maxEntries, String pageNo) throws SQLException {
+        ArrayList<Brand> res = new ArrayList<>();
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM brands LIMIT(?,?)");
+        int n = Integer.parseInt(maxEntries);
+        stmt.setInt(2, n);
+        stmt.setInt(1, n * (Integer.parseInt(pageNo)-1));
+        ResultSet exe = stmt.executeQuery();
+        while (exe.next()) {
+            Brand brand = new Brand(exe.getString(1), exe.getString(2), exe.getString(3), exe.getString(4));
+            res.add(brand);
+        }
+        return res;
+    }
+    
+    public ArrayList<ProductType> getAllProductTypes(String pageNo, String maxEntries) throws SQLException {
+        ArrayList<ProductType> res = new ArrayList<>();
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM brands LIMIT(?,?)");
+        int n = Integer.parseInt(maxEntries);
+        ps.setInt(2, n);
+        ps.setInt(1, n * (Integer.parseInt(pageNo)-1));
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            ProductType pt = new ProductType(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
+            res.add(pt);
+        }
+        rs.close();
+        ps.close();
+        return res;
+    }
+    
+    public ArrayList<Category> getCategories(GetCategories req) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("SELECT c.category_id, c.category, c.super_category, c.online_visibility_status, c.offline_visibility_status FROM categories AS c ");
+        ArrayList<Category> categs = new ArrayList<>();
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            Category category = new Category(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+            categs.add(category);
+        }
+        rs.close();
+        ps.close();
+        return categs;
+    }
+    
+    public ArrayList<ProductType> getProductTypes(GetProductTypes req) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM product_types ");
+        ArrayList<ProductType> res = new ArrayList<>();
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            ProductType ptype = new ProductType(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
+            res.add(ptype);
+        }
+        rs.close();
+        ps.close();
+        return res;
+    }
+    
+    public ProductType getProductType(GetProductType req) throws SQLException {
+        ProductType res = null;
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM product_types WHERE product_type_id = ?");
+        ps.setString(1, req.getPtid());
+        rs = ps.executeQuery();
+        rs.next();
+        res = new ProductType(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
+        rs.close();
+        ps.close();
+        return res;
+    }
+    
+    public SubCategory getSubCategory(GetSubCategory req) throws SQLException {
+        SubCategory res = null;
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM sub_categories WHERE sub_category_id=?");
+        stmt.setString(1, req.getSubcategid());
+        ResultSet r = stmt.executeQuery();
+        if (r.next()) {
+            res = new SubCategory(r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5));
+        }else{
+            res = new SubCategory("invalid", "invalid", "invalid", "invalid", "invalid");
+        }
+        return res;
+    }
+    
+    public int checkTacId(String tacid) throws SQLException {
+        int res = 0;
+        PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM tac_mapping WHERE id=?");
+        ps.setString(1, tacid);
+        rs = ps.executeQuery();
+        if (rs.next()) {
+            res = rs.getInt(1);
+        }
+        rs.close();
+        ps.close();
+        return res;
+    }
+    
+    public int checkPTypeId(String ptypeid) throws SQLException {
+        int res = 0;
+        PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM product_types WHERE product_type_id=?");
+        ps.setString(1, ptypeid);
+        rs = ps.executeQuery();
+        if (rs.next()) {
+            res = rs.getInt(1);
+        }
+        rs.close();
+        ps.close();
+        return res;
+    }
+    
+    public TaC getTaC(GetTaC req) throws SQLException {
+        TaC res = null;
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM tac_mapping WHERE id = ?");
+        ps.setString(1, req.getTacid());
+        rs = ps.executeQuery();
+        res = new TaC(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+        rs.close();
+        ps.close();
+        return res;
+    }
+    
+    public int checkBrand(String brand) throws SQLException {
+        int res = 0;
+        PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM brands WHERE brand=?");
+        ps.setString(1, brand);
+        rs = ps.executeQuery();
+        if (rs.next()) {
+            res = rs.getInt(1);
+        }
+        rs.close();
+        ps.close();
+        return res;
+    }
+    
+    public boolean updateBrand(UpdateBrand req) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("UPDATE brand SET online_visibility_status=?, offline_visibility_status=? WHERE brand=?");
+        ps.setString(1, req.getOn_status());
+        ps.setString(2, req.getOff_status());
+        ps.setString(3, req.getBrand());
+        int exe = ps.executeUpdate();
+        ps.close();
+        return exe == 1;
+    }
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public boolean deleteSpecification(DeleteSpecification req) throws SQLException {
@@ -1274,15 +1475,6 @@ public class DBConnect {
         int exe = ps.executeUpdate();
         ps.close();
         return exe == 1;
-    }
-
-    public boolean addTaC(AddTaC req) throws SQLException {
-        boolean res = false;
-        PreparedStatement stmt = con.prepareStatement("INSERT INTO product_type_and_category (product_type, category) values (?,?)");
-        stmt.setString(1, req.getpType());
-        stmt.setString(2, req.getCategory());
-        int c = stmt.executeUpdate();
-        return c == 1;
     }
 
     public boolean updateTaC(UpdateTaC req) throws SQLException {
@@ -1320,7 +1512,7 @@ public class DBConnect {
 
     public int checkPType(String ptype) throws SQLException {
         int res = 0;
-        PreparedStatement stmt = con.prepareStatement("SELECT COUNT(*) FROM product_type WHERE product_type=?");
+        PreparedStatement stmt = con.prepareStatement("SELECT COUNT(*) FROM product_types WHERE product_type=?");
         stmt.setString(1, ptype);
         ResultSet exe = stmt.executeQuery();
         if (exe.next()) {
@@ -1342,40 +1534,11 @@ public class DBConnect {
         return res;
     }
 
-    public int checkTaCById(String tacId) throws SQLException {
-        int res = 0;
-        PreparedStatement stmt = con.prepareStatement("SELECT COUNT(*) FROM product_type_and_category WHERE id=?");
-        stmt.setString(1, tacId);
+    
 
-        ResultSet exe = stmt.executeQuery();
-        if (exe.next()) {
-            res = exe.getInt(1);
-        }
-        return res;
-    }
+    
 
-    public int checkBrand(String brand) throws SQLException {
-        int res = 0;
-        PreparedStatement stmt = con.prepareStatement("SELECT COUNT(*) FROM brand WHERE brand_id=?");
-        stmt.setString(1, brand);
-
-        ResultSet exe = stmt.executeQuery();
-        if (exe.next()) {
-            res = exe.getInt(1);
-        }
-        return res;
-    }
-
-    public boolean updateBrand(UpdateBrand req) throws SQLException {
-        PreparedStatement ps = con.prepareStatement("UPDATE brand SET online_visibility_status=?, offline_visibility_status=?, brand=? WHERE brand_id=?");
-        ps.setString(1, req.getOn_status());
-        ps.setString(2, req.getOff_status());
-        ps.setString(3, req.getBrand());
-        ps.setString(4, req.getBrandid());
-        int exe = ps.executeUpdate();
-        ps.close();
-        return exe == 1;
-    }
+    
 
     public boolean updateBPaC(UpdateBPaC req) throws SQLException {
         PreparedStatement ps = con.prepareStatement("UPDATE brand_category_and_product_type SET online_visibility_status=?, offline_visibility_status=?, product_type=? WHERE product_type_id=?");
@@ -1388,15 +1551,7 @@ public class DBConnect {
         return exe == 1;
     }
 
-    public boolean deleteBrand(DeleteBrand req) throws SQLException {
-        PreparedStatement ps = con.prepareStatement("UPDATE brand SET online_visibility_status=?, offline_visibility_status=? WHERE brand=?");
-        ps.setString(1, "2");
-        ps.setString(2, "2");
-        ps.setString(3, req.getBrand());
-        int exe = ps.executeUpdate();
-        ps.close();
-        return exe == 1;
-    }
+    
 
     public boolean deleteBPaC(DeleteBPaC req) throws SQLException {
         PreparedStatement ps = con.prepareStatement("UPDATE brand_category_and_product_type SET online_visibility_status=?, offline_visibility_status=? WHERE brand=? and category=? and product_type=?");
@@ -1405,14 +1560,6 @@ public class DBConnect {
         ps.setString(3, req.getBrand());
         ps.setString(4, req.getCateg());
         ps.setString(5, req.getPtype());
-        int exe = ps.executeUpdate();
-        ps.close();
-        return exe == 1;
-    }
-
-    public boolean addBrand(AddBrand req) throws SQLException {
-        PreparedStatement ps = con.prepareStatement("INSERT INTO brand (brand) values (?)");
-        ps.setString(1, req.getBrand());
         int exe = ps.executeUpdate();
         ps.close();
         return exe == 1;
@@ -1428,27 +1575,9 @@ public class DBConnect {
         return exe == 1;
     }
 
-    public int checkTacId(String tacid) throws SQLException {
-        int res = 0;
-        PreparedStatement stmt = con.prepareStatement("SELECT COUNT(*) FROM product_type_and_category WHERE id=?");
-        stmt.setString(1, tacid);
-        ResultSet exe = stmt.executeQuery();
-        if (exe.next()) {
-            res = exe.getInt(1);
-        }
-        return res;
-    }
+    
 
-    public int checkPTypeId(String ptypeid) throws SQLException {
-        int res = 0;
-        PreparedStatement stmt = con.prepareStatement("SELECT COUNT(*) FROM product_type WHERE product_type_id=?");
-        stmt.setString(1, ptypeid);
-        ResultSet exe = stmt.executeQuery();
-        if (exe.next()) {
-            res = exe.getInt(1);
-        }
-        return res;
-    }
+    
 
     public int checkSpecId(String specid) {
         int res = 0;
@@ -1494,18 +1623,7 @@ public class DBConnect {
         return res;
     }
 
-    public ArrayList<Category> getCategories(GetCategories req) throws SQLException {
-        PreparedStatement ps = con.prepareStatement("SELECT c.category_id, c.category, c.super_category, c.online_visibility_status, c.offline_visibility_status FROM categories AS c ");
-        ArrayList<Category> categs = new ArrayList<>();
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            Category category = new Category(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
-            categs.add(category);
-        }
-        rs.close();
-        ps.close();
-        return categs;
-    }
+    
 
     public Category getCategory(GetCategory req) throws SQLException {
         Category res = null;
@@ -1520,43 +1638,17 @@ public class DBConnect {
         return res;
     }
 
-    public ArrayList<ProductType> getAllProductTypes(String no, String offset) throws SQLException {
-        ArrayList<ProductType> res = new ArrayList<>();
-        PreparedStatement stmt = con.prepareStatement("SELECT * FROM brands LIMIT(?,?)");
-        int n = Integer.parseInt(no);
-        stmt.setInt(2, n);
-        stmt.setInt(1, n * Integer.parseInt(offset));
-        ResultSet exe = stmt.executeQuery();
-        while (exe.next()) {
-            ProductType pt = new ProductType(exe.getString(1), exe.getString(2), exe.getString(3), exe.getString(4));
-            res.add(pt);
-        }
-        return res;
-    }
+    
 
-    public ArrayList<Brand> getAllBrands(String no, String offset) throws SQLException {
-        ArrayList<Brand> res = new ArrayList<>();
-        PreparedStatement stmt = con.prepareStatement("SELECT * FROM brands LIMIT(?,?)");
-        int n = Integer.parseInt(no);
-        stmt.setInt(2, n);
-        stmt.setInt(1, n * Integer.parseInt(offset));
-        ResultSet exe = stmt.executeQuery();
-        while (exe.next()) {
-            Brand brand = new Brand(exe.getString(1), exe.getString(2), exe.getString(3), exe.getString(4));
-            res.add(brand);
-        }
-        return res;
-    }
-
-    public ArrayList<TaC> getAllTaC(String no, String offset) throws SQLException {
+    public ArrayList<TaC> getAllTaC(String pageNO, String maxEntries) throws SQLException {
         ArrayList<TaC> res = new ArrayList<>();
-        PreparedStatement stmt = con.prepareStatement("SELECT * FROM tac_mapping LIMIT(?,?)");
-        int n = Integer.parseInt(no);
-        stmt.setInt(2, n);
-        stmt.setInt(1, n * Integer.parseInt(offset));
-        ResultSet exe = stmt.executeQuery();
-        while (exe.next()) {
-            TaC tac = new TaC(exe.getString(1), exe.getString(2), exe.getString(3), exe.getString(4), exe.getString(5));
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM tac_mapping LIMIT(?,?)");
+        int n = Integer.parseInt(maxEntries);
+        ps.setInt(2, n);
+        ps.setInt(1, n * (Integer.parseInt(pageNO)-1));
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            TaC tac = new TaC(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
             res.add(tac);
         }
         return res;
@@ -1582,10 +1674,7 @@ public class DBConnect {
         return res;
     }
 
-    public TaC getTaC(GetTaC req) {
-        TaC res = null;
-        return res;
-    }
+    
 
     public SuperCategory getSuperCategory(GetSuperCategory req) throws SQLException {
         SuperCategory res = null;
@@ -1594,35 +1683,22 @@ public class DBConnect {
         ResultSet r = stmt.executeQuery();
         if (r.next()) {
             res = new SuperCategory(r.getString(1), r.getString(2), r.getString(3), r.getString(4));
+        }else{
+            res = new SuperCategory("invalid", "invalid", "invalid", "invalid");
         }
         return res;
     }
 
-    public SubCategory getSubCategory(GetSubCategory req) throws SQLException {
-        SubCategory res = null;
-        PreparedStatement stmt = con.prepareStatement("SELECT * FROM sub_categories WHERE sub_category_id=?");
-        stmt.setString(1, req.getSubcategid());
-        ResultSet r = stmt.executeQuery();
-        if (r.next()) {
-            res = new SubCategory(r.getString(1), r.getString(2), r.getString(3), r.getString(4), r.getString(5));
-        }
-        return res;
-    }
+    
 
     public Specifications getSpecification(GetSpecification req) {
         Specifications res = null;
         return res;
     }
 
-    public ProductTypes getProductTypes(GetProductTypes req) {
-        ProductTypes res = null;
-        return res;
-    }
+    
 
-    public ProductType getProductType(GetProductType req) {
-        ProductType res = null;
-        return res;
-    }
+    
 
     public Brand getBrand(GetBrand req) throws SQLException {
         Brand res = null;
@@ -1858,7 +1934,7 @@ public class DBConnect {
         }
         rs = ps.executeQuery();
         while (rs.next()) {
-            MemberDetails mds = new MemberDetails(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),rs.getString(6));
+            MemberDetails mds = new MemberDetails(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
             md.add(mds);
         }
         rs.close();
@@ -1898,5 +1974,17 @@ public class DBConnect {
         ps.close();
         return ad;
     }
+
+    public boolean deleteProductType(DeleteProductType req) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("UPDATE product_type SET online_visibility_status=?, offline_visibility_status=? WHERE product_type_id=?");
+        ps.setString(1, "2");
+        ps.setString(2, "2");
+        ps.setString(3, req.getPtype());
+        int exe = ps.executeUpdate();
+        ps.close();  
+        return exe == 1;
+    }
+
+    
 
 }

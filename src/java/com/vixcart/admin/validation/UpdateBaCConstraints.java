@@ -122,7 +122,7 @@ public class UpdateBaCConstraints implements UpdateBaCValidator {
             if (dbc.checkVisibilityStatusById(on_status) == 0) {
                 valid = CorrectMsg.CORRECT_ONLINE_VISIBILITY;
             } else {
-                valid = ErrMsg.ERR_ONLINE_VISIBILITY_NOT_EXISTS;
+                valid = ErrMsg.ERR_ONLINE_VISIBILITY;
             }
         }
         return valid;
@@ -136,7 +136,7 @@ public class UpdateBaCConstraints implements UpdateBaCValidator {
             if (dbc.checkVisibilityStatusById(off_status) == 0) {
                 valid = CorrectMsg.CORRECT_OFFLINE_VISIBILITY;
             } else {
-                valid = ErrMsg.ERR_OFFLINE_VISIBILITY_NOT_EXISTS;
+                valid = ErrMsg.ERR_OFFLINE_VISIBILITY;
             }
         }
         return valid;

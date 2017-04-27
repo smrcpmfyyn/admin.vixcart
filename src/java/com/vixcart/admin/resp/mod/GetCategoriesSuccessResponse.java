@@ -18,7 +18,7 @@ public class GetCategoriesSuccessResponse {
     public GetCategoriesSuccessResponse(String status, String accessToken) {
         this.status = status;
         this.accessToken = accessToken;
-        this.allCategories = allCategories;
+        this.allCategories = new ArrayList<>();
     }
     public GetCategoriesSuccessResponse(String status, String accessToken, ArrayList<Category> allCategories) {
         this.status = status;
@@ -37,7 +37,7 @@ public class GetCategoriesSuccessResponse {
     @Override
     public String toString() {
         String response = "{\"status\":\""+status + "\",\"categories\":[ ";
-        response = allCategories.stream().map((Category type) -> type.toString()+",").reduce(response, String::concat);
+        response = allCategories.stream().map((Category type) -> type.getCategories()+",").reduce(response, String::concat);
         response = response.substring(0, response.length()-1);
         response += "]}";
         return response;

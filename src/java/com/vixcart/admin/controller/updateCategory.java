@@ -9,6 +9,8 @@ import com.vixcart.admin.req.mod.UpdateCategory;
 import com.vixcart.admin.resp.mod.UpdateCategoryFailureResponse;
 import com.vixcart.admin.resp.mod.UpdateCategorySuccessResponse;
 import com.vixcart.admin.result.UpdateCategoryResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.UpdateCategoryValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -44,13 +46,16 @@ public class updateCategory extends HttpServlet {
             String on_status = request.getParameter("on_status");
             String off_status = request.getParameter("off_status");
             Cookie ck = Servlets.getCookie(request, "at");
-            String at = ck.getValue();
+            String at = "";
+            if (ck != null) {
+                at = ck.getValue();
+            }
             UpdateCategory req = new UpdateCategory(at, categ, on_status, off_status);
             UpdateCategoryValidation reqV = new UpdateCategoryValidation(req);
             reqV.validation();
-            System.out.println("addTypV = " + reqV);
             UpdateCategoryResult reqR = JSONParser.parseJSONUpdateCategory(reqV.toString());
             String validmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "update_category", "product management", "valid");
             if (validmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessUpdateCategory process = new ProcessUpdateCategory(req);
                 UpdateCategorySuccessResponse rSucc = process.processRequest();
@@ -61,15 +66,21 @@ public class updateCategory extends HttpServlet {
             } else if (validmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(addTyp.getAdmin_id());
-//                    bau.block();
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+//                    ua.addActivity();
+                } else {
+                    ua.setEntryStatus("invalid");
                 }
                 UpdateCategoryFailureResponse rFail = new UpdateCategoryFailureResponse(reqR, validmission);
                 out.write(rFail.toString());
             } else {
                 //exception response
             }
+            ua.addActivity();
             out.flush();
             out.close();
         } catch (Exception ex) {

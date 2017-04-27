@@ -1,7 +1,6 @@
 package com.vixcart.admin.validation;
 
 // <editor-fold defaultstate="collapsed" desc="packages">
-
 import com.vixcart.admin.db.DB;
 import com.vixcart.admin.db.DBConnect;
 import com.vixcart.admin.db.MongoConnect;
@@ -14,14 +13,12 @@ import com.vixcart.admin.req.mod.UpdateCategory;
 import java.sql.SQLException;
 import java.util.HashSet;
 
-
-
 // </editor-fold>
 /**
  *
  * @author Vineeth K
  */
-public class UpdateCategoryConstraints implements UpdateCategoryValidator{
+public class UpdateCategoryConstraints implements UpdateCategoryValidator {
 
     private final UpdateCategory req;
     private final MongoConnect mdbc;
@@ -48,13 +45,11 @@ public class UpdateCategoryConstraints implements UpdateCategoryValidator{
 
     @Override
     public String validateCategory() throws Exception {
-        String valid = ErrMsg.ERR_NAME;
+        String valid = ErrMsg.ERR_CATEGORY;
         String regX = RegX.REGX_DIGIT;
-//        System.out.println("regX = " + regX);
         String name = req.getCateg();
-//        System.out.println("name = " + name);
         if (validate(name, regX)) {
-            if (dbc.checkCategoryById(name)!=0) {
+            if (dbc.checkCategoryById(name) == 1) {
                 valid = CorrectMsg.CORRECT_CATEGORY;
             } else {
                 valid = ErrMsg.ERR_CATEGORY_NOT_EXISTS;
@@ -92,20 +87,17 @@ public class UpdateCategoryConstraints implements UpdateCategoryValidator{
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
 
     @Override
     public String validateOnlineVisibilityStatus() throws Exception {
-        String valid = ErrMsg.ERR_NAME;
+        String valid = ErrMsg.ERR_ONLINE_VISIBILITY;
         String regX = RegX.REGX_DIGIT;
-//        System.out.println("regX = " + regX);
-        String name = req.getOn_status();
-//        System.out.println("name = " + name);
-        if (validate(name, regX)) {
-            if (dbc.checkVisibilityStatusById(name)!=0) {
+        String on_status = req.getOn_status();
+        if (validate(on_status, regX)) {
+            if (on_status.equals("1") || on_status.equals("2")) {
                 valid = CorrectMsg.CORRECT_ONLINE_VISIBILITY;
-            } else {
-                valid = ErrMsg.ERR_ONLINE_VISIBILITY_NOT_EXISTS;
             }
         }
         return valid;
@@ -113,18 +105,15 @@ public class UpdateCategoryConstraints implements UpdateCategoryValidator{
 
     @Override
     public String validateOfflineVisibilityStatus() throws Exception {
-        String valid = ErrMsg.ERR_NAME;
+        String valid = ErrMsg.ERR_OFFLINE_VISIBILITY;
         String regX = RegX.REGX_DIGIT;
-//        System.out.println("regX = " + regX);
-        String name = req.getOff_status();
-//        System.out.println("name = " + name);
-        if (validate(name, regX)) {
-            if (dbc.checkVisibilityStatusById(name)!=0) {
+        String off_status = req.getOff_status();
+        if (validate(off_status, regX)) {
+            if (off_status.equals("1")||off_status.equals("2")) {
                 valid = CorrectMsg.CORRECT_OFFLINE_VISIBILITY;
-            } else {
-                valid = ErrMsg.ERR_OFFLINE_VISIBILITY_NOT_EXISTS;
-            }
+            } 
         }
-        return valid;}
+        return valid;
+    }
 
 }

@@ -9,6 +9,8 @@ import com.vixcart.admin.req.mod.GetSubCategory;
 import com.vixcart.admin.resp.mod.GetSubCategoryFailureResponse;
 import com.vixcart.admin.resp.mod.GetSubCategorySuccessResponse;
 import com.vixcart.admin.result.GetSubCategoryResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.GetSubCategoryValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -46,9 +48,9 @@ public class getSubCategory extends HttpServlet {
             GetSubCategory req = new GetSubCategory(at, subCategId);
             GetSubCategoryValidation reqV = new GetSubCategoryValidation(req);
             reqV.validation();
-            System.out.println("addTypV = " + reqV);
             GetSubCategoryResult reqR = JSONParser.parseJSONGetSubCategory(reqV.toString());
             String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "get_sub_category", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessGetSubCategory process = new ProcessGetSubCategory(req);
                 GetSubCategorySuccessResponse rSucc = process.processRequest();
@@ -59,9 +61,14 @@ public class getSubCategory extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+//                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(addTyp.getAdmin_id());
-//                    bau.block();
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+                    ua.addActivity();
+                } else {
+//                    ua.setEntryStatus("invalid");
                 }
                 GetSubCategoryFailureResponse rFail = new GetSubCategoryFailureResponse(reqR, validSubmission);
                 out.write(rFail.toString());

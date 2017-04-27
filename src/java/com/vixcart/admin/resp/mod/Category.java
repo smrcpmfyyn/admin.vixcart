@@ -16,6 +16,14 @@ public class Category {
     private String online_visibilty_status;
     private String offline_visibility_status;
 
+    public Category() {
+        this.category_id = "invalid";
+        this.category = "invalid";
+        this.super_category = "invalid";
+        this.online_visibilty_status = "invalid";
+        this.offline_visibility_status = "invalid";
+    }
+
     public Category(String category_id, String category, String super_category, String online_visibilty_status, String offline_visibility_status) {
         this.category_id = category_id;
         this.category = category;
@@ -62,6 +70,10 @@ public class Category {
 
     public void setOffline_visibility_status(String offline_visibility_status) {
         this.offline_visibility_status = offline_visibility_status;
+    }
+    
+    public String getCategories(){
+        return "{\"" + "category_id\":\"" + category_id +  "\",\"category\":\"" + category + "\"}";
     }
 
     @Override

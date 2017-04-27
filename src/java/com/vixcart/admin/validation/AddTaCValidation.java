@@ -34,6 +34,7 @@ public class AddTaCValidation implements Validation{
             if(valid1.startsWith(CorrectMsg.CORRECT_MESSAGE)){
                 valid += "#"+reqC.validatePType();
                 valid += "#"+reqC.validateCategory();
+                valid += "#"+reqC.validateTaC();
             }
         }
         reqC.closeConnection();
@@ -49,9 +50,9 @@ public class AddTaCValidation implements Validation{
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_TAC;
+            paramValue += CorrectMsg.CORRECT_ADD_TAC;
         } else {
-            paramValue += ErrMsg.ERR_TAC;
+            paramValue += ErrMsg.ERR_ADD_TAC;
         }
     }
     

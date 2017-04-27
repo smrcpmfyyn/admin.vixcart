@@ -15,7 +15,7 @@ public class GetSubCategoryResult implements Result {
 	 private String at;
 	 private String admintype;
 	 private String reqValidation;
-	 private String subCategId;
+	 private String subcateg;
 
     public void setAt(String at) {
         this.at = at;
@@ -41,12 +41,12 @@ public class GetSubCategoryResult implements Result {
       return  this.reqValidation;
     }
 
-    public void setSubcategid(String subCategId) {
-        this.subCategId = subCategId;
+    public void setSubcateg(String subCategId) {
+        this.subcateg = subCategId;
     }
 
-    public String getSubcategid() {
-      return  this.subCategId;
+    public String getSubcateg() {
+      return  this.subcateg;
     }
 
     @Override
@@ -77,8 +77,8 @@ public class GetSubCategoryResult implements Result {
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
         } else {
-            if (subCategId.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "subcategid#";
+            if (subcateg.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "subcateg#";
             }
         }
         return error.substring(0, error.length() - 1);

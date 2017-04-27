@@ -15,7 +15,6 @@ public class DeleteCategoryResult implements Result {
 
     private String at;
     private String admintype;
-//    private String type;
     private String categ;
     private String reqValidation;
 
@@ -34,20 +33,12 @@ public class DeleteCategoryResult implements Result {
     public void setAdmintype(String admintype) {
         this.admintype = admintype;
     }
-//
-//    public String getType() {
-//        return type;
-//    }
-//
-//    public void setType(String type) {
-//        this.type = type;
-//    }
 
-    public String getcateg() {
+    public String getCateg() {
         return categ;
     }
 
-    public void setcateg(String categ) {
+    public void setCateg(String categ) {
         this.categ = categ;
     }
 

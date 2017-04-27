@@ -91,10 +91,10 @@ public class AddCategoryResult implements Result {
             error += "admintype#";
         } else {
             if (categ.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "category#";
+                error += "categ#";
             }
             if (supercateg.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "supercategory#";
+                error += "supercateg#";
             }
         }
         return error.substring(0, error.length() - 1);

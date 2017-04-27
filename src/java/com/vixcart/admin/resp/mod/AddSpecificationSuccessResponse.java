@@ -9,11 +9,16 @@ package com.vixcart.admin.resp.mod;
 public class AddSpecificationSuccessResponse {
 
     private final String status;
+    private String specStatus;
     private final String accessToken;
 
     public AddSpecificationSuccessResponse(String status, String accessToken) {
         this.status = status;
         this.accessToken = accessToken;
+    }
+
+    public void setSpecStatus(String specStatus) {
+        this.specStatus = specStatus;
     }
 
     public String getStatus() {
@@ -26,6 +31,6 @@ public class AddSpecificationSuccessResponse {
 
     @Override
     public String toString() {
-        return "{\"status\":\"" + status + "\"}";
+        return "{\"status\":\"" + status + "\",\"specst\":\""+specStatus+"\"}";
     }
 }

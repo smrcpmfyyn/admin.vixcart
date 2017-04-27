@@ -92,7 +92,7 @@ public class GetSpecificationConstraints implements GetSpecificationValidator {
         String specid = req.getSpecid();
         if (validate(specid, regX)) {
             if (dbc.checkSpecId(specid) == 0) {
-                valid = CorrectMsg.CORRECT_SPECIFIC;
+                valid = CorrectMsg.CORRECT_SPECIFIC_ALL;
             } else {
                 valid = ErrMsg.ERR_SPECIFIC_NOT_EXISTS;
             }

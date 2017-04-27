@@ -36,9 +36,10 @@ public class UpdateSubCategoryValidation implements Validation {
             valid += "#" + valid1;
             if (valid1.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 valid += "#" + auc.validateSubCategory();
+                valid += "#" + auc.validateOnlineVisibilityStatus();
+                valid += "#" + auc.validateOfflineVisibilityStatus();
             }
         }
-        System.out.println("valid = " + valid);
         auc.closeConnection();
         int count = 0;
         for (String str : valid.split("#")) {
@@ -52,9 +53,9 @@ public class UpdateSubCategoryValidation implements Validation {
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_SUB_CATEGORY;
+            paramValue += CorrectMsg.CORRECT_UPDATE_SUB_CATEGORY;
         } else {
-            paramValue += ErrMsg.ERR_SUB_CATEGORY;
+            paramValue += ErrMsg.ERR_UPDATE_SUB_CATEGORY;
         }
     }
 

@@ -70,11 +70,13 @@ public class AddBrandConstraints implements AddBrandValidator {
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
+    
     @Override
     public String validateBrand() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
-        String regX = RegX.REGX_STRING;
+        String valid = ErrMsg.ERR_BRAND;
+        String regX = RegX.REGX_STRING_UPPER_AND_LOWER;
         String brand = req.getBrand();
         if (validate(brand, regX)) {
             if (dbc.checkBrand(brand) == 0) {

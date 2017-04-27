@@ -19,6 +19,7 @@ public class SubCategorySuccessResponse {
     public SubCategorySuccessResponse(String status, String accessToken) {
         this.status = status;
         this.accessToken = accessToken;
+        this.allSubCategories = new ArrayList<>();
     }
 
     public SubCategorySuccessResponse(String status, String accessToken, ArrayList<SubCategory> allSubTypes) {

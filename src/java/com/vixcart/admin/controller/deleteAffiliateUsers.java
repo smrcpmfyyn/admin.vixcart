@@ -56,7 +56,7 @@ public class deleteAffiliateUsers extends HttpServlet {
             reqV.validation();
             DeleteAffiliateUsersResult reqR = JSONParser.parseJSONDAU(reqV.toString());
             String validSubmission = reqR.getValidationResult();
-            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "delete_affiliate_user", "affiliate", "valid");
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "delete_affiliate_users", "affiliate", "valid");
             if (validSubmission.equals(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessDeleteAffiliateUsers process = new ProcessDeleteAffiliateUsers(req);
                 DeleteAffiliateUsersSuccessResponse SResp = process.processRequest();
@@ -67,12 +67,14 @@ public class deleteAffiliateUsers extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
                     BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
                     bau.block();
                     ua.setEntryStatus("blocked");
+                } else {
+                    ua.setEntryStatus("invalid");
                 }
-                ua.setEntryStatus("invalid");
                 DeleteAffiliateUsersFailureResponse FResp = new DeleteAffiliateUsersFailureResponse(reqR, validSubmission);
                 out.println(FResp);
             } else {

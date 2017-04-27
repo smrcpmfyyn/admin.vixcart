@@ -10,6 +10,8 @@ import com.vixcart.admin.req.mod.DeleteCategory;
 import com.vixcart.admin.resp.mod.DeleteCategoryFailureResponse;
 import com.vixcart.admin.resp.mod.DeleteCategorySuccessResponse;
 import com.vixcart.admin.result.DeleteCategoryResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.DeleteCategoryValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -38,18 +40,20 @@ public class deleteCategory extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
-            String scat = request.getParameter("scat");
+            String category = request.getParameter("cat");
             Cookie ck = Servlets.getCookie(request, "at");
-            String at = ck.getValue();
-            DeleteCategory req = new DeleteCategory(at, scat);
+            String at = "";
+            if (ck != null) {
+                at = ck.getValue();
+            }
+            DeleteCategory req = new DeleteCategory(at, category);
             DeleteCategoryValidation reqV = new DeleteCategoryValidation(req);
             reqV.validation();
-            System.out.println("addTypV = " + reqV);
             DeleteCategoryResult reqR = JSONParser.parseJSONDeleteCategory(reqV.toString());
             String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "delete_category", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessDeleteCategory process = new ProcessDeleteCategory(req);
                 DeleteCategorySuccessResponse rSucc = process.processRequest();
@@ -60,15 +64,20 @@ public class deleteCategory extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(addTyp.getAdmin_id());
-//                    bau.block();
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+                } else {
+                    ua.setEntryStatus("invalid");
                 }
                 DeleteCategoryFailureResponse rFail = new DeleteCategoryFailureResponse(reqR, validSubmission);
                 out.write(rFail.toString());
             } else {
                 //exception response
             }
+            ua.addActivity();
             out.flush();
             out.close();
         } catch (Exception ex) {

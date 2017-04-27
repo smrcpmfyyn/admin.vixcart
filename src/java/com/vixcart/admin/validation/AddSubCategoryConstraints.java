@@ -70,12 +70,13 @@ public class AddSubCategoryConstraints implements AddSubCategoryValidator {
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
 
     @Override
     public String validateSubCategory() throws Exception {
         String valid = ErrMsg.ERR_SUB_CATEGORY;
-        String regX = RegX.REGX_STRING;
+        String regX = RegX.REGX_STRING_UPPER_AND_LOWER;
         String category = req.getSubCategory();
         if (validate(category, regX)) {
             if (dbc.checkSubCategory(category) == 0) {

@@ -70,14 +70,16 @@ public class AddTaCConstraints implements AddTaCValidator {
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
+
     @Override
     public String validatePType() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
-        String regX = RegX.REGX_STRING;
-        String category = req.getpType();
-        if (validate(category, regX)) {
-            if (dbc.checkPType(category) == 0) {
+        String valid = ErrMsg.ERR_PTYPE;
+        String regX = RegX.REGX_STRING_UPPER_AND_LOWER;
+        String param = req.getpType();
+        if (validate(param, regX)) {
+            if (dbc.checkPType(param) == 1) {
                 valid = CorrectMsg.CORRECT_PTYPE;
             } else {
                 valid = ErrMsg.ERR_PTYPE_NOT_EXISTS;
@@ -85,17 +87,31 @@ public class AddTaCConstraints implements AddTaCValidator {
         }
         return valid;
     }
+
     @Override
     public String validateCategory() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
-        String regX = RegX.REGX_STRING;
+        String valid = ErrMsg.ERR_CATEGORY;
+        String regX = RegX.REGX_STRING_UPPER_AND_LOWER;
         String category = req.getCategory();
         if (validate(category, regX)) {
-            if (dbc.checkCategory(category) == 0) {
+            if (dbc.checkCategory(category) == 1) {
                 valid = CorrectMsg.CORRECT_CATEGORY;
             } else {
                 valid = ErrMsg.ERR_CATEGORY_NOT_EXISTS;
             }
+        }
+        return valid;
+    }
+
+    @Override
+    public String validateTaC() throws Exception {
+        String valid = ErrMsg.ERR_TAC;
+        String category = req.getCategory();
+        String type = req.getpType();
+        if (dbc.checkTaC(category,type) == 0) {
+            valid = CorrectMsg.CORRECT_TAC;
+        } else {
+            valid = ErrMsg.ERR_TAC_EXISTS;
         }
         return valid;
     }

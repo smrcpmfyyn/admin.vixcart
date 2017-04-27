@@ -33,7 +33,6 @@ public class GetSuperCategoriesValidation implements Validation{
         if (valid.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
             valid += "#" + reqC.validateUserType("product management");
         }
-//        System.out.println("valid = " + valid);
         reqC.closeConnection();
         int count = 0;
         for (String str : valid.split("#")) {
@@ -47,9 +46,9 @@ public class GetSuperCategoriesValidation implements Validation{
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_USER;
+            paramValue += CorrectMsg.CORRECT_GET_ALL_SUPER_CATEGORIES;
         } else {
-            paramValue += ErrMsg.ERR_USER;
+            paramValue += ErrMsg.ERR_GET_ALL_SUPER_CATEGORIES;
         }
     }
 

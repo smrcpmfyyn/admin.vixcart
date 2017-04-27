@@ -33,7 +33,6 @@ public class UpdateProductTypeValidation implements Validation{
             valid += "#" + valid1;
             if(valid1.startsWith(CorrectMsg.CORRECT_MESSAGE)){
                 valid += "#"+reqC.validatePTypeId();
-                valid += "#"+reqC.validatePType();
                 valid += "#"+reqC.validateOn_status();
                 valid += "#"+reqC.validateOff_status();
             }
@@ -51,9 +50,9 @@ public class UpdateProductTypeValidation implements Validation{
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_SUB_CATEGORY;
+            paramValue += CorrectMsg.CORRECT_UPDATE_PTYPE;
         } else {
-            paramValue += ErrMsg.ERR_SUB_CATEGORY;
+            paramValue += ErrMsg.ERR_UPDATE_PTYPE;
         }
     }
     

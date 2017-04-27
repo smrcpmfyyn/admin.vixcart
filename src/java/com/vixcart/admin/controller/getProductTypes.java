@@ -9,6 +9,8 @@ import com.vixcart.admin.req.mod.GetProductTypes;
 import com.vixcart.admin.resp.mod.GetProductTypesFailureResponse;
 import com.vixcart.admin.resp.mod.GetProductTypesSuccessResponse;
 import com.vixcart.admin.result.GetProductTypesResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.GetProductTypesValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,13 +43,16 @@ public class getProductTypes extends HttpServlet {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
             Cookie ck = Servlets.getCookie(request, "at");
-            String at = ck.getValue();
+            String at = "";
+            if (ck != null) {
+                at = ck.getValue();
+            }
             GetProductTypes req = new GetProductTypes(at);
             GetProductTypesValidation reqV = new GetProductTypesValidation(req);
             reqV.validation();
-            System.out.println("addTypV = " + reqV);
             GetProductTypesResult reqR = JSONParser.parseJSONGetProductTypes(reqV.toString());
             String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "get_product_types", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessGetProductTypes process = new ProcessGetProductTypes(req);
                 GetProductTypesSuccessResponse rSucc = process.processRequest();
@@ -58,9 +63,14 @@ public class getProductTypes extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+//                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(addTyp.getAdmin_id());
-//                    bau.block();
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+                    ua.addActivity();
+                } else {
+//                    ua.setEntryStatus("invalid");
                 }
                 GetProductTypesFailureResponse rFail = new GetProductTypesFailureResponse(reqR, validSubmission);
                 out.write(rFail.toString());

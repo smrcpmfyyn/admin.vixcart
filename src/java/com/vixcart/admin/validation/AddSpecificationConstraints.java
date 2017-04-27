@@ -76,11 +76,11 @@ public class AddSpecificationConstraints implements AddSpecificationValidator {
 
     @Override
     public String validatePType() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
-        String regX = RegX.REGX_STRING;
-        String category = req.getpType();
-        if (validate(category, regX)) {
-            if (dbc.checkPType(category) == 0) {
+        String valid = ErrMsg.ERR_PTYPE;
+        String regX = RegX.REGX_STRING_UPPER_AND_LOWER;
+        String pType = req.getpType();
+        if (validate(pType, regX)) {
+            if (dbc.checkPType(pType) == 0) {
                 valid = CorrectMsg.CORRECT_PTYPE;
             } else {
                 valid = ErrMsg.ERR_PTYPE_EXISTS;
@@ -91,16 +91,14 @@ public class AddSpecificationConstraints implements AddSpecificationValidator {
 
     @Override
     public String validateSpecific() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
-        String regX = RegX.REGX_STRING;
+        String valid = ErrMsg.ERR_SPECIFIC;
+        String regX = RegX.REGX_STRING_UPPER_AND_LOWER;
         List<String> specifications = req.getSpecific();
         List<String> rem = new ArrayList<>();
         for (String specific : specifications) {
-
             if (validate(specific, regX)) {
                 if (dbc.checkSpecific(specific, req.getpType()) == 0) {
                 } else {
-//                    valid = ErrMsg.ERR_SPECIFIC_EXISTS;
                     rem.add(specific);
                 }
             } else {
@@ -108,13 +106,13 @@ public class AddSpecificationConstraints implements AddSpecificationValidator {
             }
         }
         specifications.removeAll(rem);
-        if (!specifications.isEmpty()) {
-//            valid = valid.substring(0, valid.length() - 1);
-            valid = CorrectMsg.CORRECT_SPECIFIC;
-        } else {
+        if (rem.isEmpty()) {
+            valid = CorrectMsg.CORRECT_SPECIFIC_ALL;
+        } else if(!specifications.isEmpty()) {
+            valid = CorrectMsg.CORRECT_SPECIFIC_SOME;
+        }else{
             valid = ErrMsg.ERR_SPECIFIC_EXISTS;
         }
-
         return valid;
     }
 }

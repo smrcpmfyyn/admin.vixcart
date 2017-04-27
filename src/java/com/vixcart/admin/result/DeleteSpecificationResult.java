@@ -15,8 +15,15 @@ public class DeleteSpecificationResult implements Result {
 	 private String at;
 	 private String admintype;
 	 private String reqValidation;
-	 private String pType;
-	 private String specific;
+	 private String taspec;
+
+    public String getTaspec() {
+        return taspec;
+    }
+
+    public void setTaspec(String taspec) {
+        this.taspec = taspec;
+    }
 
     public void setAdmintype(String admintype) {
         this.admintype = admintype;
@@ -34,24 +41,12 @@ public class DeleteSpecificationResult implements Result {
         return reqValidation;
     }
 
-    public String getPType() {
-        return pType;
-    }
-
     public void setReqvalidation(String reqValidation) {
         this.reqValidation = reqValidation;
     }
 
     public String getReqvalidation() {
       return  this.reqValidation;
-    }
-
-    public void setSpecific(String specific) {
-        this.specific = specific;
-    }
-
-    public String getSpecific() {
-      return  this.specific;
     }
 
     @Override
@@ -82,11 +77,8 @@ public class DeleteSpecificationResult implements Result {
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
         } else {
-            if (pType.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "ptype#";
-            }
-            if (specific.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "specific#";
+            if (taspec.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "taspec#";
             }
         }
         return error.substring(0, error.length() - 1);

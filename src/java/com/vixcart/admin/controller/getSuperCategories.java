@@ -6,10 +6,14 @@ import com.vixcart.admin.jsn.JSONParser;
 import com.vixcart.admin.message.CorrectMsg;
 import com.vixcart.admin.message.ErrMsg;
 import com.vixcart.admin.processreq.ProcessGetAllSuperCategories;
+import com.vixcart.admin.processreq.ProcessGetSuperCategories;
 import com.vixcart.admin.req.mod.GetSuperCategories;
+import com.vixcart.admin.resp.mod.GetSuperCategoriesSuccessResponse;
 import com.vixcart.admin.resp.mod.SuperCategoryFailureResponse;
 import com.vixcart.admin.resp.mod.SuperCategorySuccessResponse;
 import com.vixcart.admin.result.GetSuperCategoriesResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.GetSuperCategoriesValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,17 +45,19 @@ public class getSuperCategories extends HttpServlet {
 response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
             Cookie ck = Servlets.getCookie(request, "at");
-            String at = ck.getValue();
-//            System.out.println("at = " + at);
+            String at = "";
+            if (ck != null) {
+                at = ck.getValue();
+            }
             GetSuperCategories req = new GetSuperCategories(at);
             GetSuperCategoriesValidation reqV = new GetSuperCategoriesValidation(req);
             reqV.validation();
-//            out.println("sCategV = " + sCategV);
             GetSuperCategoriesResult reqR = JSONParser.parseJSONGSC(reqV.toString());
             String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "get_super_categories", "product management", "valid");
             if(validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)){
-                ProcessGetAllSuperCategories process = new ProcessGetAllSuperCategories(req);
-                SuperCategorySuccessResponse reqSResp = process.processRequest();
+                ProcessGetSuperCategories process = new ProcessGetSuperCategories(req);
+                GetSuperCategoriesSuccessResponse reqSResp = process.processRequest();
                 process.closeConnection();
                 ck.setValue(reqSResp.getAccessToken());
                 response.addCookie(ck);
@@ -59,9 +65,14 @@ response.setContentType("application/json");
             }else if(validSubmission.startsWith(ErrMsg.ERR_ERR)){
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+//                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(sCategs.getAdmin_id());
-//                    bau.block();
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+                    ua.addActivity();
+                } else {
+//                    ua.setEntryStatus("invalid");
                 }
                 SuperCategoryFailureResponse reqFRep = new SuperCategoryFailureResponse(reqR, validSubmission);
                 out.write(reqFRep.toString());

@@ -70,17 +70,18 @@ public class DeleteTaCConstraints implements DeleteTaCValidator {
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
     @Override
     public String validateTaC() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
+        String valid = ErrMsg.ERR_TAC;
         String regX = RegX.REGX_STRING;
-        String category = req.getTaC();
-        if (validate(category, regX)) {
-            if (dbc.checkTaCById(category) == 0) {
+        String param = req.getTaC();
+        if (validate(param, regX)) {
+            if (dbc.checkTaCById(param) == 1) {
                 valid = CorrectMsg.CORRECT_TAC;
             } else {
-                valid = ErrMsg.ERR_TAC_EXISTS;
+                valid = ErrMsg.ERR_TAC_NOT_EXISTS;
             }
         }
         return valid;

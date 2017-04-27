@@ -1,11 +1,8 @@
 package com.vixcart.admin.resp.mod;
 
 // <editor-fold defaultstate="collapsed" desc="packages">
-
 import com.vixcart.admin.message.ResponseMsg;
 import com.vixcart.admin.result.AddTaCResult;
-
-
 
 // </editor-fold>
 /**
@@ -13,17 +10,18 @@ import com.vixcart.admin.result.AddTaCResult;
  * @author Vineeth K
  */
 public class AddTaCFailureResponse {
-private final AddTaCResult req;
+
+    private final AddTaCResult req;
     private final String error;
 
     public AddTaCFailureResponse(AddTaCResult req, String error) {
         this.req = req;
         this.error = error;
     }
-    
+
     @Override
     public String toString() {
-        String json = "\"status\":\""+ResponseMsg.RESP_NOT_OK + "\",";
+        String json = "\"status\":\"" + ResponseMsg.RESP_NOT_OK + "\",";
         String[] errors = error.split("#");
         String resp;
         for (int i = 1; i < errors.length; i++) {
@@ -40,13 +38,18 @@ private final AddTaCResult req;
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
                 case "ptype":
-                    String type = req.getPType();
+                    String type = req.getPtype();
                     resp = type.substring(type.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
-                case "category":
-                    type = req.getCategory();
-                    resp = type.substring(type.lastIndexOf(" ") + 1);
+                case "categ":
+                    String categ = req.getCateg();
+                    resp = categ.substring(categ.lastIndexOf(" ") + 1);
+                    json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
+                    break;
+                case "tac":
+                    String tac = req.getTac();
+                    resp = tac.substring(tac.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
             }

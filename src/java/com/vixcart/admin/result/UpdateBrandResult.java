@@ -12,19 +12,20 @@ import com.vixcart.admin.message.ValidationMsg;
  * @author Vineeth K
  */
 public class UpdateBrandResult implements Result {
-	 private String at;
-	 private String admintype;
-	 private String reqValidation;
-	 private String brand;
-	 private String on_status;
-	 private String off_status;
+
+    private String at;
+    private String admintype;
+    private String reqValidation;
+    private String brand;
+    private String onlinevisibility;
+    private String offlinevisibility;
 
     public void setAt(String at) {
         this.at = at;
     }
 
     public String getAt() {
-      return  this.at;
+        return this.at;
     }
 
     public void setAdmintype(String admintype) {
@@ -32,7 +33,7 @@ public class UpdateBrandResult implements Result {
     }
 
     public String getAdmintype() {
-      return  this.admintype;
+        return this.admintype;
     }
 
     public void setReqvalidation(String reqValidation) {
@@ -40,7 +41,7 @@ public class UpdateBrandResult implements Result {
     }
 
     public String getReqvalidation() {
-      return  this.reqValidation;
+        return this.reqValidation;
     }
 
     public void setBrand(String brand) {
@@ -48,23 +49,23 @@ public class UpdateBrandResult implements Result {
     }
 
     public String getBrand() {
-      return  this.brand;
+        return this.brand;
     }
 
-    public void setOn_status(String on_status) {
-        this.on_status = on_status;
+    public void setOnlinevisibility(String onlinevisibility) {
+        this.onlinevisibility = onlinevisibility;
     }
 
-    public String getOn_status() {
-      return  this.on_status;
+    public String getOnlinevisibility() {
+        return this.onlinevisibility;
     }
 
-    public void setOff_status(String off_status) {
-        this.off_status = off_status;
+    public void setOfflinevisibility(String offlinevisibility) {
+        this.offlinevisibility = offlinevisibility;
     }
 
-    public String getOff_status() {
-      return  this.off_status;
+    public String getOfflinevisibility() {
+        return this.offlinevisibility;
     }
 
     @Override
@@ -98,11 +99,11 @@ public class UpdateBrandResult implements Result {
             if (brand.startsWith(ErrMsg.ERR_MESSAGE)) {
                 error += "brand#";
             }
-            if (on_status.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "on_status#";
+            if (onlinevisibility.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "onlinevisibility#";
             }
-            if (off_status.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "off_status#";
+            if (offlinevisibility.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "onlinevisibility#";
             }
         }
         return error.substring(0, error.length() - 1);

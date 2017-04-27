@@ -39,8 +39,8 @@ private final GetTaCResult req;
                     resp = admType.substring(admType.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
-                case "tacid":
-                    String type = req.getTacid();
+                case "tac":
+                    String type = req.getTac();
                     resp = type.substring(type.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;

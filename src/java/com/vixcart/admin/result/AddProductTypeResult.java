@@ -16,7 +16,15 @@ public class AddProductTypeResult implements Result {
     private String at;
     private String admintype;
     private String reqValidation;
-    private String pType;
+    private String ptype;
+
+    public String getPtype() {
+        return ptype;
+    }
+
+    public void setPtype(String ptype) {
+        this.ptype = ptype;
+    }
 
     public String getAt() {
         return at;
@@ -26,11 +34,6 @@ public class AddProductTypeResult implements Result {
         return reqValidation;
     }
 
-    public String getPType() {
-        return pType;
-    }
-
-    
     public void setAdmintype(String admintype) {
         this.admintype = admintype;
     }
@@ -74,7 +77,7 @@ public class AddProductTypeResult implements Result {
             error += "at#";
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
-        } else if (pType.startsWith(ErrMsg.ERR_MESSAGE)) {
+        } else if (ptype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "ptype#";
         }
         return error.substring(0, error.length() - 1);

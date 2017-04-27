@@ -50,9 +50,9 @@ public class GetUserIdsValidation implements Validation{
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_USER;
+            paramValue += CorrectMsg.CORRECT_GET_USER_IDS;
         } else {
-            paramValue += ErrMsg.ERR_USER;
+            paramValue += ErrMsg.ERR_GET_USER_IDS;
         }
     }
     

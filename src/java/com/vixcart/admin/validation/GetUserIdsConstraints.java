@@ -83,6 +83,7 @@ public class GetUserIdsConstraints implements GetUserIdsValidator {
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
 
 }

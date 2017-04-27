@@ -9,6 +9,8 @@ import com.vixcart.admin.req.mod.GetAllBrands;
 import com.vixcart.admin.resp.mod.GetAllBrandsFailureResponse;
 import com.vixcart.admin.resp.mod.GetAllBrandsSuccessResponse;
 import com.vixcart.admin.result.GetAllBrandsResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.GetAllBrandsValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -40,16 +42,19 @@ public class getAllBrands extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
-            String offset = request.getParameter("offset");
-            String no = request.getParameter("no");
+            String maxEntries = request.getParameter("me");
+            String pageNo = request.getParameter("pn");
             Cookie ck = Servlets.getCookie(request, "at");
-            String at = ck.getValue();
-            GetAllBrands req = new GetAllBrands(at,no, offset);
+            String at = "";
+            if (ck != null) {
+                at = ck.getValue();
+            }
+            GetAllBrands req = new GetAllBrands(at,pageNo, maxEntries);
             GetAllBrandsValidation reqV = new GetAllBrandsValidation(req);
             reqV.validation();
-            System.out.println("addTypV = " + reqV);
             GetAllBrandsResult reqR = JSONParser.parseJSONGetAllBrands(reqV.toString());
             String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "get_all_brands", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessGetAllBrands process = new ProcessGetAllBrands(req);
                 GetAllBrandsSuccessResponse rSucc = process.processRequest();
@@ -60,9 +65,14 @@ public class getAllBrands extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+//                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(addTyp.getAdmin_id());
-//                    bau.block();
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+                    ua.addActivity();
+                } else {
+//                    ua.setEntryStatus("invalid");
                 }
                 GetAllBrandsFailureResponse rFail = new GetAllBrandsFailureResponse(reqR, validSubmission);
                 out.write(rFail.toString());

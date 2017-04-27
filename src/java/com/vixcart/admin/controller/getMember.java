@@ -56,12 +56,12 @@ public class getMember extends HttpServlet {
             reqV.validation();
             GetMemberResult reqR = JSONParser.parseJSONGM(reqV.toString());
             String validSubmission = reqR.getValidationResult();
-            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getUtype(), "get_affiliate", "management", "valid");
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getUtype(), "get_member", "affiliate", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessGetMember process = new ProcessGetMember(req);
                 GetMemberSuccessResponse SResp = process.processRequest();
                 process.closeConnection();
-                Cookie ck2 = new Cookie("comp", member_id);
+                Cookie ck2 = new Cookie("mid", member_id);
                 response.addCookie(ck2);
                 ck.setValue(SResp.getAccessToken());
                 response.addCookie(ck);
@@ -69,19 +69,21 @@ public class getMember extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+//                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
                     BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
                     bau.block();
                     ua.setEntryStatus("blocked");
+                    ua.addActivity();
                 } else {
-                    ua.setEntryStatus("invalid");
+//                    ua.setEntryStatus("invalid");
                 }
                 GetMemberFailureResponse FResp = new GetMemberFailureResponse(reqR, validSubmission);
                 out.write(FResp.toString());
             } else {
                 //exception response
             }
-            ua.addActivity();
+//            ua.addActivity();
             out.flush();
             out.close();
         } catch (Exception ex) {

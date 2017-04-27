@@ -10,11 +10,20 @@ public class GetTaCSuccessResponse {
 
     private final String status;
     private final String accessToken;
+    private final TaC res;
 
     public GetTaCSuccessResponse(String status, String accessToken) {
         this.status = status;
         this.accessToken = accessToken;
+        this.res = new TaC();
     }
+
+    public GetTaCSuccessResponse(String status, String accessToken, TaC res) {
+        this.status = status;
+        this.accessToken = accessToken;
+        this.res = res;
+    }
+    
 
     public String getStatus() {
         return status;
@@ -26,6 +35,13 @@ public class GetTaCSuccessResponse {
 
     @Override
     public String toString() {
-        return "{\"status\":\"" + status + "\"}";
+        String response = "";
+        if (res.getId().equals("invalid")) {
+            response = "{\"status\":\"" + status + "\"}";
+        } else {
+            response = "{\"status\":\"" + status + "\",\"ad\":" + res.toString();
+            response += "}";
+        }
+        return response;
     }
 }

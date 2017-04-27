@@ -88,10 +88,10 @@ public class AddSubCategoryResult implements Result {
             error += "admintype#";
         } else {
             if (categ.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "category#";
+                error += "categ#";
             }
             if (subcateg.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "subcategory#";
+                error += "subcateg#";
             }
         }
         return error.substring(0, error.length() - 1);

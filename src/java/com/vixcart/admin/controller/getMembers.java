@@ -58,7 +58,7 @@ public class getMembers extends HttpServlet {
             reqV.validation();
             GetMembersResult reqR = JSONParser.parseJSONGMR(reqV.toString());
             String validSubmission = reqR.getValidationResult();
-            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getUtype(), "get_members", "management", "valid");
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getUtype(), "get_members", "affiliate", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessGetMembers process = new ProcessGetMembers(req);
                 GetMembersSuccessResponse SResp = process.processRequest();
@@ -69,18 +69,21 @@ public class getMembers extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+//                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
                     BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
                     bau.block();
                     ua.setEntryStatus("blocked");
+                    ua.addActivity();
+                } else {
+//                    ua.setEntryStatus("invalid");
                 }
-                ua.setEntryStatus("invalid");
                 GetMembersFailureResponse FResp = new GetMembersFailureResponse(reqR, validSubmission);
                 out.write(FResp.toString());
             } else {
                 //exception response
             }
-            ua.addActivity();
+//            ua.addActivity();
             out.flush();
             out.close();
         } catch (Exception ex) {

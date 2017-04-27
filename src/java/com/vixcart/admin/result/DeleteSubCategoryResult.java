@@ -19,7 +19,7 @@ public class DeleteSubCategoryResult implements Result{
     private String at;
     private String admintype;
 //    private String type;
-    private String Subcateg;
+    private String subcateg;
     private String reqValidation;
 
     public String getAt() {
@@ -37,21 +37,13 @@ public class DeleteSubCategoryResult implements Result{
     public void setAdmintype(String admintype) {
         this.admintype = admintype;
     }
-//
-//    public String getType() {
-//        return type;
-//    }
-//
-//    public void setType(String type) {
-//        this.type = type;
-//    }
 
     public String getSubcateg() {
-        return Subcateg;
+        return subcateg;
     }
 
     public void setSubcateg(String Subcateg) {
-        this.Subcateg = Subcateg;
+        this.subcateg = Subcateg;
     }
 
     public String getReqValidation() {
@@ -62,8 +54,6 @@ public class DeleteSubCategoryResult implements Result{
         this.reqValidation = reqValidation;
     }
 
-    
-   
     @Override
     public String getValidationResult() {
         String result;
@@ -92,11 +82,8 @@ public class DeleteSubCategoryResult implements Result{
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
         } else {
-//            if (type.startsWith(ErrMsg.ERR_MESSAGE)) {
-//                error += "type#";
-//            }
-            if (Subcateg.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "req#";
+            if (subcateg.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "subcateg#";
             }
         }
         return error.substring(0, error.length() - 1);

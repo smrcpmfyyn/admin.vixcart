@@ -1,11 +1,8 @@
 package com.vixcart.admin.resp.mod;
 
 // <editor-fold defaultstate="collapsed" desc="packages">
-
 import com.vixcart.admin.message.ResponseMsg;
 import com.vixcart.admin.result.UpdateBrandResult;
-
-
 
 // </editor-fold>
 /**
@@ -13,19 +10,21 @@ import com.vixcart.admin.result.UpdateBrandResult;
  * @author Vineeth K
  */
 public class UpdateBrandFailureResponse {
-private final UpdateBrandResult req;
+
+    private final UpdateBrandResult req;
     private final String error;
 
     public UpdateBrandFailureResponse(UpdateBrandResult req, String error) {
         this.req = req;
         this.error = error;
     }
-    
+
     @Override
     public String toString() {
-        String json = "\"status\":\""+ResponseMsg.RESP_NOT_OK + "\",";
+        String json = "\"status\":\"" + ResponseMsg.RESP_NOT_OK + "\",";
         String[] errors = error.split("#");
         String resp;
+        String param;
         for (int i = 1; i < errors.length; i++) {
             String parameter = errors[i];
             switch (parameter) {
@@ -44,14 +43,14 @@ private final UpdateBrandResult req;
                     resp = type.substring(type.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
-                case "on_status":
-                     type = req.getOn_status();
-                    resp = type.substring(type.lastIndexOf(" ") + 1);
+                case "onlinevisibility":
+                    param = req.getOnlinevisibility();
+                    resp = param.substring(param.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
-                case "off_status":
-                     type = req.getOff_status();
-                    resp = type.substring(type.lastIndexOf(" ") + 1);
+                case "offlinevisibility":
+                    param = req.getOfflinevisibility();
+                    resp = param.substring(param.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
             }

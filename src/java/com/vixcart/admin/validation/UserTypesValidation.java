@@ -46,9 +46,9 @@ public class UserTypesValidation implements Validation {
         }
         paramName += "typesValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_USER;
+            paramValue += CorrectMsg.CORRECT_GET_USER_TYPES;
         } else {
-            paramValue += ErrMsg.ERR_USER;
+            paramValue += ErrMsg.ERR_GET_USER_TYPES;
         }
     }
     

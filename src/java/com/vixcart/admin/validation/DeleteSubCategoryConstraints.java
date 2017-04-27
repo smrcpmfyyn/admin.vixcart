@@ -48,13 +48,11 @@ public class DeleteSubCategoryConstraints implements DeleteSubCategoryValidator{
 
     @Override
     public String validateSubCategory() throws Exception {
-        String valid = ErrMsg.ERR_NAME;
+        String valid = ErrMsg.ERR_SUB_CATEGORY;
         String regX = RegX.REGX_DIGIT;
-//        System.out.println("regX = " + regX);
         String name = req.getSub_category();
-//        System.out.println("name = " + name);
         if (validate(name, regX)) {
-            if (dbc.checkSubCategoryById(name)!=0) {
+            if (dbc.checkSubCategoryById(name)==1) {
                 valid = CorrectMsg.CORRECT_SUB_CATEGORY;
             } else {
                 valid = ErrMsg.ERR_SUB_CATEGORY_NOT_EXISTS;
@@ -92,6 +90,7 @@ public class DeleteSubCategoryConstraints implements DeleteSubCategoryValidator{
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
 
 }

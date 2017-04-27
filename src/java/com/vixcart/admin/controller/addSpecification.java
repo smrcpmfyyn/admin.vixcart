@@ -9,6 +9,8 @@ import com.vixcart.admin.req.mod.AddSpecification;
 import com.vixcart.admin.resp.mod.AddSpecificationFailureResponse;
 import com.vixcart.admin.resp.mod.AddSpecificationSuccessResponse;
 import com.vixcart.admin.result.AddSpecificationResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.AddSpecificationValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,32 +45,41 @@ public class addSpecification extends HttpServlet {
             String ptype = request.getParameter("ptype");
             String[] specific = request.getParameterValues("specific");
             Cookie ck = Servlets.getCookie(request, "at");
-            String at = ck.getValue();
+            String at = "";
+            if (ck != null) {
+                at = ck.getValue();
+            }
             AddSpecification req = new AddSpecification(at, ptype, specific);
             AddSpecificationValidation reqV = new AddSpecificationValidation(req);
             reqV.validation();
-            System.out.println("addTypV = " + reqV);
             AddSpecificationResult reqR = JSONParser.parseJSONAddSpecification(reqV.toString());
             String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "add_specification", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessAddSpecification process = new ProcessAddSpecification(req);
                 AddSpecificationSuccessResponse rSucc = process.processRequest();
                 process.closeConnection();
+                rSucc.setSpecStatus(reqR.getSpecification().split(" ")[2]);
                 ck.setValue(rSucc.getAccessToken());
                 response.addCookie(ck);
                 out.write(rSucc.toString());
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(addTyp.getAdmin_id());
-//                    bau.block();
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+                } else {
+                    ua.setEntryStatus("invalid");
                 }
                 AddSpecificationFailureResponse rFail = new AddSpecificationFailureResponse(reqR, validSubmission);
                 out.write(rFail.toString());
             } else {
                 //exception response
             }
+            ua.addActivity();
             out.flush();
             out.close();
         } catch (Exception ex) {

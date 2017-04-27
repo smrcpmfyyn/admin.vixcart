@@ -50,9 +50,9 @@ public class GetMemberValidation implements Validation{
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_GET_AFFILIATE;
+            paramValue += CorrectMsg.CORRECT_GET_MEMBER;
         } else {
-            paramValue += ErrMsg.ERR_GET_AFFILIATE;
+            paramValue += ErrMsg.ERR_GET_MEMBER;
         }
     }
     

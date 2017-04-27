@@ -44,7 +44,6 @@ public class ProcessGetAllSuperCategories implements GetSuperCategoriesProcessor
     @Override
     public void getAllSuperCategories() throws Exception {
         allSuperCategories = dbc.getAllSuperCategories();
-        dbc.closeConnection();
     }
 
     @Override

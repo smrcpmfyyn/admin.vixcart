@@ -1,27 +1,41 @@
 package com.vixcart.admin.result;
 
 // <editor-fold defaultstate="collapsed" desc="packages">
-
 import com.vixcart.admin.intfc.vres.Result;
 import com.vixcart.admin.message.CorrectMsg;
 import com.vixcart.admin.message.ErrMsg;
 import com.vixcart.admin.message.ValidationMsg;
-
-
 
 // </editor-fold>
 /**
  *
  * @author Vineeth K
  */
-public class UpdateCategoryResult implements Result{
-
+public class UpdateCategoryResult implements Result {
 
     private String at;
     private String admintype;
 //    private String type;
     private String categ;
+    private String onlinevisibility;
+    private String offlinevisibility;
     private String reqValidation;
+
+    public String getOnlinevisibility() {
+        return onlinevisibility;
+    }
+
+    public void setOnlinevisibility(String onlinevisibility) {
+        this.onlinevisibility = onlinevisibility;
+    }
+
+    public String getOfflinevisibility() {
+        return offlinevisibility;
+    }
+
+    public void setOfflinevisibility(String offlinevisibility) {
+        this.offlinevisibility = offlinevisibility;
+    }
 
     public String getAt() {
         return at;
@@ -38,14 +52,6 @@ public class UpdateCategoryResult implements Result{
     public void setAdmintype(String admintype) {
         this.admintype = admintype;
     }
-//
-//    public String getType() {
-//        return type;
-//    }
-//
-//    public void setType(String type) {
-//        this.type = type;
-//    }
 
     public String getCateg() {
         return categ;
@@ -63,8 +69,6 @@ public class UpdateCategoryResult implements Result{
         this.reqValidation = reqValidation;
     }
 
-    
-   
     @Override
     public String getValidationResult() {
         String result;
@@ -93,11 +97,14 @@ public class UpdateCategoryResult implements Result{
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
         } else {
-//            if (type.startsWith(ErrMsg.ERR_MESSAGE)) {
-//                error += "type#";
-//            }
             if (categ.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "req#";
+                error += "categ#";
+            }
+            if (onlinevisibility.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "onlinevisibility#";
+            }
+            if (offlinevisibility.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "onlinevisibility#";
             }
         }
         return error.substring(0, error.length() - 1);

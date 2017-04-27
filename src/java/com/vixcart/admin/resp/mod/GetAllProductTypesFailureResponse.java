@@ -1,11 +1,8 @@
 package com.vixcart.admin.resp.mod;
 
 // <editor-fold defaultstate="collapsed" desc="packages">
-
 import com.vixcart.admin.message.ResponseMsg;
 import com.vixcart.admin.result.GetAllProductTypesResult;
-
-
 
 // </editor-fold>
 /**
@@ -13,17 +10,18 @@ import com.vixcart.admin.result.GetAllProductTypesResult;
  * @author Vineeth K
  */
 public class GetAllProductTypesFailureResponse {
-private final GetAllProductTypesResult req;
+
+    private final GetAllProductTypesResult req;
     private final String error;
 
     public GetAllProductTypesFailureResponse(GetAllProductTypesResult req, String error) {
         this.req = req;
         this.error = error;
     }
-    
+
     @Override
     public String toString() {
-        String json = "\"status\":\""+ResponseMsg.RESP_NOT_OK + "\",";
+        String json = "\"status\":\"" + ResponseMsg.RESP_NOT_OK + "\",";
         String[] errors = error.split("#");
         String resp;
         for (int i = 1; i < errors.length; i++) {

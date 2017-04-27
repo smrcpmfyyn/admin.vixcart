@@ -67,7 +67,7 @@ public class ProcessGetTaC implements GetTaCProcessor{
     public GetTaCSuccessResponse generateResponse(boolean status) {
         GetTaCSuccessResponse resp;
         if (status) {
-            resp = new GetTaCSuccessResponse(ResponseMsg.RESP_OK, accessToken);
+            resp = new GetTaCSuccessResponse(ResponseMsg.RESP_OK, accessToken,res);
         } else {
             resp = new GetTaCSuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken);
         }

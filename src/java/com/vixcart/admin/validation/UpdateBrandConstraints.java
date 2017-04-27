@@ -70,46 +70,43 @@ public class UpdateBrandConstraints implements UpdateBrandValidator {
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
     @Override
     public String validateBrand() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
+        String valid = ErrMsg.ERR_BRAND;
         String regX = RegX.REGX_STRING;
         String brand = req.getBrand();
         if (validate(brand, regX)) {
-            if (dbc.checkBrand(brand) == 0) {
+            if (dbc.checkBrand(brand) == 1) {
                 valid = CorrectMsg.CORRECT_BRAND;
             } else {
-                valid = ErrMsg.ERR_BRAND_EXISTS;
+                valid = ErrMsg.ERR_BRAND_NOT_EXISTS;
             }
         }
         return valid;
     }
     @Override
     public String validateOn_status() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
+        String valid = ErrMsg.ERR_ONLINE_VISIBILITY;
         String regX = RegX.REGX_DIGIT;
         String on_status = req.getOn_status();
         if (validate(on_status, regX)) {
-            if (dbc.checkVisibilityStatusById(on_status) == 0) {
+            if (on_status.equals("1")||on_status.equals("2")) {
                 valid = CorrectMsg.CORRECT_ONLINE_VISIBILITY;
-            } else {
-                valid = ErrMsg.ERR_ONLINE_VISIBILITY_NOT_EXISTS;
-            }
+            } 
         }
         return valid;
     }
     @Override
     public String validateOff_status() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
+        String valid = ErrMsg.ERR_OFFLINE_VISIBILITY;
         String regX = RegX.REGX_DIGIT;
         String off_status = req.getOff_status();
         if (validate(off_status, regX)) {
-            if (dbc.checkVisibilityStatusById(off_status) == 0) {
+            if (off_status.equals("1")||off_status.equals("2")) {
                 valid = CorrectMsg.CORRECT_OFFLINE_VISIBILITY;
-            } else {
-                valid = ErrMsg.ERR_OFFLINE_VISIBILITY_NOT_EXISTS;
-            }
+            } 
         }
         return valid;
     }

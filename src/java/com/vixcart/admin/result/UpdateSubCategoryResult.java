@@ -1,27 +1,23 @@
 package com.vixcart.admin.result;
 
 // <editor-fold defaultstate="collapsed" desc="packages">
-
 import com.vixcart.admin.intfc.vres.Result;
 import com.vixcart.admin.message.CorrectMsg;
 import com.vixcart.admin.message.ErrMsg;
 import com.vixcart.admin.message.ValidationMsg;
-
-
 
 // </editor-fold>
 /**
  *
  * @author Vineeth K
  */
-
-public class UpdateSubCategoryResult implements Result{
-
+public class UpdateSubCategoryResult implements Result {
 
     private String at;
     private String admintype;
-//    private String type;
     private String subcateg;
+    private String onlinevisibility;
+    private String offlinevisibility;
     private String reqValidation;
 
     public String getAt() {
@@ -39,21 +35,29 @@ public class UpdateSubCategoryResult implements Result{
     public void setAdmintype(String admintype) {
         this.admintype = admintype;
     }
-//
-//    public String getType() {
-//        return type;
-//    }
-//
-//    public void setType(String type) {
-//        this.type = type;
-//    }
 
     public String getSubcateg() {
         return subcateg;
     }
 
-    public void setSubcateg(String supercateg) {
-        this.subcateg = supercateg;
+    public void setSubcateg(String subcateg) {
+        this.subcateg = subcateg;
+    }
+
+    public String getOnlinevisibility() {
+        return onlinevisibility;
+    }
+
+    public void setOnlinevisibility(String onlinevisibility) {
+        this.onlinevisibility = onlinevisibility;
+    }
+
+    public String getOfflinevisibility() {
+        return offlinevisibility;
+    }
+
+    public void setOfflinevisibility(String offlinevisibility) {
+        this.offlinevisibility = offlinevisibility;
     }
 
     public String getReqValidation() {
@@ -64,8 +68,6 @@ public class UpdateSubCategoryResult implements Result{
         this.reqValidation = reqValidation;
     }
 
-    
-   
     @Override
     public String getValidationResult() {
         String result;
@@ -94,11 +96,14 @@ public class UpdateSubCategoryResult implements Result{
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
         } else {
-//            if (type.startsWith(ErrMsg.ERR_MESSAGE)) {
-//                error += "type#";
-//            }
             if (subcateg.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "req#";
+                error += "subcateg#";
+            }
+            if (onlinevisibility.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "onlinevisibility#";
+            }
+            if (offlinevisibility.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "onlinevisibility#";
             }
         }
         return error.substring(0, error.length() - 1);

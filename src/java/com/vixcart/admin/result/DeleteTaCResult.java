@@ -15,7 +15,7 @@ public class DeleteTaCResult implements Result {
 	 private String at;
 	 private String admintype;
 	 private String reqValidation;
-	 private String taC;
+	 private String tac;
 
     public void setAdmintype(String admintype) {
         this.admintype = admintype;
@@ -30,7 +30,7 @@ public class DeleteTaCResult implements Result {
     }
 
     public String getTaC() {
-        return taC;
+        return tac;
     }
 
     public String getAdmintype() {
@@ -73,7 +73,7 @@ public class DeleteTaCResult implements Result {
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
         } else {
-            if (taC.startsWith(ErrMsg.ERR_MESSAGE)) {
+            if (tac.startsWith(ErrMsg.ERR_MESSAGE)) {
                 error += "tac#";
             }
         }

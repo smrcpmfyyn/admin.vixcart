@@ -67,5 +67,6 @@ public class UserTypesConstraints implements UserTypesValidator{
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
 }

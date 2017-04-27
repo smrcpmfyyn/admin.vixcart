@@ -35,6 +35,10 @@ public class SuperCategory {
     public String getOffline_visibilty_status() {
         return offline_visibilty_status;
     }
+    
+    public String getSuperCategories(){
+        return "{\"" + "s_c_id\":\"" + super_category_id +  "\",\"s_categ\":\"" + super_category + "\"}";
+    }
 
     @Override
     public String toString() {

@@ -42,10 +42,13 @@ public class addBrand extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
-            String category = request.getParameter("category");
+            String brand = request.getParameter("brand");
             Cookie ck = Servlets.getCookie(request, "at");
-            String at = ck.getValue();
-            AddBrand req = new AddBrand(at, category);
+            String at = "";
+            if (ck != null) {
+                at = ck.getValue();
+            }
+            AddBrand req = new AddBrand(at, brand);
             AddBrandValidation reqV = new AddBrandValidation(req);
             reqV.validation();
             AddBrandResult reqR = JSONParser.parseJSONAddBrand(reqV.toString());
@@ -61,12 +64,14 @@ public class addBrand extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
                     BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
                     bau.block();
                     ua.setEntryStatus("blocked");
+                } else {
+                    ua.setEntryStatus("invalid");
                 }
-                ua.setEntryStatus("invalid");
                 AddBrandFailureResponse usersFResp = new AddBrandFailureResponse(reqR, validSubmission);
                 out.write(usersFResp.toString());
             } else {

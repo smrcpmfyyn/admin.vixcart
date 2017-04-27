@@ -20,6 +20,7 @@ public class CategorySuccessResponse {
     public CategorySuccessResponse(String status, String accessToken) {
         this.status = status;
         this.accessToken = accessToken;
+        this.allCategories = new ArrayList<>();
     }
 
     public CategorySuccessResponse(String status, String accessToken, ArrayList<Category> allTypes) {

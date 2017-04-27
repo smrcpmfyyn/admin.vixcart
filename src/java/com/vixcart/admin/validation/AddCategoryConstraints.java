@@ -36,7 +36,7 @@ public class AddCategoryConstraints implements AddCategoryValidator {
     @Override
     public String validateCategory() throws Exception {
         String valid = ErrMsg.ERR_CATEGORY;
-        String regX = RegX.REGX_STRING;
+        String regX = RegX.REGX_STRING_UPPER_AND_LOWER;
         String category = req.getCategory();
         if (validate(category, regX)) {
             if (dbc.checkCategory(category) == 0) {
@@ -102,6 +102,7 @@ public class AddCategoryConstraints implements AddCategoryValidator {
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
 
 }

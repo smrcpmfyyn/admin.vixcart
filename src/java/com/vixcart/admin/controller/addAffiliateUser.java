@@ -70,12 +70,15 @@ public class addAffiliateUser extends HttpServlet {
                 out.write(SResp.toString());
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
-                    // do nothing
-                } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
-                    bau.block();
-                    ua.setEntryStatus("blocked");
-                }
+                        // do nothing
+                        ua.setEntryStatus("invalid");
+                    } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
+                        BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                        bau.block();
+                        ua.setEntryStatus("blocked");
+                    } else {
+                        ua.setEntryStatus("invalid");
+                    }
                 ua.setEntryStatus("invalid");
                 AddAffiliateUserFailureResponse FResp = new AddAffiliateUserFailureResponse(reqR, validSubmission);
                 out.write(FResp.toString());

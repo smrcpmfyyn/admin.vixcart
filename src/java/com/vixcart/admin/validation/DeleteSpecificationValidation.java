@@ -48,9 +48,9 @@ public class DeleteSpecificationValidation implements Validation{
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_SPECIFIC;
+            paramValue += CorrectMsg.CORRECT_DELETE_TASPEC;
         } else {
-            paramValue += ErrMsg.ERR_SPECIFIC_NOT_EXISTS;
+            paramValue += ErrMsg.ERR_DELETE_TASPEC;
         }
     }
     

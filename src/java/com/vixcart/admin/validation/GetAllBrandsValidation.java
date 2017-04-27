@@ -33,7 +33,6 @@ public class GetAllBrandsValidation implements Validation{
             valid += "#" + valid1;
             if(valid1.startsWith(CorrectMsg.CORRECT_MESSAGE)){
                 valid += "#"+reqC.validateOffset();
-                valid += "#"+reqC.validateNo();
             }
         }
         reqC.closeConnection();
@@ -49,9 +48,9 @@ public class GetAllBrandsValidation implements Validation{
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_BRAND_OFFSET;
+            paramValue += CorrectMsg.CORRECT_GET_ALL_BRANDS;
         } else {
-            paramValue += ErrMsg.ERR_BRAND_OFFSET_NOT_EXISTS;
+            paramValue += ErrMsg.ERR_GET_ALL_BRANDS;
         }
     }
     

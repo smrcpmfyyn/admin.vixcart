@@ -46,9 +46,9 @@ public class GetPinValidation implements Validation{
         }
         paramName += "gpValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_USER;
+            paramValue += CorrectMsg.CORRECT_GET_PIN;
         } else {
-            paramValue += ErrMsg.ERR_USER;
+            paramValue += ErrMsg.ERR_GET_PIN;
         }
     }
     

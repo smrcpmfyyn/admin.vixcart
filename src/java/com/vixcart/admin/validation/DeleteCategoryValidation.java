@@ -1,23 +1,19 @@
 package com.vixcart.admin.validation;
 
 // <editor-fold defaultstate="collapsed" desc="packages">
-
 import com.vixcart.admin.intfc.validation.Validation;
 import com.vixcart.admin.message.CorrectMsg;
 import com.vixcart.admin.message.ErrMsg;
 import com.vixcart.admin.req.mod.DeleteCategory;
-
-
 
 // </editor-fold>
 /**
  *
  * @author Vineeth K
  */
-public class DeleteCategoryValidation implements Validation{
+public class DeleteCategoryValidation implements Validation {
 
-
-private final DeleteCategory req;
+    private final DeleteCategory req;
     private String paramValue = "";
     private String paramName = "";
 
@@ -33,11 +29,10 @@ private final DeleteCategory req;
         if (valid.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
             String valid1 = auc.validateUserType("product management");
             valid += "#" + valid1;
-            if(valid1.startsWith(CorrectMsg.CORRECT_MESSAGE)){
-                valid += "#"+auc.validateCategory();
+            if (valid1.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
+                valid += "#" + auc.validateCategory();
             }
         }
-        System.out.println("valid = " + valid);
         auc.closeConnection();
         int count = 0;
         for (String str : valid.split("#")) {
@@ -51,12 +46,12 @@ private final DeleteCategory req;
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_SUPER_CATEGORY;
+            paramValue += CorrectMsg.CORRECT_DELETE_CATEGORY;
         } else {
-            paramValue += ErrMsg.ERR_SUPER_CATEGORY;
+            paramValue += ErrMsg.ERR_DELETE_CATEGORY;
         }
     }
-    
+
     @Override
     public String toString() {
         String[] paramsN = paramName.split("#");

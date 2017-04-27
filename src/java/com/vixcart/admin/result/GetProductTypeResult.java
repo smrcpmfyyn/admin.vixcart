@@ -15,7 +15,7 @@ public class GetProductTypeResult implements Result {
 	 private String at;
 	 private String admintype;
 	 private String reqValidation;
-	 private String ptId;
+	 private String ptype;
 
     public void setAt(String at) {
         this.at = at;
@@ -41,12 +41,12 @@ public class GetProductTypeResult implements Result {
       return  this.reqValidation;
     }
 
-    public void setPtid(String ptId) {
-        this.ptId = ptId;
+    public void setPtype(String ptId) {
+        this.ptype = ptId;
     }
 
-    public String getPtid() {
-      return  this.ptId;
+    public String getPtype() {
+      return  this.ptype;
     }
 
     @Override
@@ -77,8 +77,8 @@ public class GetProductTypeResult implements Result {
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
         } else {
-            if (ptId.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "ptid#";
+            if (ptype.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "ptype#";
             }
         }
         return error.substring(0, error.length() - 1);

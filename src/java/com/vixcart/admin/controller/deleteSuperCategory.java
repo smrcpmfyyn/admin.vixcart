@@ -10,6 +10,8 @@ import com.vixcart.admin.req.mod.DeleteSuperCategory;
 import com.vixcart.admin.resp.mod.DeleteSuperCategoryFailureResponse;
 import com.vixcart.admin.resp.mod.DeleteSuperCategorySuccessResponse;
 import com.vixcart.admin.result.DeleteSuperCategoryResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.DeleteSuperCategoryValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -47,9 +49,9 @@ public class deleteSuperCategory extends HttpServlet {
             DeleteSuperCategory req = new DeleteSuperCategory(at, scat);
             DeleteSuperCategoryValidation reqV = new DeleteSuperCategoryValidation(req);
             reqV.validation();
-            System.out.println("addTypV = " + reqV);
             DeleteSuperCategoryResult reqR = JSONParser.parseJSONDeleteSuperCategory(reqV.toString());
             String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "delete_super_category", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessDeleteSuperCategory process = new ProcessDeleteSuperCategory(req);
                 DeleteSuperCategorySuccessResponse rSucc = process.processRequest();
@@ -60,15 +62,20 @@ public class deleteSuperCategory extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(addTyp.getAdmin_id());
-//                    bau.block();
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+                } else {
+                    ua.setEntryStatus("invalid");
                 }
                 DeleteSuperCategoryFailureResponse rFail = new DeleteSuperCategoryFailureResponse(reqR, validSubmission);
                 out.write(rFail.toString());
             } else {
                 //exception response
             }
+            ua.addActivity();
             out.flush();
             out.close();
         } catch (Exception ex) {

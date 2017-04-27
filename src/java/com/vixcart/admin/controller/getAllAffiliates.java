@@ -72,14 +72,15 @@ public class getAllAffiliates extends HttpServlet {
                     BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
                     bau.block();
                     ua.setEntryStatus("blocked");
+                    ua.addActivity();
                 }
-                ua.setEntryStatus("invalid");
+//                ua.setEntryStatus("invalid");
                 GetAllAffiliatesFailureResponse FResp = new GetAllAffiliatesFailureResponse(reqR, validSubmission);
                 out.println(FResp);
             } else {
                 //exception Response
             }
-            ua.addActivity();
+//            ua.addActivity();
             out.flush();
             out.close();
         } catch (Exception ex) {

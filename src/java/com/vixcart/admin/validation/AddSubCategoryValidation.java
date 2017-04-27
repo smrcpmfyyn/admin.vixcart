@@ -49,9 +49,9 @@ public class AddSubCategoryValidation implements Validation{
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_SUB_CATEGORY;
+            paramValue += CorrectMsg.CORRECT_ADD_SUB_CATEGORY;
         } else {
-            paramValue += ErrMsg.ERR_SUB_CATEGORY;
+            paramValue += ErrMsg.ERR_ADD_SUB_CATEGORY;
         }
     }
     

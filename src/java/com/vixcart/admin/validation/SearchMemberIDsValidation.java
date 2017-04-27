@@ -49,9 +49,9 @@ public class SearchMemberIDsValidation implements Validation{
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_ADD_TYPE;
+            paramValue += CorrectMsg.CORRECT_SEARCH_MEMBER;
         } else {
-            paramValue += ErrMsg.ERR_ADD_TYPE;
+            paramValue += ErrMsg.ERR_SEARCH_MEMBER;
         }
     }
     

@@ -10,7 +10,8 @@ import com.vixcart.admin.intfc.processreq.GetProductTypesProcessor;
 import com.vixcart.admin.message.ResponseMsg;
 import com.vixcart.admin.req.mod.GetProductTypes;
 import com.vixcart.admin.resp.mod.GetProductTypesSuccessResponse;
-import com.vixcart.admin.resp.mod.ProductTypes;
+import com.vixcart.admin.resp.mod.ProductType;
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -23,7 +24,7 @@ import java.util.Random;
 public class ProcessGetProductTypes implements GetProductTypesProcessor{
     
     private final GetProductTypes req;
-    private ProductTypes res;
+    private ArrayList<ProductType> res;
     private final MongoConnect mdbc;
     private final DBConnect dbc;
     private String accessToken;
@@ -45,7 +46,7 @@ public class ProcessGetProductTypes implements GetProductTypesProcessor{
     @Override
     public boolean getProductTypes() throws Exception {
         res= dbc.getProductTypes(req);
-        return !res.getType().equals("invalid");
+        return !res.isEmpty();
     }
 
     @Override
@@ -67,7 +68,7 @@ public class ProcessGetProductTypes implements GetProductTypesProcessor{
     public GetProductTypesSuccessResponse generateResponse(boolean status) {
         GetProductTypesSuccessResponse resp;
         if (status) {
-            resp = new GetProductTypesSuccessResponse(ResponseMsg.RESP_OK, accessToken);
+            resp = new GetProductTypesSuccessResponse(ResponseMsg.RESP_OK, accessToken,res);
         } else {
             resp = new GetProductTypesSuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken);
         }

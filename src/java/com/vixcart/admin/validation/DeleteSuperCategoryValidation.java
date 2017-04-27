@@ -37,7 +37,6 @@ private final DeleteSuperCategory req;
                 valid += "#"+auc.validateSuperCategory();
             }
         }
-        System.out.println("valid = " + valid);
         auc.closeConnection();
         int count = 0;
         for (String str : valid.split("#")) {
@@ -51,9 +50,9 @@ private final DeleteSuperCategory req;
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_SUPER_CATEGORY;
+            paramValue += CorrectMsg.CORRECT_DELETE_SUPER_CATEGORY;
         } else {
-            paramValue += ErrMsg.ERR_SUPER_CATEGORY;
+            paramValue += ErrMsg.ERR_DELETE_SUPER_CATEGORY;
         }
     }
     

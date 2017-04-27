@@ -48,9 +48,9 @@ public class DeleteTaCValidation implements Validation{
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_TAC;
+            paramValue += CorrectMsg.CORRECT_DELETE_TAC;
         } else {
-            paramValue += ErrMsg.ERR_TAC_NOT_EXISTS;
+            paramValue += ErrMsg.ERR_DELETE_TAC;
         }
     }
     

@@ -40,7 +40,7 @@ private final AddProductTypeResult req;
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
                 case "ptype":
-                    String type = req.getPType();
+                    String type = req.getPtype();
                     resp = type.substring(type.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;

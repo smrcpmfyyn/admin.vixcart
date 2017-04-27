@@ -45,11 +45,9 @@ public class AddSuperCategoryConstraints implements AddSuperCategoryValidator{
 
     @Override
     public String validateSuperCategory() throws Exception {
-        String valid = ErrMsg.ERR_NAME;
-        String regX = RegX.REGX_STRING;
-//        System.out.println("regX = " + regX);
+        String valid = ErrMsg.ERR_SUPER_CATEGORY;
+        String regX = RegX.REGX_STRING_UPPER_AND_LOWER;
         String name = req.getSuper_category();
-//        System.out.println("name = " + name);
         if (validate(name, regX)) {
             if (dbc.checkSuperCategory(name)==0) {
                 valid = CorrectMsg.CORRECT_SUPER_CATEGORY;

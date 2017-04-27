@@ -39,8 +39,8 @@ private final GetProductTypeResult req;
                     resp = admType.substring(admType.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
-                case "ptid":
-                    String type = req.getPtid();
+                case "ptype":
+                    String type = req.getPtype();
                     resp = type.substring(type.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;

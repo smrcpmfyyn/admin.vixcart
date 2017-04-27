@@ -49,9 +49,9 @@ public class AddCategoryValidation implements Validation {
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_CATEGORY;
+            paramValue += CorrectMsg.CORRECT_ADD_CATEGORY;
         } else {
-            paramValue += ErrMsg.ERR_CATEGORY;
+            paramValue += ErrMsg.ERR_ADD_CATEGORY;
         }
     }
     

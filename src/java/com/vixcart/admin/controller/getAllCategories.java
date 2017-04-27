@@ -4,11 +4,13 @@ package com.vixcart.admin.controller;
 import com.vixcart.admin.jsn.JSONParser;
 import com.vixcart.admin.message.CorrectMsg;
 import com.vixcart.admin.message.ErrMsg;
-import com.vixcart.admin.processreq.ProcessGetCategories;
+import com.vixcart.admin.processreq.ProcessAllGetCategories;
 import com.vixcart.admin.req.mod.GetCategories;
 import com.vixcart.admin.resp.mod.CategoryFailureResponse;
 import com.vixcart.admin.resp.mod.CategorySuccessResponse;
 import com.vixcart.admin.result.GetCategoriesResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.GetCategoriesValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,30 +43,36 @@ public class getAllCategories extends HttpServlet {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
             Cookie ck = Servlets.getCookie(request, "at");
-            String at = ck.getValue();
-//            System.out.println("at = " + at);
-            GetCategories sCategs = new GetCategories(at);
-            GetCategoriesValidation sCategV = new GetCategoriesValidation(sCategs);
-            sCategV.validation();
-//            out.println("sCategV = " + sCategV);
-            GetCategoriesResult typeR = JSONParser.parseJSONGCateg(sCategV.toString());
-            String validSubmission = typeR.getValidationResult();
+            String at = "";
+            if (ck != null) {
+                at = ck.getValue();
+            }
+            GetCategories req = new GetCategories(at);
+            GetCategoriesValidation reqV = new GetCategoriesValidation(req);
+            reqV.validation();
+            GetCategoriesResult reqR = JSONParser.parseJSONGCateg(reqV.toString());
+            String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "get_all_categories", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
-                ProcessGetCategories process = new ProcessGetCategories(sCategs);
+                ProcessAllGetCategories process = new ProcessAllGetCategories(req);
                 CategorySuccessResponse sCategsSResp = process.processRequest();
                 process.closeConnection();
                 ck.setValue(sCategsSResp.getAccessToken());
                 response.addCookie(ck);
-                System.out.println("sCategsSResp = " + sCategsSResp);
                 out.write(sCategsSResp.toString());
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
-                if (typeR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
+                if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
-                } else if (typeR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(sCategs.getAdmin_id());
-//                    bau.block();
+//                    ua.setEntryStatus("invalid");
+                } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+                    ua.addActivity();
+                } else {
+//                    ua.setEntryStatus("invalid");
                 }
-                CategoryFailureResponse usersFResp = new CategoryFailureResponse(typeR, validSubmission);
+                CategoryFailureResponse usersFResp = new CategoryFailureResponse(reqR, validSubmission);
                 out.write(usersFResp.toString());
             } else {
                 //exception response

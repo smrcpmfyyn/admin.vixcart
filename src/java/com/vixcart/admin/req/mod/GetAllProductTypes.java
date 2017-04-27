@@ -11,8 +11,8 @@ public class GetAllProductTypes {
     private final String at;
     private String admin_id;
     private String type;
-    private final String offset;
-    private final String no;
+    private final String maxEntries;
+    private final String pageNo;
 
     /**
      *
@@ -22,16 +22,14 @@ public class GetAllProductTypes {
      */
     public GetAllProductTypes(String at,String no, String offset) {
         this.at = at;
-        this.no = no;
-        this.offset = offset;
+        this.pageNo = no;
+        this.maxEntries = offset;
     }
 
-    public String getNo() {
-        return no;
+    public String getPageNo() {
+        return pageNo;
     }
     
-    
-
     public void setAdmin_id(String admin_id) {
         this.admin_id = admin_id;
     }
@@ -52,7 +50,7 @@ public class GetAllProductTypes {
         return this.type;
     }
 
-    public String getOffset() {
-        return this.offset;
+    public String getMaxEntries() {
+        return this.maxEntries;
     }
 }

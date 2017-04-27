@@ -18,6 +18,7 @@ public class GetAllTaCSuccessResponse {
     public GetAllTaCSuccessResponse(String status, String accessToken) {
         this.status = status;
         this.accessToken = accessToken;
+        this.res = new ArrayList<>();
     }
 
     public GetAllTaCSuccessResponse(String status, String accessToken, ArrayList<TaC> res) {

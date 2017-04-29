@@ -53,7 +53,7 @@ public class addBrand extends HttpServlet {
             reqV.validation();
             AddBrandResult reqR = JSONParser.parseJSONAddBrand(reqV.toString());
             String validSubmission = reqR.getValidationResult();
-            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "add_affiliate", "affiliate", "valid");
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "add_brand", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessAddBrand process = new ProcessAddBrand(req);
                 AddBrandSuccessResponse addTypSResp = process.processRequest();

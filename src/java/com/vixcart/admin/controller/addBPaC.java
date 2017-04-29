@@ -57,7 +57,7 @@ public class addBPaC extends HttpServlet {
             reqV.validation();
             AddBPaCResult reqR = JSONParser.parseJSONAddBPaC(reqV.toString());
             String validSubmission = reqR.getValidationResult();
-            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "add_affiliate", "affiliate", "valid");
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "add_bpac", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessAddBPaC process = new ProcessAddBPaC(req);
                 AddBPaCSuccessResponse addTypSResp = process.processRequest();

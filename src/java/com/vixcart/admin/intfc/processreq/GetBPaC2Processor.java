@@ -9,6 +9,6 @@ public interface GetBPaC2Processor extends Processor {
 
     public boolean generateToken() throws Exception;
 
-    public boolean getBPaC2() throws Exception;
+    public boolean getBPaCs() throws Exception;
 
 }

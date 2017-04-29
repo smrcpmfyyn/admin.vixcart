@@ -11,15 +11,15 @@ public class GetBrand {
     private final String at;
     private String admin_id;
     private String type;
-    private final String brandid;
+    private final String brand;
 
     public GetBrand(String at, String brandid) {
         this.at = at;
-        this.brandid = brandid;
+        this.brand = brandid;
     }
 
-    public String getBrandid() {
-        return brandid;
+    public String getBrand() {
+        return brand;
     }
 
     

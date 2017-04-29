@@ -11,8 +11,8 @@ public class UpdateSpecification {
     private final String at;
     private String admin_id;
     private String type;
-    private final String pType;
-    private final String specific;
+    private final String specid;
+    private final String fltr_status;
     private final String on_status;
     private final String off_status;
 
@@ -20,15 +20,15 @@ public class UpdateSpecification {
         return at;
     }
 
-    public String getPType() {
-        return pType;
+    public String getSpecid() {
+        return specid;
     }
 
     
-    public UpdateSpecification(String at, String pType, String specific, String on_status, String off_status) {
+    public UpdateSpecification(String at, String specid, String fltr_status, String on_status, String off_status) {
         this.at = at;
-        this.pType = pType;
-        this.specific = specific;
+        this.specid = specid;
+        this.fltr_status = fltr_status;
         this.on_status = on_status;
         this.off_status = off_status;
     }
@@ -49,8 +49,8 @@ public class UpdateSpecification {
         return this.type;
     }
 
-    public String getSpecific() {
-        return this.specific;
+    public String getFltr_status() {
+        return this.fltr_status;
     }
 
     public String getOn_status() {

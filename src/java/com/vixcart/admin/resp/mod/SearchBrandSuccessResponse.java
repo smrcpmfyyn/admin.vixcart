@@ -1,6 +1,9 @@
 package com.vixcart.admin.resp.mod;
 
 // <editor-fold defaultstate="collapsed" desc="packages">
+
+import java.util.ArrayList;
+
 // </editor-fold>
 /**
  *
@@ -10,10 +13,18 @@ public class SearchBrandSuccessResponse {
 
     private final String status;
     private final String accessToken;
+    private final ArrayList<Query> queries;
 
     public SearchBrandSuccessResponse(String status, String accessToken) {
         this.status = status;
         this.accessToken = accessToken;
+        this.queries = new ArrayList<>();
+    }
+
+    public SearchBrandSuccessResponse(String status, String accessToken, ArrayList<Query> queries) {
+        this.status = status;
+        this.accessToken = accessToken;
+        this.queries = queries;
     }
 
     public String getStatus() {
@@ -26,6 +37,10 @@ public class SearchBrandSuccessResponse {
 
     @Override
     public String toString() {
-        return "{\"status\":\"" + status + "\"}";
+        String response = "{\"status\":\""+status + "\",\"queries\":[ ";
+        response = queries.stream().map((Query query) -> query.toString()+",").reduce(response, String::concat);
+        response = response.substring(0, response.length()-1);
+        response += "]}";
+        return response;
     }
 }

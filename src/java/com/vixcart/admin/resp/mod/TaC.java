@@ -69,6 +69,10 @@ public class TaC {
     public void setOffline_visibility(String offline_visibility) {
         this.offline_visibility = offline_visibility;
     }
+    
+    public String getTaCs(){
+        return "{\"" + "id\":\"" + id +  "\",\"ptype\":\"" + product_type+ "\",\"category\":\"" + category + "\"}"; 
+    }
 
     @Override
     public String toString() {

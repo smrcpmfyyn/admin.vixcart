@@ -70,60 +70,46 @@ public class UpdateTaCConstraints implements UpdateTaCValidator {
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
+    
     @Override
-    public String validatePType() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
-        String regX = RegX.REGX_STRING;
-        String category = req.getpType();
-        if (validate(category, regX)) {
-            if (dbc.checkPType(category) == 0) {
-                valid = CorrectMsg.CORRECT_PTYPE;
+    public String validateTac() throws Exception {
+        String valid = ErrMsg.ERR_TAC;
+        String regX = RegX.REGX_DIGIT;
+        String param = req.getTac();
+        if (validate(param, regX)) {
+            if (dbc.checkTacId(param) == 1) {
+                valid = CorrectMsg.CORRECT_TAC;
             } else {
-                valid = ErrMsg.ERR_PTYPE_EXISTS;
+                valid = ErrMsg.ERR_TAC_NOT_EXISTS;
             }
         }
         return valid;
     }
-    @Override
-    public String validateCategory() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
-        String regX = RegX.REGX_STRING;
-        String category = req.getCategory();
-        if (validate(category, regX)) {
-            if (dbc.checkCategory(category) == 0) {
-                valid = CorrectMsg.CORRECT_CATEGORY;
-            } else {
-                valid = ErrMsg.ERR_CATEGORY_EXISTS;
-            }
-        }
-        return valid;
-    }
+    
     @Override
     public String validateOn_status() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
+        String valid = ErrMsg.ERR_ONLINE_VISIBILITY;
         String regX = RegX.REGX_DIGIT;
-        String category = req.getOn_status();
-        if (validate(category, regX)) {
-            if (dbc.checkVisibilityStatusById(category) == 0) {
+        String on_status = req.getOn_status();
+        if (validate(on_status, regX)) {
+            if (on_status.equals("1") || on_status.equals("2")) {
                 valid = CorrectMsg.CORRECT_ONLINE_VISIBILITY;
-            } else {
-                valid = ErrMsg.ERR_ONLINE_VISIBILITY;
             }
         }
         return valid;
     }
+    
     @Override
     public String validateOff_status() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
+        String valid = ErrMsg.ERR_OFFLINE_VISIBILITY;
         String regX = RegX.REGX_DIGIT;
-        String category = req.getOff_status();
-        if (validate(category, regX)) {
-            if (dbc.checkVisibilityStatusById(category) == 0) {
+        String off_status = req.getOff_status();
+        if (validate(off_status, regX)) {
+            if (off_status.equals("1")||off_status.equals("2")) {
                 valid = CorrectMsg.CORRECT_OFFLINE_VISIBILITY;
-            } else {
-                valid = ErrMsg.ERR_OFFLINE_VISIBILITY;
-            }
+            } 
         }
         return valid;
     }

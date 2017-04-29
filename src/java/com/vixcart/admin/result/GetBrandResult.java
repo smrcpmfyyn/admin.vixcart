@@ -12,16 +12,34 @@ import com.vixcart.admin.message.ValidationMsg;
  * @author Vineeth K
  */
 public class GetBrandResult implements Result {
-	 private String at;
-	 private String admintype;
-	 private String reqValidation;
+
+    private String at;
+    private String admintype;
+    private String brand;
+    private String reqValidation;
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getReqValidation() {
+        return reqValidation;
+    }
+
+    public void setReqValidation(String reqValidation) {
+        this.reqValidation = reqValidation;
+    }
 
     public void setAt(String at) {
         this.at = at;
     }
 
     public String getAt() {
-      return  this.at;
+        return this.at;
     }
 
     public void setAdmintype(String admintype) {
@@ -29,15 +47,7 @@ public class GetBrandResult implements Result {
     }
 
     public String getAdmintype() {
-      return  this.admintype;
-    }
-
-    public void setReqvalidation(String reqValidation) {
-        this.reqValidation = reqValidation;
-    }
-
-    public String getReqvalidation() {
-      return  this.reqValidation;
+        return this.admintype;
     }
 
     @Override
@@ -68,6 +78,9 @@ public class GetBrandResult implements Result {
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
         } else {
+            if(brand.startsWith(ErrMsg.ERR_MESSAGE)){
+                error += "brand";
+            }
         }
         return error.substring(0, error.length() - 1);
     }

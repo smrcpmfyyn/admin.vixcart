@@ -12,10 +12,11 @@ import com.vixcart.admin.message.ValidationMsg;
  * @author Vineeth K
  */
 public class DeleteSpecificationResult implements Result {
-	 private String at;
-	 private String admintype;
-	 private String reqValidation;
-	 private String taspec;
+
+    private String at;
+    private String admintype;
+    private String reqValidation;
+    private String taspec;
 
     public String getTaspec() {
         return taspec;
@@ -30,7 +31,7 @@ public class DeleteSpecificationResult implements Result {
     }
 
     public String getAdmintype() {
-      return  this.admintype;
+        return this.admintype;
     }
 
     public String getAt() {
@@ -46,7 +47,7 @@ public class DeleteSpecificationResult implements Result {
     }
 
     public String getReqvalidation() {
-      return  this.reqValidation;
+        return this.reqValidation;
     }
 
     @Override
@@ -76,10 +77,8 @@ public class DeleteSpecificationResult implements Result {
             error += "at#";
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
-        } else {
-            if (taspec.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "taspec#";
-            }
+        } else if (taspec.startsWith(ErrMsg.ERR_MESSAGE)) {
+            error += "taspec#";
         }
         return error.substring(0, error.length() - 1);
     }

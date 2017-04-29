@@ -72,16 +72,17 @@ public class GetBPaCConstraints implements GetBPaCValidator {
         dbc.closeConnection();
         mdbc.closeConnection();
     }
+    
     @Override
-    public String validateBrand() throws Exception {
-        String valid = ErrMsg.ERR_BRAND;
-        String regX = RegX.REGX_STRING_UPPER_AND_LOWER;
-        String brand = req.getBrand();
-        if (validate(brand, regX)) {
-            if (dbc.checkBrand(brand) == 1) {
-                valid = CorrectMsg.CORRECT_BRAND;
+    public String validateBpacId() throws Exception {
+        String valid = ErrMsg.ERR_BPAC;
+        String regX = RegX.REGX_DIGIT;
+        String param = req.getBpacid();
+        if (validate(param, regX)) {
+            if (dbc.checkBpacid(param) == 1) {
+                valid = CorrectMsg.CORRECT_BPAC;
             } else {
-                valid = ErrMsg.ERR_BRAND_NOT_EXISTS;
+                valid = ErrMsg.ERR_BPAC_NOT_EXISTS;
             }
         }
         return valid;

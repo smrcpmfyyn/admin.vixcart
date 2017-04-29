@@ -42,6 +42,7 @@ public class ProcessAddBrand implements AddBrandProcessor{
 
     @Override
     public boolean addBrand() throws Exception {
+        mdbc.addToSearchIndex(req.getBrand(),"brand");
         return dbc.addBrand(req);
     }
 

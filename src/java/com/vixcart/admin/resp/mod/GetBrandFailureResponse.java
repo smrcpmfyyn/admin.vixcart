@@ -39,6 +39,11 @@ private final GetBrandResult req;
                     resp = admType.substring(admType.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
+                case "brand":
+                    String brand = req.getBrand();
+                    resp = brand.substring(brand.lastIndexOf(" ") + 1);
+                    json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
+                    break;
             }
         }
         json = json.substring(0, json.length() - 1);

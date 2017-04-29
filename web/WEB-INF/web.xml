@@ -52,6 +52,26 @@
         <servlet-name>deleteProductType</servlet-name>
         <servlet-class>com.vixcart.admin.controller.deleteProductType</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>getBrands</servlet-name>
+        <servlet-class>com.vixcart.admin.controller.getBrands</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getTaCs</servlet-name>
+        <servlet-class>com.vixcart.admin.controller.getTaCs</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteBPaC</servlet-name>
+        <servlet-class>com.vixcart.admin.controller.deleteBPaC</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>updateBPaC</servlet-name>
+        <servlet-class>com.vixcart.admin.controller.updateBPaC</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addBPaC</servlet-name>
+        <servlet-class>com.vixcart.admin.controller.addBPaC</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loadSpecifications</servlet-name>
         <url-pattern>/loadSpecifications</url-pattern>
@@ -113,12 +133,12 @@
         <url-pattern>/getAllBrands</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>getBPaC2</servlet-name>
-        <servlet-class>com.vixcart.admin.controller.getBPaC2</servlet-class>
+        <servlet-name>getBPaCs</servlet-name>
+        <servlet-class>com.vixcart.admin.controller.getBPaCs</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>getBPaC2</servlet-name>
-        <url-pattern>/getBPaC2</url-pattern>
+        <servlet-name>getBPaCs</servlet-name>
+        <url-pattern>/getBPaCs</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>getSubCategory</servlet-name>
@@ -191,30 +211,6 @@
     <servlet-mapping>
         <servlet-name>addBrand</servlet-name>
         <url-pattern>/addBrand</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>updateBPaC</servlet-name>
-        <servlet-class>com.vixcart.admin.controller.updateBPaC</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>updateBPaC</servlet-name>
-        <url-pattern>/updateBPaC</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>deleteBPaC</servlet-name>
-        <servlet-class>com.vixcart.admin.controller.deleteBPaC</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>deleteBPaC</servlet-name>
-        <url-pattern>/deleteBPaC</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>addBPaC</servlet-name>
-        <servlet-class>com.vixcart.admin.controller.addBPaC</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>addBPaC</servlet-name>
-        <url-pattern>/addBPaC</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>deleteBrand</servlet-name>
@@ -735,6 +731,26 @@
     <servlet-mapping>
         <servlet-name>deleteProductType</servlet-name>
         <url-pattern>/deleteProductType</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getBrands</servlet-name>
+        <url-pattern>/getBrands</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getTaCs</servlet-name>
+        <url-pattern>/getTaCs</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteBPaC</servlet-name>
+        <url-pattern>/deleteBPaC</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateBPaC</servlet-name>
+        <url-pattern>/updateBPaC</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addBPaC</servlet-name>
+        <url-pattern>/addBPaC</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

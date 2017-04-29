@@ -38,7 +38,7 @@ public class GetAllBrandsSuccessResponse {
 
     @Override
     public String toString() {
-         String response = "{\"status\":\""+status + "\",\"brands\":[ ";
+        String response = "{\"status\":\""+status + "\",\"brands\":[ ";
         response = res.stream().map((Brand type) -> type.toString()+",").reduce(response, String::concat);
         response = response.substring(0, response.length()-1);
         response += "]}";

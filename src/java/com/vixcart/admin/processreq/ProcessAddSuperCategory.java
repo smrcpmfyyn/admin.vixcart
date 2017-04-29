@@ -40,6 +40,7 @@ public class ProcessAddSuperCategory implements AddSuperCategoryProcessor {
 
     @Override
     public boolean addSuperCategory() throws Exception {
+        mdbc.addToSearchIndex(req.getSuper_category(),"super_category");
         return dbc.addSuperCategory(req);
     }
 

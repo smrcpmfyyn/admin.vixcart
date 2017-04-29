@@ -12,17 +12,18 @@ import com.vixcart.admin.message.ValidationMsg;
  * @author Vineeth K
  */
 public class SearchProductTypeResult implements Result {
-	 private String at;
-	 private String admintype;
-	 private String reqValidation;
-	 private String str;
+
+    private String at;
+    private String admintype;
+    private String reqValidation;
+    private String str;
 
     public void setAt(String at) {
         this.at = at;
     }
 
     public String getAt() {
-      return  this.at;
+        return this.at;
     }
 
     public void setAdmintype(String admintype) {
@@ -30,7 +31,7 @@ public class SearchProductTypeResult implements Result {
     }
 
     public String getAdmintype() {
-      return  this.admintype;
+        return this.admintype;
     }
 
     public void setReqvalidation(String reqValidation) {
@@ -38,7 +39,7 @@ public class SearchProductTypeResult implements Result {
     }
 
     public String getReqvalidation() {
-      return  this.reqValidation;
+        return this.reqValidation;
     }
 
     public void setStr(String str) {
@@ -46,7 +47,7 @@ public class SearchProductTypeResult implements Result {
     }
 
     public String getStr() {
-      return  this.str;
+        return this.str;
     }
 
     @Override
@@ -76,10 +77,8 @@ public class SearchProductTypeResult implements Result {
             error += "at#";
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
-        } else {
-            if (str.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "str#";
-            }
+        } else if (str.startsWith(ErrMsg.ERR_MESSAGE)) {
+            error += "str#";
         }
         return error.substring(0, error.length() - 1);
     }

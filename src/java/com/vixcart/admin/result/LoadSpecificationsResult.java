@@ -15,7 +15,7 @@ public class LoadSpecificationsResult implements Result {
 	 private String at;
 	 private String admintype;
 	 private String reqValidation;
-	 private String pType;
+	 private String ptype;
 
     public void setAt(String at) {
         this.at = at;
@@ -42,11 +42,11 @@ public class LoadSpecificationsResult implements Result {
     }
 
     public void setPtype(String pType) {
-        this.pType = pType;
+        this.ptype = pType;
     }
 
     public String getPtype() {
-      return  this.pType;
+      return  this.ptype;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class LoadSpecificationsResult implements Result {
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
         } else {
-            if (pType.startsWith(ErrMsg.ERR_MESSAGE)) {
+            if (ptype.startsWith(ErrMsg.ERR_MESSAGE)) {
                 error += "ptype#";
             }
         }

@@ -45,7 +45,7 @@ public class ProcessGetSpecification implements GetSpecificationProcessor{
     @Override
     public boolean getSpecification() throws Exception {
         res= dbc.getSpecification(req);
-        return !res.getSpecific().equals("invalid");
+        return !res.getId().equals("invalid");
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ProcessGetSpecification implements GetSpecificationProcessor{
     public GetSpecificationSuccessResponse generateResponse(boolean status) {
         GetSpecificationSuccessResponse resp;
         if (status) {
-            resp = new GetSpecificationSuccessResponse(ResponseMsg.RESP_OK, accessToken);
+            resp = new GetSpecificationSuccessResponse(ResponseMsg.RESP_OK, accessToken,res);
         } else {
             resp = new GetSpecificationSuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken);
         }

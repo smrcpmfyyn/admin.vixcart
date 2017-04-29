@@ -48,9 +48,9 @@ public class SearchProductTypeValidation implements Validation{
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_SUB_CATEGORY;
+            paramValue += CorrectMsg.CORRECT_SEARCH_PTYPE;
         } else {
-            paramValue += ErrMsg.ERR_SUB_CATEGORY;
+            paramValue += ErrMsg.ERR_SEARCH_PTYPE;
         }
     }
     

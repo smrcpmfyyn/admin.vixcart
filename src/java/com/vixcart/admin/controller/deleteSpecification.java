@@ -42,10 +42,13 @@ public class deleteSpecification extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
-            String ptype = request.getParameter("pspeId");
+            String specid = request.getParameter("specid");
             Cookie ck = Servlets.getCookie(request, "at");
-            String at = ck.getValue();
-            DeleteSpecification req = new DeleteSpecification(at, ptype);
+            String at = "";
+            if (ck != null) {
+                at = ck.getValue();
+            }
+            DeleteSpecification req = new DeleteSpecification(at, specid);
             DeleteSpecificationValidation reqV = new DeleteSpecificationValidation(req);
             reqV.validation();
             DeleteSpecificationResult reqR = JSONParser.parseJSONDeleteSpecification(reqV.toString());

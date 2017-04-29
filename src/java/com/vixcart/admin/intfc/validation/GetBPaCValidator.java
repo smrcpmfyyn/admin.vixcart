@@ -9,6 +9,6 @@ package com.vixcart.admin.intfc.validation;
  * @author Vineeth K
  */
 public interface GetBPaCValidator extends EmpReportValidator{
-    public String validateBrand() throws Exception;
+    public String validateBpacId() throws Exception;
 
 }

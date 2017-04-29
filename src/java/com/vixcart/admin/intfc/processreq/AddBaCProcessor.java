@@ -9,6 +9,6 @@ public interface AddBaCProcessor extends Processor {
 
     public boolean generateToken() throws Exception;
 
-    public boolean addBaC() throws Exception;
+    public boolean addBPaC() throws Exception;
 
 }

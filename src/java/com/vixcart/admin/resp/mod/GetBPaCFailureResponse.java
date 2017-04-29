@@ -37,8 +37,8 @@ public class GetBPaCFailureResponse {
                     resp = admType.substring(admType.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
-                case "brand":
-                    String type = req.getBrand();
+                case "bpac":
+                    String type = req.getBpac();
                     resp = type.substring(type.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;

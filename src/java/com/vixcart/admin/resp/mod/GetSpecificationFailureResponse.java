@@ -1,11 +1,8 @@
 package com.vixcart.admin.resp.mod;
 
 // <editor-fold defaultstate="collapsed" desc="packages">
-
 import com.vixcart.admin.message.ResponseMsg;
 import com.vixcart.admin.result.GetSpecificationResult;
-
-
 
 // </editor-fold>
 /**
@@ -13,17 +10,18 @@ import com.vixcart.admin.result.GetSpecificationResult;
  * @author Vineeth K
  */
 public class GetSpecificationFailureResponse {
-private final GetSpecificationResult req;
+
+    private final GetSpecificationResult req;
     private final String error;
 
     public GetSpecificationFailureResponse(GetSpecificationResult req, String error) {
         this.req = req;
         this.error = error;
     }
-    
+
     @Override
     public String toString() {
-        String json = "\"status\":\""+ResponseMsg.RESP_NOT_OK + "\",";
+        String json = "\"status\":\"" + ResponseMsg.RESP_NOT_OK + "\",";
         String[] errors = error.split("#");
         String resp;
         for (int i = 1; i < errors.length; i++) {
@@ -39,13 +37,8 @@ private final GetSpecificationResult req;
                     resp = admType.substring(admType.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
-                case "ptypeid":
-                    String type = req.getPtypeid();
-                    resp = type.substring(type.lastIndexOf(" ") + 1);
-                    json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
-                    break;
-                case "specid":
-                     type = req.getSpecid();
+                case "taspec":
+                    String type = req.getTaspec();
                     resp = type.substring(type.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;

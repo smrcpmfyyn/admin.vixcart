@@ -70,11 +70,13 @@ public class LoadSpecificationsConstraints implements LoadSpecificationsValidato
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
+    
     @Override
     public String validatePType() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
-        String regX = RegX.REGX_STRING;
+        String valid = ErrMsg.ERR_PTYPE;
+        String regX = RegX.REGX_STRING_UPPER_AND_LOWER;
         String ptype = req.getPtype();
         if (validate(ptype, regX)) {
             if (dbc.checkPType(ptype) == 0) {

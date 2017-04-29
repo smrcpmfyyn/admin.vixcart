@@ -8,7 +8,7 @@ import com.vixcart.admin.db.MongoConnect;
 import com.vixcart.admin.hash.Hashing;
 import com.vixcart.admin.message.ResponseMsg;
 import com.vixcart.admin.req.mod.DeleteBPaC;
-import com.vixcart.admin.resp.mod.DeleteBaCSuccessResponse;
+import com.vixcart.admin.resp.mod.DeleteBPaCSuccessResponse;
 import java.util.Random;
 import com.vixcart.admin.intfc.processreq.DeleteBPaCProcessor;
 
@@ -46,8 +46,8 @@ public class ProcessDeleteBPaC implements DeleteBPaCProcessor{
     }
 
     @Override
-    public DeleteBaCSuccessResponse processRequest() throws Exception {
-        DeleteBaCSuccessResponse obj = null;
+    public DeleteBPaCSuccessResponse processRequest() throws Exception {
+        DeleteBPaCSuccessResponse obj = null;
         if (generateToken()) {
             if (deleteBPaC()) {
                 obj = generateResponse(true);
@@ -61,12 +61,12 @@ public class ProcessDeleteBPaC implements DeleteBPaCProcessor{
     }
 
     @Override
-    public DeleteBaCSuccessResponse generateResponse(boolean status) {
-        DeleteBaCSuccessResponse resp;
+    public DeleteBPaCSuccessResponse generateResponse(boolean status) {
+        DeleteBPaCSuccessResponse resp;
         if (status) {
-            resp = new DeleteBaCSuccessResponse(ResponseMsg.RESP_OK, accessToken);
+            resp = new DeleteBPaCSuccessResponse(ResponseMsg.RESP_OK, accessToken);
         } else {
-            resp = new DeleteBaCSuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken);
+            resp = new DeleteBPaCSuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken);
         }
         return resp;
     }

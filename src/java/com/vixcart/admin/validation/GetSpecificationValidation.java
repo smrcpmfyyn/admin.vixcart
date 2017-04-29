@@ -32,7 +32,6 @@ public class GetSpecificationValidation implements Validation{
             String valid1 = reqC.validateUserType("product management");
             valid += "#" + valid1;
             if(valid1.startsWith(CorrectMsg.CORRECT_MESSAGE)){
-                valid += "#"+reqC.validatePTypeId();
                 valid += "#"+reqC.validateSpecId();
             }
         }
@@ -49,9 +48,9 @@ public class GetSpecificationValidation implements Validation{
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_SUB_CATEGORY;
+            paramValue += CorrectMsg.CORRECT_GET_SPEC;
         } else {
-            paramValue += ErrMsg.ERR_SUB_CATEGORY;
+            paramValue += ErrMsg.ERR_GET_SPEC;
         }
     }
     

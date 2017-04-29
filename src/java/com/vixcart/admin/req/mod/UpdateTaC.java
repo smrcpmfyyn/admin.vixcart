@@ -11,15 +11,13 @@ public class UpdateTaC {
     private final String at;
     private String admin_id;
     private String type;
-    private final String pType;
-    private final String category;
+    private final String tac;
     private final String on_status;
     private final String off_status;
 
-    public UpdateTaC(String at, String pType, String category, String on_status, String off_status) {
+    public UpdateTaC(String at, String tac, String on_status, String off_status) {
         this.at = at;
-        this.pType = pType;
-        this.category = category;
+        this.tac = tac;
         this.on_status = on_status;
         this.off_status = off_status;
     }
@@ -28,8 +26,8 @@ public class UpdateTaC {
         return at;
     }
 
-    public String getpType() {
-        return pType;
+    public String getTac() {
+        return tac;
     }
 
     public void setAdmin_id(String admin_id) {
@@ -46,10 +44,6 @@ public class UpdateTaC {
 
     public String getType() {
         return this.type;
-    }
-
-    public String getCategory() {
-        return this.category;
     }
 
     public String getOn_status() {

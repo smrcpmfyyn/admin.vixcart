@@ -9,6 +9,8 @@ import com.vixcart.admin.req.mod.GetBrand;
 import com.vixcart.admin.resp.mod.GetBrandFailureResponse;
 import com.vixcart.admin.resp.mod.GetBrandSuccessResponse;
 import com.vixcart.admin.result.GetBrandResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.GetBrandValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,13 +44,16 @@ public class getBrand extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             String brand = request.getParameter("brand");
             Cookie ck = Servlets.getCookie(request, "at");
-            String at = ck.getValue();
+            String at = "";
+            if (ck != null) {
+                at = ck.getValue();
+            }
             GetBrand req = new GetBrand(at, brand);
             GetBrandValidation reqV = new GetBrandValidation(req);
             reqV.validation();
-            System.out.println("addTypV = " + reqV);
             GetBrandResult reqR = JSONParser.parseJSONGetBrand(reqV.toString());
             String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "get_brand", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessGetBrand process = new ProcessGetBrand(req);
                 GetBrandSuccessResponse rSucc = process.processRequest();
@@ -59,9 +64,14 @@ public class getBrand extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+//                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(addTyp.getAdmin_id());
-//                    bau.block();
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+                    ua.addActivity();
+                } else {
+//                    ua.setEntryStatus("invalid");
                 }
                 GetBrandFailureResponse rFail = new GetBrandFailureResponse(reqR, validSubmission);
                 out.write(rFail.toString());

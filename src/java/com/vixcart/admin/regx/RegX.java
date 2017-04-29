@@ -24,7 +24,7 @@ public final class RegX {
     public static final String REGX_ADMIN_UNAME = "[A-Za-z0-9_]+";   
     public static final String REGX_REFERENCE_NO = "[A-Za-z0-9]+";   
     public static final String REGX_STRING = "[A-Z ]+"; // needs to be tested
-    public static final String REGX_STRING_UPPER_AND_LOWER = "[A-Za-z]+"; // needs to be tested
+    public static final String REGX_STRING_UPPER_AND_LOWER = "[A-Za-z ]+"; // needs to be tested
     public static final String REGX_ACTIVITY = "[a-z_]+"; // needs to be tested
     public static final String REGX_FILE_NAME = "^[^*&%\\s]+$"; // needs to be tested
     public static final String REGX_NULL_STRING = "[A-Z ]*"; // needs to be tested

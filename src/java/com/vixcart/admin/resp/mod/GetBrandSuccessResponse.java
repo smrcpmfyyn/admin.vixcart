@@ -10,10 +10,18 @@ public class GetBrandSuccessResponse {
 
     private final String status;
     private final String accessToken;
+    private final Brand res;
 
     public GetBrandSuccessResponse(String status, String accessToken) {
         this.status = status;
         this.accessToken = accessToken;
+        this.res = new Brand();
+    }
+
+    public GetBrandSuccessResponse(String status, String accessToken, Brand res) {
+        this.status = status;
+        this.accessToken = accessToken;
+        this.res = res;
     }
 
     public String getStatus() {
@@ -26,6 +34,13 @@ public class GetBrandSuccessResponse {
 
     @Override
     public String toString() {
-        return "{\"status\":\"" + status + "\"}";
+        String response = "";
+        if (res.getId().equals("invalid")) {
+            response = "{\"status\":\"" + status + "\"}";
+        } else {
+            response = "{\"status\":\"" + status + "\",\"ad\":" + res.toString();
+            response += "}";
+        }
+        return response;
     }
 }

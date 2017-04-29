@@ -12,64 +12,60 @@ import com.vixcart.admin.message.ValidationMsg;
  * @author Vineeth K
  */
 public class UpdateTaCResult implements Result {
-	 private String at;
-	 private String admintype;
-	 private String reqValidation;
-	 private String pType;
-	 private String category;
-	 private String on_status;
-	 private String off_status;
 
-    public void setAdmintype(String admintype) {
-        this.admintype = admintype;
-    }
+    private String at;
+    private String admintype;
+    private String reqValidation;
+    private String tac;
+    private String on_status;
+    private String off_status;
 
     public String getAt() {
         return at;
+    }
+
+    public void setAt(String at) {
+        this.at = at;
+    }
+
+    public String getAdmintype() {
+        return admintype;
+    }
+
+    public void setAdmintype(String admintype) {
+        this.admintype = admintype;
     }
 
     public String getReqValidation() {
         return reqValidation;
     }
 
-    public String getPType() {
-        return pType;
-    }
-
-    public String getAdmintype() {
-      return  this.admintype;
-    }
-
-    public void setReqvalidation(String reqValidation) {
+    public void setReqValidation(String reqValidation) {
         this.reqValidation = reqValidation;
     }
 
-    public String getReqvalidation() {
-      return  this.reqValidation;
+    public String getTac() {
+        return tac;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setTac(String tac) {
+        this.tac = tac;
     }
 
-    public String getCategory() {
-      return  this.category;
+    public String getOn_status() {
+        return on_status;
     }
 
     public void setOn_status(String on_status) {
         this.on_status = on_status;
     }
 
-    public String getOn_status() {
-      return  this.on_status;
+    public String getOff_status() {
+        return off_status;
     }
 
     public void setOff_status(String off_status) {
         this.off_status = off_status;
-    }
-
-    public String getOff_status() {
-      return  this.off_status;
     }
 
     @Override
@@ -100,11 +96,8 @@ public class UpdateTaCResult implements Result {
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
         } else {
-            if (pType.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "ptype#";
-            }
-            if (category.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "category#";
+            if (tac.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "tac#";
             }
             if (on_status.startsWith(ErrMsg.ERR_MESSAGE)) {
                 error += "on_status#";

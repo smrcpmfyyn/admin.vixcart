@@ -8,7 +8,7 @@ import com.vixcart.admin.db.MongoConnect;
 import com.vixcart.admin.hash.Hashing;
 import com.vixcart.admin.message.ResponseMsg;
 import com.vixcart.admin.req.mod.UpdateBPaC;
-import com.vixcart.admin.resp.mod.UpdateBaCSuccessResponse;
+import com.vixcart.admin.resp.mod.UpdateBPaCSuccessResponse;
 import java.util.Random;
 import com.vixcart.admin.intfc.processreq.UpdateBPaCProcessor;
 
@@ -46,8 +46,8 @@ public class ProcessUpdateBPaC implements UpdateBPaCProcessor{
     }
 
     @Override
-    public UpdateBaCSuccessResponse processRequest() throws Exception {
-        UpdateBaCSuccessResponse obj = null;
+    public UpdateBPaCSuccessResponse processRequest() throws Exception {
+        UpdateBPaCSuccessResponse obj = null;
         if (generateToken()) {
             if (updateBPaC()) {
                 obj = generateResponse(true);
@@ -61,12 +61,12 @@ public class ProcessUpdateBPaC implements UpdateBPaCProcessor{
     }
 
     @Override
-    public UpdateBaCSuccessResponse generateResponse(boolean status) {
-        UpdateBaCSuccessResponse resp;
+    public UpdateBPaCSuccessResponse generateResponse(boolean status) {
+        UpdateBPaCSuccessResponse resp;
         if (status) {
-            resp = new UpdateBaCSuccessResponse(ResponseMsg.RESP_OK, accessToken);
+            resp = new UpdateBPaCSuccessResponse(ResponseMsg.RESP_OK, accessToken);
         } else {
-            resp = new UpdateBaCSuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken);
+            resp = new UpdateBPaCSuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken);
         }
         return resp;
     }

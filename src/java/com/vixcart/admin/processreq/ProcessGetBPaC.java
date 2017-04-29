@@ -67,7 +67,7 @@ public class ProcessGetBPaC implements GetBPaCProcessor{
     public GetBPaCSuccessResponse generateResponse(boolean status) {
         GetBPaCSuccessResponse resp;
         if (status) {
-            resp = new GetBPaCSuccessResponse(ResponseMsg.RESP_OK, accessToken);
+            resp = new GetBPaCSuccessResponse(ResponseMsg.RESP_OK, accessToken,res);
         } else {
             resp = new GetBPaCSuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken);
         }

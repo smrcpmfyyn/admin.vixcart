@@ -16,7 +16,7 @@ public class GetBPaCResult implements Result {
     private String at;
     private String admintype;
     private String reqValidation;
-    private String brand;
+    private String bpac;
 
     public void setAt(String at) {
         this.at = at;
@@ -42,12 +42,12 @@ public class GetBPaCResult implements Result {
         return this.reqValidation;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setBpac(String bpac) {
+        this.bpac = bpac;
     }
 
-    public String getBrand() {
-        return this.brand;
+    public String getBpac() {
+        return this.bpac;
     }
 
     @Override
@@ -77,8 +77,8 @@ public class GetBPaCResult implements Result {
             error += "at#";
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
-        } else if (brand.startsWith(ErrMsg.ERR_MESSAGE)) {
-            error += "brand#";
+        } else if (bpac.startsWith(ErrMsg.ERR_MESSAGE)) {
+            error += "bpac#";
         }
         return error.substring(0, error.length() - 1);
     }

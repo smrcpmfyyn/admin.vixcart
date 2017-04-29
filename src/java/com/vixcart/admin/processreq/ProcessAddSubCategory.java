@@ -42,6 +42,7 @@ public class ProcessAddSubCategory implements AddSubCategoryProcessor{
 
     @Override
     public boolean addSubCategory() throws Exception {
+        mdbc.addToSearchIndex(req.getSubCategory(),"sub_category");
         return dbc.addSubCategory(req);
     }
 

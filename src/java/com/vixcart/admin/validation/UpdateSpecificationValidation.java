@@ -32,8 +32,8 @@ public class UpdateSpecificationValidation implements Validation{
             String valid1 = reqC.validateUserType("product management");
             valid += "#" + valid1;
             if(valid1.startsWith(CorrectMsg.CORRECT_MESSAGE)){
-                valid += "#"+reqC.validatePType();
-                valid += "#"+reqC.validateSpecific();
+                valid += "#"+reqC.validateSpecid();
+                valid += "#"+reqC.validateFltr_status();
                 valid += "#"+reqC.validateOn_status();
                 valid += "#"+reqC.validateOff_status();
             }
@@ -51,9 +51,9 @@ public class UpdateSpecificationValidation implements Validation{
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_SUB_CATEGORY;
+            paramValue += CorrectMsg.CORRECT_UPDATE_SPEC;
         } else {
-            paramValue += ErrMsg.ERR_SUB_CATEGORY;
+            paramValue += ErrMsg.ERR_UPDATE_SPEC;
         }
     }
     

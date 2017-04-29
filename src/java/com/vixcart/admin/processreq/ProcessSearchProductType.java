@@ -9,7 +9,7 @@ import com.vixcart.admin.hash.Hashing;
 import com.vixcart.admin.intfc.processreq.SearchProductTypeProcessor;
 import com.vixcart.admin.message.ResponseMsg;
 import com.vixcart.admin.req.mod.SearchProductType;
-import com.vixcart.admin.resp.mod.ProductType;
+import com.vixcart.admin.resp.mod.Query;
 import com.vixcart.admin.resp.mod.SearchProductTypeSuccessResponse;
 import java.util.ArrayList;
 import java.util.Random;
@@ -24,7 +24,7 @@ import java.util.Random;
 public class ProcessSearchProductType implements SearchProductTypeProcessor{
     
     private final SearchProductType req;
-    private  ArrayList<ProductType> res;
+    private  ArrayList<Query> res;
     private final MongoConnect mdbc;
     private final DBConnect dbc;
     private String accessToken;
@@ -45,8 +45,8 @@ public class ProcessSearchProductType implements SearchProductTypeProcessor{
 
     @Override
     public boolean searchProductType() throws Exception {
-        res= dbc.searchProductType(req);
-        return true;
+        res = mdbc.searchProductTypes(req.getStr());
+        return !res.isEmpty();
     }
 
     @Override
@@ -68,7 +68,7 @@ public class ProcessSearchProductType implements SearchProductTypeProcessor{
     public SearchProductTypeSuccessResponse generateResponse(boolean status) {
         SearchProductTypeSuccessResponse resp;
         if (status) {
-            resp = new SearchProductTypeSuccessResponse(ResponseMsg.RESP_OK, accessToken);
+            resp = new SearchProductTypeSuccessResponse(ResponseMsg.RESP_OK, accessToken,res);
         } else {
             resp = new SearchProductTypeSuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken);
         }

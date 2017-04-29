@@ -37,7 +37,7 @@ public class DeleteAffiliateConstraints implements DeleteAffiliateValiadtor{
     @Override
     public String validateAffiliate() throws Exception {
         String valid = ErrMsg.ERR_AFFILIATE;
-        String regx = RegX.REGX_STRING_UPPER_AND_LOWER;
+        String regx = RegX.REGX_COMPANY;
         String aff = req.getAffiliate();
         if (validate(aff,regx)) {
             if (dbc.validateAffiliate(aff)) {

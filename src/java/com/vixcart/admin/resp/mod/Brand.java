@@ -15,6 +15,13 @@ public class Brand {
     String online_visibility;
     String offline_visibility;
 
+    public Brand() {
+        this.id = "invalid";
+        this.brand = "invalid";
+        this.online_visibility = "invalid";
+        this.offline_visibility = "invalid";
+    }
+
     public Brand(String id, String brand, String online_visibility, String offline_visibility) {
         this.id = id;
         this.brand = brand;
@@ -38,5 +45,13 @@ public class Brand {
         return offline_visibility;
     }
     
+    public String getBrands(){
+        return "{\"" + "id\":\"" + id +  "\",\"brand\":\"" + brand + "\"}"; 
+    }
+
+    @Override
+    public String toString() {
+        return "{\"" + "id\":\"" + id + "\",\"brand\":\"" + brand + "\",\"online_visibilty_status\":\"" + online_visibility + "\",\"offline_visibility_status\":\"" + offline_visibility + "\"}";
+    }
     
 }

@@ -32,8 +32,7 @@ public class UpdateTaCValidation implements Validation{
             String valid1 = reqC.validateUserType("product management");
             valid += "#" + valid1;
             if(valid1.startsWith(CorrectMsg.CORRECT_MESSAGE)){
-                valid += "#"+reqC.validatePType();
-                valid += "#"+reqC.validateCategory();
+                valid += "#"+reqC.validateTac();
                 valid += "#"+reqC.validateOn_status();
                 valid += "#"+reqC.validateOff_status();
             }
@@ -51,9 +50,9 @@ public class UpdateTaCValidation implements Validation{
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_SUB_CATEGORY;
+            paramValue += CorrectMsg.CORRECT_UPDATE_TAC;
         } else {
-            paramValue += ErrMsg.ERR_SUB_CATEGORY;
+            paramValue += ErrMsg.ERR_UPDATE_TAC;
         }
     }
     

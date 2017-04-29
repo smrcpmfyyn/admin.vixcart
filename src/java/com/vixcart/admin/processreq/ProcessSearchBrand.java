@@ -10,6 +10,7 @@ import com.vixcart.admin.intfc.processreq.SearchBrandProcessor;
 import com.vixcart.admin.message.ResponseMsg;
 import com.vixcart.admin.req.mod.SearchBrand;
 import com.vixcart.admin.resp.mod.Brand;
+import com.vixcart.admin.resp.mod.Query;
 import com.vixcart.admin.resp.mod.SearchBrandSuccessResponse;
 import java.util.ArrayList;
 import java.util.Random;
@@ -24,7 +25,7 @@ import java.util.Random;
 public class ProcessSearchBrand implements SearchBrandProcessor{
     
     private final SearchBrand req;
-    private ArrayList<Brand> res;
+    private ArrayList<Query> res;
     private final MongoConnect mdbc;
     private final DBConnect dbc;
     private String accessToken;
@@ -45,8 +46,8 @@ public class ProcessSearchBrand implements SearchBrandProcessor{
 
     @Override
     public boolean searchBrand() throws Exception {
-        res= dbc.searchBrand(req);
-        return true;
+        res = mdbc.searchBrand(req.getStr());
+        return !res.isEmpty();
     }
 
     @Override
@@ -68,7 +69,7 @@ public class ProcessSearchBrand implements SearchBrandProcessor{
     public SearchBrandSuccessResponse generateResponse(boolean status) {
         SearchBrandSuccessResponse resp;
         if (status) {
-            resp = new SearchBrandSuccessResponse(ResponseMsg.RESP_OK, accessToken);
+            resp = new SearchBrandSuccessResponse(ResponseMsg.RESP_OK, accessToken,res);
         } else {
             resp = new SearchBrandSuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken);
         }

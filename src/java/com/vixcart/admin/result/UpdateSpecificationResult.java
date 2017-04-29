@@ -12,66 +12,69 @@ import com.vixcart.admin.message.ValidationMsg;
  * @author Vineeth K
  */
 public class UpdateSpecificationResult implements Result {
-	 private String at;
-	 private String admintype;
-	 private String reqValidation;
-	 private String pType;
-	 private String specific;
-	 private String on_status;
-	 private String off_status;
 
-    public void setAdmintype(String admintype) {
-        this.admintype = admintype;
-    }
-
-    public String getAdmintype() {
-      return  this.admintype;
-    }
+    private String at;
+    private String admintype;
+    private String reqValidation;
+    private String taspec;
+    private String filtervisibility;
+    private String onlinevisibility;
+    private String offlinevisibility;
 
     public String getAt() {
         return at;
+    }
+
+    public void setAt(String at) {
+        this.at = at;
+    }
+
+    public String getAdmintype() {
+        return admintype;
+    }
+
+    public void setAdmintype(String admintype) {
+        this.admintype = admintype;
     }
 
     public String getReqValidation() {
         return reqValidation;
     }
 
-    public String getPType() {
-        return pType;
-    }
-    
-    
-
-    public void setReqvalidation(String reqValidation) {
+    public void setReqValidation(String reqValidation) {
         this.reqValidation = reqValidation;
     }
 
-    public String getReqvalidation() {
-      return  this.reqValidation;
+    public String getTaspec() {
+        return taspec;
     }
 
-    public void setSpecific(String specific) {
-        this.specific = specific;
+    public void setTaspec(String taspec) {
+        this.taspec = taspec;
     }
 
-    public String getSpecific() {
-      return  this.specific;
+    public String getFiltervisibility() {
+        return filtervisibility;
     }
 
-    public void setOn_status(String on_status) {
-        this.on_status = on_status;
+    public void setFiltervisibility(String filtervisibility) {
+        this.filtervisibility = filtervisibility;
     }
 
-    public String getOn_status() {
-      return  this.on_status;
+    public String getOnlinevisibility() {
+        return onlinevisibility;
     }
 
-    public void setOff_status(String off_status) {
-        this.off_status = off_status;
+    public void setOnlinevisibility(String onlinevisibility) {
+        this.onlinevisibility = onlinevisibility;
     }
 
-    public String getOff_status() {
-      return  this.off_status;
+    public String getOfflinevisibility() {
+        return offlinevisibility;
+    }
+
+    public void setOfflinevisibility(String offlinevisibility) {
+        this.offlinevisibility = offlinevisibility;
     }
 
     @Override
@@ -102,17 +105,17 @@ public class UpdateSpecificationResult implements Result {
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
         } else {
-            if (pType.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "ptype#";
+            if (taspec.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "taspec#";
             }
-            if (specific.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "specific#";
+            if (filtervisibility.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "filtervisibility#";
             }
-            if (on_status.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "on_status#";
+            if (onlinevisibility.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "onlinevisibility#";
             }
-            if (off_status.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "off_status#";
+            if (offlinevisibility.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "offlinevisibility#";
             }
         }
         return error.substring(0, error.length() - 1);

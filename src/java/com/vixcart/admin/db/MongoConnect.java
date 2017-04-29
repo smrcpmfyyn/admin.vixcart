@@ -41,6 +41,7 @@ import com.vixcart.admin.resp.mod.Activity;
 import com.vixcart.admin.resp.mod.AffiliateActivity;
 import com.vixcart.admin.resp.mod.Affiliates;
 import com.vixcart.admin.resp.mod.MemberID;
+import com.vixcart.admin.resp.mod.Query;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -736,6 +737,38 @@ public class MongoConnect {
             queryType = itr.next().getString("query_type");
         }
         return queryType;
+    }
+   
+    public void addToSearchIndex(String query, String queryType){
+        MongoCollection<Document> at = db.getCollection("search_index");
+        Document doc = new Document("query", "" + query).append("query_type", queryType).append("score", 0);
+        at.insertOne(doc);
+    }
+
+    public ArrayList<Query> searchProductTypes(String str) throws IOException {
+        Pattern p = Pattern.compile(str + "\\w*");
+        ArrayList<Query> qRes = new ArrayList<>();
+        MongoCollection<Document> fgp = db.getCollection("search_index");
+        FindIterable<Document> find = fgp.find(and(Filters.regex("query", p),Filters.eq("query_type", "product_type"))).limit(7).projection(exclude("query_type", "_id","score")).sort(Sorts.descending("score"));
+        MongoCursor<Document> itr = find.iterator();
+        while (itr.hasNext()) {
+            Query af = JSONParser.parseJSONQuery(itr.next().toJson());
+            qRes.add(af);
+        }
+        return qRes;
+    }
+
+    public ArrayList<Query> searchBrand(String str) throws IOException {
+        Pattern p = Pattern.compile(str + "\\w*");
+        ArrayList<Query> qRes = new ArrayList<>();
+        MongoCollection<Document> fgp = db.getCollection("search_index");
+        FindIterable<Document> find = fgp.find(and(Filters.regex("query", p),Filters.eq("query_type", "brand"))).limit(7).projection(exclude("query_type", "_id","score")).sort(Sorts.descending("score"));
+        MongoCursor<Document> itr = find.iterator();
+        while (itr.hasNext()) {
+            Query af = JSONParser.parseJSONQuery(itr.next().toJson());
+            qRes.add(af);
+        }
+        return qRes;
     }
 
 }

@@ -48,9 +48,9 @@ public class LoadSpecificationsValidation implements Validation{
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_SUB_CATEGORY;
+            paramValue += CorrectMsg.CORRECT_LOAD_SPEC;
         } else {
-            paramValue += ErrMsg.ERR_SUB_CATEGORY;
+            paramValue += ErrMsg.ERR_LOAD_SPEC;
         }
     }
     

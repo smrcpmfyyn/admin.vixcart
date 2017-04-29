@@ -43,7 +43,7 @@ public class addSpecification extends HttpServlet {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
             String ptype = request.getParameter("ptype");
-            String[] specific = request.getParameterValues("specific");
+            String[] specific = request.getParameterValues("specs");
             Cookie ck = Servlets.getCookie(request, "at");
             String at = "";
             if (ck != null) {

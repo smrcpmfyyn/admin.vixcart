@@ -16,9 +16,10 @@ import com.vixcart.admin.resp.mod.Activity;
 import com.vixcart.admin.resp.mod.AffiliateActivity;
 import com.vixcart.admin.resp.mod.Affiliates;
 import com.vixcart.admin.resp.mod.MemberID;
+import com.vixcart.admin.resp.mod.Query;
 import com.vixcart.admin.result.AddAffiliateResult;
 import com.vixcart.admin.result.AddAffiliateUserResult;
-import com.vixcart.admin.result.AddBaCResult;
+import com.vixcart.admin.result.AddBPaCResult;
 import com.vixcart.admin.result.AddBrandResult;
 import com.vixcart.admin.result.AddCategoryResult;
 import com.vixcart.admin.result.AddMemberResult;
@@ -37,6 +38,7 @@ import com.vixcart.admin.result.CheckUserIDResult;
 import com.vixcart.admin.result.CheckUserTypeResult;
 import com.vixcart.admin.result.DeleteAffiliateResult;
 import com.vixcart.admin.result.DeleteAffiliateUsersResult;
+import com.vixcart.admin.result.DeleteBPaCResult;
 import com.vixcart.admin.result.DeleteBaCResult;
 import com.vixcart.admin.result.DeleteBrandResult;
 import com.vixcart.admin.result.DeleteCategoryResult;
@@ -60,9 +62,10 @@ import com.vixcart.admin.result.GetAllBrandsResult;
 import com.vixcart.admin.result.GetAllPremiumPaymentsResult;
 import com.vixcart.admin.result.GetAllProductTypesResult;
 import com.vixcart.admin.result.GetAllTaCResult;
-import com.vixcart.admin.result.GetBPaC2Result;
+import com.vixcart.admin.result.GetBPaCsResult;
 import com.vixcart.admin.result.GetBPaCResult;
 import com.vixcart.admin.result.GetBrandResult;
+import com.vixcart.admin.result.GetBrandsResult;
 import com.vixcart.admin.result.GetCategoriesResult;
 import com.vixcart.admin.result.GetCategoryResult;
 import com.vixcart.admin.result.GetMemberResult;
@@ -78,6 +81,7 @@ import com.vixcart.admin.result.GetSubCategoryResult;
 import com.vixcart.admin.result.GetSuperCategoriesResult;
 import com.vixcart.admin.result.GetSuperCategoryResult;
 import com.vixcart.admin.result.GetTaCResult;
+import com.vixcart.admin.result.GetTaCsResult;
 import com.vixcart.admin.result.GetTotalPremiumPaymentsResult;
 import com.vixcart.admin.result.GetUserIdsResult;
 import com.vixcart.admin.result.GetUserResult;
@@ -91,7 +95,7 @@ import com.vixcart.admin.result.SearchMemberIDsResult;
 import com.vixcart.admin.result.SearchProductTypeResult;
 import com.vixcart.admin.result.SuperUserTypesResult;
 import com.vixcart.admin.result.UpdateAffiliateResult;
-import com.vixcart.admin.result.UpdateBaCResult;
+import com.vixcart.admin.result.UpdateBPaCResult;
 import com.vixcart.admin.result.UpdateBrandResult;
 import com.vixcart.admin.result.UpdateCategoryResult;
 import com.vixcart.admin.result.UpdateProductTypeResult;
@@ -442,21 +446,15 @@ public final class JSONParser {
         return res;
     }
 
-    public static UpdateBaCResult parseJSONUpdateBaC(String toString) throws IOException {
-        UpdateBaCResult res ;
-        res = MAPPER.readValue(toString, UpdateBaCResult.class);
-        return res;
-    }
-
     public static DeleteBaCResult parseJSONDeleteBaC(String toString) throws IOException {
         DeleteBaCResult res = null;
         res = MAPPER.readValue(toString, DeleteBaCResult.class);
         return res;
     }
 
-    public static AddBaCResult parseJSONAddBaC(String toString) throws IOException {
-        AddBaCResult res = null;
-        res = MAPPER.readValue(toString, AddBaCResult.class);
+    public static AddBPaCResult parseJSONAddBPaC(String toString) throws IOException {
+        AddBPaCResult res = null;
+        res = MAPPER.readValue(toString, AddBPaCResult.class);
         return res;
     }
 
@@ -520,9 +518,9 @@ public final class JSONParser {
         return res;
     }
 
-    public static GetBPaC2Result parseJSONGetBPaC2(String toString) throws IOException {
-        GetBPaC2Result res = null;
-        res = MAPPER.readValue(toString, GetBPaC2Result.class);
+    public static GetBPaCsResult parseJSONGetBPaCs(String toString) throws IOException {
+        GetBPaCsResult res = null;
+        res = MAPPER.readValue(toString, GetBPaCsResult.class);
         return res;
     }
 
@@ -692,6 +690,36 @@ public final class JSONParser {
     public static DeleteProductTypeResult parseJSONDeleteProductType(String reqv) throws IOException {
         DeleteProductTypeResult res;
         res = MAPPER.readValue(reqv, DeleteProductTypeResult.class);
+        return res;
+    }
+
+    public static GetBrandsResult parseJSONGetBrands(String reqv) throws IOException {
+        GetBrandsResult res;
+        res = MAPPER.readValue(reqv, GetBrandsResult.class);
+        return res;
+    }
+
+    public static GetTaCsResult parseJSONGetTaCs(String reqv) throws IOException {
+        GetTaCsResult res;
+        res = MAPPER.readValue(reqv, GetTaCsResult.class);
+        return res;
+    }
+
+    public static Query parseJSONQuery(String query) throws IOException {
+        Query res;
+        res = MAPPER.readValue(query, Query.class);
+        return res;
+    }
+
+    public static DeleteBPaCResult parseJSONDeleteBPaC(String reqv) throws IOException {
+        DeleteBPaCResult res;
+        res = MAPPER.readValue(reqv, DeleteBPaCResult.class);
+        return res;
+    }
+
+    public static UpdateBPaCResult parseJSONUpdateBPaC(String reqv) throws IOException {
+        UpdateBPaCResult res;
+        res = MAPPER.readValue(reqv, UpdateBPaCResult.class);
         return res;
     }
 

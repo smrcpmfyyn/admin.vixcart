@@ -32,7 +32,7 @@ public class GetBPaCValidation implements Validation{
             String valid1 = reqC.validateUserType("product management");
             valid += "#" + valid1;
             if(valid1.startsWith(CorrectMsg.CORRECT_MESSAGE)){
-                valid += "#"+reqC.validateBrand();
+                valid += "#"+reqC.validateBpacId();
             }
         }
         reqC.closeConnection();

@@ -70,12 +70,13 @@ public class SearchBrandConstraints implements SearchBrandValidator {
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
 
     @Override
     public String validateStr() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
-        String regX = RegX.REGX_STRING;
+        String valid = ErrMsg.ERR_STR;
+        String regX = RegX.REGX_STRING_UPPER_AND_LOWER;
         String str = req.getStr();
         if (validate(str, regX)) {
             valid = CorrectMsg.CORRECT_STR;

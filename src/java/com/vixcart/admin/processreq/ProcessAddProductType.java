@@ -42,6 +42,7 @@ public class ProcessAddProductType implements AddProductTypeProcessor{
 
     @Override
     public boolean addProductType() throws Exception {
+        mdbc.addToSearchIndex(req.getpType(),"product_type");
         return dbc.addProductType(req);
     }
 

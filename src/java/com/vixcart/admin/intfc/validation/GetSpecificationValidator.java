@@ -9,7 +9,6 @@ package com.vixcart.admin.intfc.validation;
  * @author Vineeth K
  */
 public interface GetSpecificationValidator extends EmpReportValidator{
-    public String validatePTypeId() throws Exception;
 
     public String validateSpecId() throws Exception;
 

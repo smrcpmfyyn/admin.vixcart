@@ -24,6 +24,7 @@ public class UpdateSpecificationFailureResponse {
         String json = "\"status\":\"" + ResponseMsg.RESP_NOT_OK + "\",";
         String[] errors = error.split("#");
         String resp;
+        String param;
         for (int i = 1; i < errors.length; i++) {
             String parameter = errors[i];
             switch (parameter) {
@@ -37,24 +38,24 @@ public class UpdateSpecificationFailureResponse {
                     resp = admType.substring(admType.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
-                case "ptype":
-                    String type = req.getPType();
-                    resp = type.substring(type.lastIndexOf(" ") + 1);
+                case "taspec":
+                    param = req.getTaspec();
+                    resp = param.substring(param.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
-                case "specific":
-                    type = req.getSpecific();
-                    resp = type.substring(type.lastIndexOf(" ") + 1);
+                case "filtervisibility":
+                    param = req.getFiltervisibility();
+                    resp = param.substring(param.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
-                case "on_status":
-                    type = req.getOn_status();
-                    resp = type.substring(type.lastIndexOf(" ") + 1);
+                case "onlinevisibility":
+                    param = req.getOnlinevisibility();
+                    resp = param.substring(param.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
-                case "off_status":
-                    type = req.getOff_status();
-                    resp = type.substring(type.lastIndexOf(" ") + 1);
+                case "offlinevisibility":
+                    param = req.getOfflinevisibility();
+                    resp = param.substring(param.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
             }

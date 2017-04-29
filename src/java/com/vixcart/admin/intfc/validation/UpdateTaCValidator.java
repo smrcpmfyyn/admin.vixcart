@@ -9,9 +9,7 @@ package com.vixcart.admin.intfc.validation;
  * @author Vineeth K
  */
 public interface UpdateTaCValidator extends EmpReportValidator{
-    public String validatePType() throws Exception;
-
-    public String validateCategory() throws Exception;
+    public String validateTac() throws Exception;
 
     public String validateOn_status() throws Exception;
 

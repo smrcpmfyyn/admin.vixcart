@@ -46,7 +46,7 @@ public class ProcessLoadSpecifications implements LoadSpecificationsProcessor{
     @Override
     public boolean loadSpecifications() throws Exception {
         res= dbc.loadSpecifications(req);
-        return true;
+        return !res.isEmpty();
     }
 
     @Override
@@ -68,7 +68,7 @@ public class ProcessLoadSpecifications implements LoadSpecificationsProcessor{
     public LoadSpecificationsSuccessResponse generateResponse(boolean status) {
         LoadSpecificationsSuccessResponse resp;
         if (status) {
-            resp = new LoadSpecificationsSuccessResponse(ResponseMsg.RESP_OK, accessToken);
+            resp = new LoadSpecificationsSuccessResponse(ResponseMsg.RESP_OK, accessToken,res);
         } else {
             resp = new LoadSpecificationsSuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken);
         }

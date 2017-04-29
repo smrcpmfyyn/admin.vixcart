@@ -67,7 +67,7 @@ public class ProcessGetBrand implements GetBrandProcessor{
     public GetBrandSuccessResponse generateResponse(boolean status) {
         GetBrandSuccessResponse resp;
         if (status) {
-            resp = new GetBrandSuccessResponse(ResponseMsg.RESP_OK, accessToken);
+            resp = new GetBrandSuccessResponse(ResponseMsg.RESP_OK, accessToken,res);
         } else {
             resp = new GetBrandSuccessResponse(ResponseMsg.RESP_NOT_OK, accessToken);
         }

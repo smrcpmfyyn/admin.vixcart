@@ -24,6 +24,7 @@ public class UpdateTaCFailureResponse {
         String json = "\"status\":\"" + ResponseMsg.RESP_NOT_OK + "\",";
         String[] errors = error.split("#");
         String resp;
+        String param;
         for (int i = 1; i < errors.length; i++) {
             String parameter = errors[i];
             switch (parameter) {
@@ -37,24 +38,19 @@ public class UpdateTaCFailureResponse {
                     resp = admType.substring(admType.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
-                case "ptype":
-                    String type = req.getPType();
-                    resp = type.substring(type.lastIndexOf(" ") + 1);
+                case "tac":
+                    param = req.getTac();
+                    resp = param.substring(param.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
-                    break;
-                case "category":
-                    type = req.getCategory();
-                    resp = type.substring(type.lastIndexOf(" ") + 1);
-                    json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
-                    break;
+                    break;                
                 case "on_status":
-                    type = req.getOn_status();
-                    resp = type.substring(type.lastIndexOf(" ") + 1);
+                    param = req.getOn_status();
+                    resp = param.substring(param.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
                 case "off_status":
-                    type = req.getOff_status();
-                    resp = type.substring(type.lastIndexOf(" ") + 1);
+                    param = req.getOff_status();
+                    resp = param.substring(param.lastIndexOf(" ") + 1);
                     json += "\"" + parameter + "\"" + ":" + "\"" + resp + "\" ,";
                     break;
             }

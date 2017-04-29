@@ -70,5 +70,21 @@ public class GetBrandConstraints implements GetBrandValidator {
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
+    }
+
+    @Override
+    public String validateBrand() throws Exception {
+        String valid = ErrMsg.ERR_BRAND;
+        String regX = RegX.REGX_STRING_UPPER_AND_LOWER;
+        String param = req.getBrand();
+        if (validate(param, regX)) {
+            if (dbc.checkBrand(param) == 1) {
+                valid = CorrectMsg.CORRECT_BRAND;
+            } else {
+                valid = ErrMsg.ERR_BRAND_NOT_EXISTS;
+            }
+        }
+        return valid;
     }
 }

@@ -12,50 +12,42 @@ import com.vixcart.admin.message.ValidationMsg;
  * @author Vineeth K
  */
 public class GetSpecificationResult implements Result {
-	 private String at;
-	 private String admintype;
-	 private String reqValidation;
-	 private String pTypeId;
-	 private String specId;
+
+    private String at;
+    private String admintype;
+    private String reqValidation;
+    private String taspec;
+
+    public String getAt() {
+        return at;
+    }
 
     public void setAt(String at) {
         this.at = at;
     }
 
-    public String getAt() {
-      return  this.at;
+    public String getAdmintype() {
+        return admintype;
     }
 
     public void setAdmintype(String admintype) {
         this.admintype = admintype;
     }
 
-    public String getAdmintype() {
-      return  this.admintype;
+    public String getReqValidation() {
+        return reqValidation;
     }
 
-    public void setReqvalidation(String reqValidation) {
+    public void setReqValidation(String reqValidation) {
         this.reqValidation = reqValidation;
     }
 
-    public String getReqvalidation() {
-      return  this.reqValidation;
+    public String getTaspec() {
+        return taspec;
     }
 
-    public void setPtypeid(String pTypeId) {
-        this.pTypeId = pTypeId;
-    }
-
-    public String getPtypeid() {
-      return  this.pTypeId;
-    }
-
-    public void setSpecid(String specId) {
-        this.specId = specId;
-    }
-
-    public String getSpecid() {
-      return  this.specId;
+    public void setTaspec(String taspec) {
+        this.taspec = taspec;
     }
 
     @Override
@@ -86,11 +78,8 @@ public class GetSpecificationResult implements Result {
         } else if (admintype.startsWith(ErrMsg.ERR_MESSAGE)) {
             error += "admintype#";
         } else {
-            if (pTypeId.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "ptypeid#";
-            }
-            if (specId.startsWith(ErrMsg.ERR_MESSAGE)) {
-                error += "specid#";
+            if (taspec.startsWith(ErrMsg.ERR_MESSAGE)) {
+                error += "taspec#";
             }
         }
         return error.substring(0, error.length() - 1);

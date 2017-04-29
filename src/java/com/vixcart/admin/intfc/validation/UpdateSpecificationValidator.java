@@ -9,9 +9,9 @@ package com.vixcart.admin.intfc.validation;
  * @author Vineeth K
  */
 public interface UpdateSpecificationValidator extends EmpReportValidator{
-    public String validatePType() throws Exception;
+    public String validateSpecid() throws Exception;
 
-    public String validateSpecific() throws Exception;
+    public String validateFltr_status() throws Exception;
 
     public String validateOn_status() throws Exception;
 

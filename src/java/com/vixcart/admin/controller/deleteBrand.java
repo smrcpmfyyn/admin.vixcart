@@ -43,13 +43,13 @@ public class deleteBrand extends HttpServlet {
 
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
-            String scat = request.getParameter("scat");
+            String brand = request.getParameter("brand");
             Cookie ck = Servlets.getCookie(request, "at");
             String at = "";
             if (ck != null) {
                 at = ck.getValue();
             }
-            DeleteBrand req = new DeleteBrand(at, scat);
+            DeleteBrand req = new DeleteBrand(at, brand);
             DeleteBrandValidation reqV = new DeleteBrandValidation(req);
             reqV.validation();
             DeleteBrandResult reqR = JSONParser.parseJSONDeleteBrand(reqV.toString());

@@ -9,6 +9,8 @@ import com.vixcart.admin.req.mod.UpdateSpecification;
 import com.vixcart.admin.resp.mod.UpdateSpecificationFailureResponse;
 import com.vixcart.admin.resp.mod.UpdateSpecificationSuccessResponse;
 import com.vixcart.admin.result.UpdateSpecificationResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.UpdateSpecificationValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -40,18 +42,21 @@ public class updateSpecification extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
-            String ptype = request.getParameter("ptype");
-            String specific = request.getParameter("specific");
+            String specid = request.getParameter("specid");
+            String fltr_status = request.getParameter("fltr_status");
             String on_status = request.getParameter("on_status");
             String off_status = request.getParameter("off_status");
             Cookie ck = Servlets.getCookie(request, "at");
-            String at = ck.getValue();
-            UpdateSpecification req = new UpdateSpecification(at, ptype, specific, on_status, off_status);
+            String at = "";
+            if (ck != null) {
+                at = ck.getValue();
+            }
+            UpdateSpecification req = new UpdateSpecification(at, specid, fltr_status, on_status, off_status);
             UpdateSpecificationValidation reqV = new UpdateSpecificationValidation(req);
             reqV.validation();
-            System.out.println("addTypV = " + reqV);
             UpdateSpecificationResult reqR = JSONParser.parseJSONUpdateSpecification(reqV.toString());
             String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "update_specification", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessUpdateSpecification process = new ProcessUpdateSpecification(req);
                 UpdateSpecificationSuccessResponse rSucc = process.processRequest();
@@ -62,15 +67,21 @@ public class updateSpecification extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(addTyp.getAdmin_id());
-//                    bau.block();
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+//                    ua.addActivity();
+                } else {
+                    ua.setEntryStatus("invalid");
                 }
                 UpdateSpecificationFailureResponse rFail = new UpdateSpecificationFailureResponse(reqR, validSubmission);
                 out.write(rFail.toString());
             } else {
                 //exception response
             }
+            ua.addActivity();
             out.flush();
             out.close();
         } catch (Exception ex) {

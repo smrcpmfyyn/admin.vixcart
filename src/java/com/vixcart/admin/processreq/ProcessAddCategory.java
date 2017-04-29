@@ -43,6 +43,7 @@ public class ProcessAddCategory implements AddCategoryProcessor{
 
     @Override
     public boolean addCategory() throws Exception {
+        mdbc.addToSearchIndex(req.getCategory(),"category");
         return dbc.addCategory(req);
     }
 

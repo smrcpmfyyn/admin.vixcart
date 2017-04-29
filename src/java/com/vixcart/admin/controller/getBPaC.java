@@ -9,6 +9,8 @@ import com.vixcart.admin.req.mod.GetBPaC;
 import com.vixcart.admin.resp.mod.GetBPaCFailureResponse;
 import com.vixcart.admin.resp.mod.GetBPaCSuccessResponse;
 import com.vixcart.admin.result.GetBPaCResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.GetBPaCValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -40,15 +42,18 @@ public class getBPaC extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
-            String brand = request.getParameter("brand");
+            String bpacid = request.getParameter("bpacid");
             Cookie ck = Servlets.getCookie(request, "at");
-            String at = ck.getValue();
-            GetBPaC req = new GetBPaC(at, brand);
+            String at = "";
+            if (ck != null) {
+                at = ck.getValue();
+            }
+            GetBPaC req = new GetBPaC(at, bpacid);
             GetBPaCValidation reqV = new GetBPaCValidation(req);
             reqV.validation();
-            System.out.println("addTypV = " + reqV);
             GetBPaCResult reqR = JSONParser.parseJSONGetBPaC(reqV.toString());
             String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "get_bpac", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessGetBPaC process = new ProcessGetBPaC(req);
                 GetBPaCSuccessResponse rSucc = process.processRequest();
@@ -59,9 +64,14 @@ public class getBPaC extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+//                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(addTyp.getAdmin_id());
-//                    bau.block();
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+                    ua.addActivity();
+                } else {
+//                    ua.setEntryStatus("invalid");
                 }
                 GetBPaCFailureResponse rFail = new GetBPaCFailureResponse(reqR, validSubmission);
                 out.write(rFail.toString());

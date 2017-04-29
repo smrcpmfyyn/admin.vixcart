@@ -70,31 +70,19 @@ public class GetSpecificationConstraints implements GetSpecificationValidator {
     @Override
     public void closeConnection() throws SQLException {
         dbc.closeConnection();
+        mdbc.closeConnection();
     }
-    @Override
-    public String validatePTypeId() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
-        String regX = RegX.REGX_STRING;
-        String ptypeid = req.getPtypeid();
-        if (validate(ptypeid, regX)) {
-            if (dbc.checkPTypeId(ptypeid) == 0) {
-                valid = CorrectMsg.CORRECT_PTYPE;
-            } else {
-                valid = ErrMsg.ERR_PTYPE_NOT_EXISTS;
-            }
-        }
-        return valid;
-    }
+    
     @Override
     public String validateSpecId() throws Exception {
-        String valid = ErrMsg.ERR_SUB_CATEGORY;
-        String regX = RegX.REGX_STRING;
-        String specid = req.getSpecid();
-        if (validate(specid, regX)) {
-            if (dbc.checkSpecId(specid) == 0) {
-                valid = CorrectMsg.CORRECT_SPECIFIC_ALL;
+        String valid = ErrMsg.ERR_TaSPEC;
+        String regX = RegX.REGX_DIGIT;
+        String param = req.getSpecid();
+        if (validate(param, regX)) {
+            if (dbc.checkSpecid(param) == 1) {
+                valid = CorrectMsg.CORRECT_TaSPEC;
             } else {
-                valid = ErrMsg.ERR_SPECIFIC_NOT_EXISTS;
+                valid = ErrMsg.ERR_TaSPEC_NOT_EXISTS;
             }
         }
         return valid;

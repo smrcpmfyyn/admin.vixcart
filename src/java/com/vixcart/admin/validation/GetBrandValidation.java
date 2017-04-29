@@ -32,6 +32,7 @@ public class GetBrandValidation implements Validation{
             String valid1 = reqC.validateUserType("product management");
             valid += "#" + valid1;
             if(valid1.startsWith(CorrectMsg.CORRECT_MESSAGE)){
+                valid += "#" + reqC.validateBrand();
             }
         }
         reqC.closeConnection();
@@ -47,9 +48,9 @@ public class GetBrandValidation implements Validation{
         }
         paramName += "reqValidation";
         if (count == 0) {
-            paramValue += CorrectMsg.CORRECT_SUB_CATEGORY;
+            paramValue += CorrectMsg.CORRECT_GET_BRAND;
         } else {
-            paramValue += ErrMsg.ERR_SUB_CATEGORY;
+            paramValue += ErrMsg.ERR_GET_BRAND;
         }
     }
     

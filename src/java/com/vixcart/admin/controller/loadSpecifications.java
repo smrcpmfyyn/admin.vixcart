@@ -9,6 +9,8 @@ import com.vixcart.admin.req.mod.LoadSpecifications;
 import com.vixcart.admin.resp.mod.LoadSpecificationsFailureResponse;
 import com.vixcart.admin.resp.mod.LoadSpecificationsSuccessResponse;
 import com.vixcart.admin.result.LoadSpecificationsResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.LoadSpecificationsValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -46,9 +48,9 @@ public class loadSpecifications extends HttpServlet {
             LoadSpecifications req = new LoadSpecifications(at, pType);
             LoadSpecificationsValidation reqV = new LoadSpecificationsValidation(req);
             reqV.validation();
-            System.out.println("addTypV = " + reqV);
             LoadSpecificationsResult reqR = JSONParser.parseJSONLoadSpecifications(reqV.toString());
             String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "load_specification", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessLoadSpecifications process = new ProcessLoadSpecifications(req);
                 LoadSpecificationsSuccessResponse rSucc = process.processRequest();
@@ -59,9 +61,14 @@ public class loadSpecifications extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+//                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(addTyp.getAdmin_id());
-//                    bau.block();
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+                    ua.addActivity();
+                } else {
+//                    ua.setEntryStatus("invalid");
                 }
                 LoadSpecificationsFailureResponse rFail = new LoadSpecificationsFailureResponse(reqR, validSubmission);
                 out.write(rFail.toString());

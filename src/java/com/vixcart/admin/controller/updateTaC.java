@@ -9,6 +9,8 @@ import com.vixcart.admin.req.mod.UpdateTaC;
 import com.vixcart.admin.resp.mod.UpdateTaCFailureResponse;
 import com.vixcart.admin.resp.mod.UpdateTaCSuccessResponse;
 import com.vixcart.admin.result.UpdateTaCResult;
+import com.vixcart.admin.support.controller.BlockAdminUser;
+import com.vixcart.admin.support.controller.UserActivities;
 import com.vixcart.admin.validation.UpdateTaCValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -40,18 +42,20 @@ public class updateTaC extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
-            String ptype = request.getParameter("ptype");
-            String categ = request.getParameter("categ");
+            String tacId = request.getParameter("tacId");
             String on_status = request.getParameter("on_status");
             String off_status = request.getParameter("off_status");
             Cookie ck = Servlets.getCookie(request, "at");
-            String at = ck.getValue();
-            UpdateTaC req = new UpdateTaC(at,ptype, categ, on_status, off_status);
+            String at = "";
+            if (ck != null) {
+                at = ck.getValue();
+            }
+            UpdateTaC req = new UpdateTaC(at,tacId, on_status, off_status);
             UpdateTaCValidation reqV = new UpdateTaCValidation(req);
             reqV.validation();
-            System.out.println("addTypV = " + reqV);
             UpdateTaCResult reqR = JSONParser.parseJSONUpdateTaC(reqV.toString());
             String validSubmission = reqR.getValidationResult();
+            UserActivities ua = new UserActivities(req.getAdmin_id(), req.getType(), "update_tac", "product management", "valid");
             if (validSubmission.startsWith(CorrectMsg.CORRECT_MESSAGE)) {
                 ProcessUpdateTaC process = new ProcessUpdateTaC(req);
                 UpdateTaCSuccessResponse rSucc = process.processRequest();
@@ -62,15 +66,21 @@ public class updateTaC extends HttpServlet {
             } else if (validSubmission.startsWith(ErrMsg.ERR_ERR)) {
                 if (reqR.getAt().startsWith(ErrMsg.ERR_MESSAGE)) {
                     // do nothing
+                    ua.setEntryStatus("invalid");
                 } else if (reqR.getAdmintype().startsWith(ErrMsg.ERR_MESSAGE)) {
-//                    BlockAdminUser bau = new BlockAdminUser(addTyp.getAdmin_id());
-//                    bau.block();
+                    BlockAdminUser bau = new BlockAdminUser(req.getAdmin_id());
+                    bau.block();
+                    ua.setEntryStatus("blocked");
+//                    ua.addActivity();
+                } else {
+                    ua.setEntryStatus("invalid");
                 }
                 UpdateTaCFailureResponse rFail = new UpdateTaCFailureResponse(reqR, validSubmission);
                 out.write(rFail.toString());
             } else {
                 //exception response
             }
+            ua.addActivity();
             out.flush();
             out.close();
         } catch (Exception ex) {

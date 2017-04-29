@@ -78,7 +78,7 @@ public class DeleteSpecificationConstraints implements DeleteSpecificationValida
         String regX = RegX.REGX_DIGIT;
         String param = req.getpSpecId();
         if (validate(param, regX)) {
-            if (dbc.checkPSpecId(param) == 1) {
+            if (dbc.checkSpecid(param) == 1) {
                 valid = CorrectMsg.CORRECT_TaSPEC;
             } else {
                 valid = ErrMsg.ERR_TaSPEC_NOT_EXISTS;

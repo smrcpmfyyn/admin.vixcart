@@ -13,7 +13,7 @@ package com.vixcart.admin.message;
 public class URLs {
     
     private static final String PASSWORD_GENERATION = "http://localhost:8080/admin.vixcart/resetPassword?token=";
-    private static final String AFFILIATE_PASSWORD_GENERATION = "http://localhost:8080/partner.vaydeal/resetPassword.html?token=";
+    private static final String AFFILIATE_PASSWORD_GENERATION = "http://vaydeal.com:8080/partners.vaydeal/resetPassword.html?token=";
     private static final String MEMBER_PASSWORD_GENERATION = "http://localhost:8080/member.vaydeal/resetPassword?token=";
 
     public static String getPASSWORD_GENERATION() {

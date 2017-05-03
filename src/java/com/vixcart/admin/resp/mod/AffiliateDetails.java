@@ -24,7 +24,7 @@ public class AffiliateDetails {
         this.cf = "invalid";
     }
 
-    public AffiliateDetails(String company, String status, String mpp, String cf) {
+    public AffiliateDetails(String company, String mpp, String cf, String status) {
         this.company = company;
         this.status = status;
         this.mpp = mpp;

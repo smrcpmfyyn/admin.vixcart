@@ -40,7 +40,7 @@ public class AddMemberConstraints implements AddMemberValidator {
         String regX = RegX.REGX_DIGIT;
         String mtype = req.getmType();
         if (validate(mtype, regX)) {
-            if (mtype.equals("1")||mtype.equals("2")) {
+            if (mtype.equals("1")||mtype.equals("2")||mtype.equals("3")) {
                 valid = CorrectMsg.CORRECT_MTYPE;
             } 
         }

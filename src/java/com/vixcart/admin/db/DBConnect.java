@@ -1902,7 +1902,7 @@ public class DBConnect {
     }
 
     public String getNewMemberId() throws SQLException {
-        PreparedStatement ps = con.prepareStatement("SELECT affiliate_user_id FROM member_logger");
+        PreparedStatement ps = con.prepareStatement("SELECT member_id FROM member_logger");
         ArrayList<String> al = new ArrayList<>();
         String new_member_id = "";
         rs = ps.executeQuery();

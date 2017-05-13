@@ -55,7 +55,7 @@ public class addMember extends HttpServlet {
             if (ck != null) {
                 at = ck.getValue();
             }
-            AddMember req = new AddMember(at, name, email, mobile, mType);
+            AddMember req = new AddMember(at, mType, name, email, mobile);
             AddMemberValidation reqV = new AddMemberValidation(req);
             reqV.validation();
             AddMemberResult reqR = JSONParser.parseJSONAMR(reqV.toString());

@@ -30,7 +30,7 @@ public class AddAffiliateConstraints implements AddAffiliateValidator {
     private final AddAffiliate req;
     private final DBConnect dbc;
     private final MongoConnect mdbc;
-    private static final String[] imgExts = {"png", "jpg", "bmp"};
+    private static final String[] imgExts = {"png", "jpg", "bmp", "jpeg"};
 
     public AddAffiliateConstraints(AddAffiliate addTyp) throws Exception {
         this.req = addTyp;

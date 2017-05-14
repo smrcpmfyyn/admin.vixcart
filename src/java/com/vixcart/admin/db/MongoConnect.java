@@ -43,6 +43,7 @@ import com.vixcart.admin.resp.mod.Affiliates;
 import com.vixcart.admin.resp.mod.MemberID;
 import com.vixcart.admin.resp.mod.Query;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -61,7 +62,9 @@ public class MongoConnect {
     private final MongoClient mongoClient;
 
     public MongoConnect() throws Exception {
-        MongoClientURI uri = new MongoClientURI("mongodb://35.154.242.9/");
+        String pass = "V@YDR#@MS";
+        pass = URLEncoder.encode(pass);
+        MongoClientURI uri = new MongoClientURI("mongodb://vaydeal:"+pass+"@13.126.8.181/vaydeal");
         mongoClient = new MongoClient(uri);
         db = mongoClient.getDatabase("vaydeal");
 

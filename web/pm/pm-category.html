@@ -13,16 +13,16 @@
     <meta name="og_url" property="og:url" content=""/>
     
     <link rel="canonical" href=""/>
-    <link rel='shortcut icon' href="images/favicon.ico" />
+    <link rel='shortcut icon' href="../images/favicon.ico" />
     
     <!-- CSS -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/vaydeal-icons.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/vaydeal-icons.css">
     
     <!-- JS -->
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/animation.jquery.js"></script>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/animation.jquery.js"></script>
 
 </head>
 
@@ -32,9 +32,10 @@
 
 	<header> <!-- Header -->
         <div class="header-logo">
-            <a href="#"><img src="images/logo.png" alt=""></a>
+            <a href="#"><img src="../images/logo.png" alt=""></a>
         </div>
         <nav>
+<!--
             <ul>
                 <li><a href="dashboard.html" class="btn-dashboard"> <i class="ti-pie-chart"></i> Dashboard</a></li>
                 <li><a href="" class=""> <i class=" ti-folder"></i> Clint</a></li>
@@ -45,25 +46,20 @@
                 <li><a href="#" class=""> <i class="ti-settings"></i> Settings </a></li>
                 <li><a href="#" class=""> <i class="ti-power-off"></i> log Out</a></li>            
             </ul>
+-->
+            <ul>
+                <li ><a href="pm-dashboard.html"><i class="ti-pie-chart"></i> Dashboard</a></li>
+                <li class="active"><a href="pm-category.html"><i class="ti-pie-chart"></i> Category</a></li>
+                <li><a href=""><i class="ti-pie-chart"></i> Product Type</a></li>
+                <li><a href=""><i class="ti-pie-chart"></i> Brands</a></li>
+                <li><a href=""><i class="ti-pie-chart"></i> Product Offline</a></li>
+                <li><a href=""><i class="ti-pie-chart"></i> Product Online</a></li>
+                <li><a href="#" class=""> <i class="ti-settings"></i> Settings </a></li>
+                <li><a href="#" class=""> <i class="ti-power-off"></i> log Out</a></li>  
+            </ul>
         </nav>
     </header> <!-- End Header -->
     <div id="mainSection" class="main-section"> <!-- Main Section -->
-        <div class="header-menu">
-            <ul>
-                <li><a href="pm-dashboard.html"><i class="ti-pie-chart"></i> Dashboard</a></li>
-                <i class="list-sup"></i>
-                <li class="active"><a href=""><i class="ti-pie-chart"></i> Category</a></li>
-                <i class="list-sup"></i>
-                <li><a href=""><i class="ti-pie-chart"></i> Product Type</a></li>
-                <i class="list-sup"></i>
-                <li><a href=""><i class="ti-pie-chart"></i> Brands</a></li>
-                <i class="list-sup"></i>
-                <li><a href=""><i class="ti-pie-chart"></i> Product Offline</a></li>
-                <i class="list-sup"></i>
-                <li><a href=""><i class="ti-pie-chart"></i> Product Online</a></li>
-            </ul>
-        </div> <!-- End Header Menu -->
-
         <div class="container sub-container">
             <div class="section-head form">
                 <div class="col-6">
@@ -129,18 +125,19 @@
                     </div> <!-- End Tabs Super Category -->
                     <div id="tabCategory" class=""> <!-- Tabs Category -->
                         <div class="col-6">
-                            <h1>User Type</h1>
+                            <h1>Category</h1>
                         </div>
                         <div class="col-6 text-right">
-                            <button data-target="newUt" class="btn btn-bg waves-effect"><i class="ti-plus"></i>Add User Type</button>
+                            <button data-target="newCategory" class="btn btn-bg waves-effect"><i class="ti-plus"></i>Add Category</button>
                         </div>
                         <div class="user-type-report">
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Type</th>
-                                        <th>Super Type</th>
+                                        <th>Category</th>
+                                        <th>Super Category</th>
+                                        <th>Status</th>
                                         <th class="table-action">Action</th>
                                     </tr>
                                 </thead>
@@ -149,21 +146,24 @@
                                         <td>1</td>
                                         <td>Admin</td>
                                         <td>Admin B</td>
-                                        <td><button class="btn btn-edit waves-effect tooltipped" data-target="editUt" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
+                                        <td><span class="status payed">Payed</span></td>
+                                        <td><button class="btn btn-edit waves-effect tooltipped" data-target="editCategory" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
                                         <button class="btn btn-remove waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Remove"><i class="ti-trash"></i> </button></td>
                                     </tr>
                                     <tr>
                                         <td>1</td>
                                         <td>Admin</td>
                                         <td>Admin B</td>
-                                        <td><button class="btn btn-edit waves-effect tooltipped" data-target="editUt" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
+                                        <td><span class="status payed">Payed</span></td>
+                                        <td><button class="btn btn-edit waves-effect tooltipped" data-target="editCategory" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
                                         <button class="btn btn-remove waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Remove"><i class="ti-trash"></i> </button></td>
                                     </tr>
                                     <tr>
                                         <td>1</td>
                                         <td>Admin</td>
                                         <td>Admin B</td>
-                                        <td><button class="btn btn-edit waves-effect tooltipped" data-target="editUt" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
+                                        <td><span class="status payed">Payed</span></td>
+                                        <td><button class="btn btn-edit waves-effect tooltipped" data-target="editCategory" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
                                         <button class="btn btn-remove waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Remove"><i class="ti-trash"></i> </button></td>
                                     </tr>
                                 </tbody>
@@ -171,21 +171,21 @@
                         </div>
                     </div> <!-- End Tabs Category -->
                     <div id="tabSubcategory" class=""> <!-- Tabs Sub Category -->
+                        <!-- Tabs Sub Category -->
                         <div class="col-6">
-                            <h1>Activities</h1>
+                            <h1>Sub Category</h1>
                         </div>
                         <div class="col-6 text-right">
-                            <button data-target="newCtv" class="btn btn-bg waves-effect"><i class="ti-plus"></i>Add CTV</button>
+                            <button data-target="newSubC" class="btn btn-bg waves-effect"><i class="ti-plus"></i>Add Sub Category</button>
                         </div>
                         <div class="ctv-report">
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>CTV Plan</th>
-                                        <th>Amount</th>
-                                        <th>No of Town Visib</th>
-                                        <th>Discount</th>
+                                        <th>Sub Category</th>
+                                        <th>Category</th>
+                                        <th>Status</th>
                                         <th class="table-action">Action</th>
                                     </tr>
                                 </thead>
@@ -193,27 +193,40 @@
                                     <tr>
                                         <td>1</td>
                                         <td>Basic</td>
-                                        <td>900</td>
-                                        <td>55</td>
-                                        <td>25%</td>
-                                        <td><button class="btn btn-view waves-effect tooltipped" data-target="viewCtv" data-position="top" data-delay="50" data-tooltip="View"><i class="ti-eye"></i> </button>
-                                        <button class="btn btn-edit waves-effect tooltipped" data-target="editCtv" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
+                                        <td>Mens Cloth</td>
+                                        <td><span class="status payed">Payed</span></td>
+                                        <td><button class="btn btn-edit waves-effect tooltipped" data-target="editSubC" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
+                                        <button class="btn btn-remove waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Remove"><i class="ti-trash"></i> </button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Basic</td>
+                                        <td>Mens Cloth</td>
+                                        <td><span class="status payed">Payed</span></td>
+                                        <td><button class="btn btn-edit waves-effect tooltipped" data-target="editSubC" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
+                                        <button class="btn btn-remove waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Remove"><i class="ti-trash"></i> </button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Basic</td>
+                                        <td>Mens Cloth</td>
+                                        <td><span class="status payed">Payed</span></td>
+                                        <td><button class="btn btn-edit waves-effect tooltipped" data-target="editSubC" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
                                         <button class="btn btn-remove waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Remove"><i class="ti-trash"></i> </button></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
+                        <!-- End Tabs Sub Category -->
                     </div> <!-- End Tabs Sub Category -->
                 </div> <!-- End Tabs Content -->
             </div>
         </div>
     </div> <!-- End Main Section -->
-
+    
     <div id="newSc" class="new-post modal"> <!-- Add Super Category Modal -->
-        <div class="modal-content form">
+        <div class="modal-content form text-left">
             <h2>Add New Super Category</h2>
-            <label for="rolNum">No</label>
-            <input id="rolNum" type="text" name="rolnumber">
             <label for="adCn">Category Name</label>
             <input id="adCn" type="text" name="categoryname">
         </div>
@@ -224,10 +237,8 @@
     </div> <!-- End Add Super Category Modal -->
 
     <div id="editSc" class="new-post modal"> <!-- Edit Super Category Modal -->
-        <div class="modal-content form">
+        <div class="modal-content form text-left">
             <h2>Edit and update Super Category</h2>
-            <label for="rolNum">No</label>
-            <input id="rolNum" type="text" name="rolnumber">
             <label for="edtCn">Category Name</label>
             <input id="edtCn" type="text" name="categoryname" value="Textails" disabled="">
             <label for="edtOns">Online Status</label>
@@ -252,55 +263,115 @@
             <button onclick="edtSc()" class="btn btn-bg waves-effect btn-select-plan" type="button">Update</button>
         </div>
     </div> <!-- End Edit Super Category Modal -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div id="newUt" class="new-post modal"> <!-- Add User Type Modal -->
-        <div class="modal-content form">
-            <h2>Add New User Type</h2>
-            <label for="rolNum">No</label>
-            <input id="rolNum" type="text" name="rolnumber">
-            <label for="adType">Type</label>
-            <input id="adType" type="text" name="type">
-            <label for="adSpt">Super Type</label>
-            <input id="adSpt" type="text" name="supertype">
+    
+    <div id="newCategory" class="new-post modal"> <!-- Add User Type Modal -->
+        <div class="modal-content form text-left">
+            <h2>Add New Category</h2>
+            <label for="">Super Category</label>
+            <select>
+                <option>demo1</option>
+                <option>demo2</option>
+                <option>demo3</option>
+                <option>demo4</option>
+            </select>
+            <label for="">Category</label>
+            <input id="" type="text" name="category">
         </div>
         <div class="modal-footer form">
             <button class="btn btn-cancel waves-effect modal-close" type="button">Cancel</button>
-            <button onclick="addUsertype()" class="btn btn-bg waves-effect btn-select-plan" type="button">Submit</button>
+            <button onclick="" class="btn btn-bg waves-effect btn-select-plan" type="button">Submit</button>
         </div>
     </div> <!-- End Add User Type Modal -->
 
-    <div id="editUt" class="new-post modal"> <!-- Edit User Type Modal -->
-        <div class="modal-content form">
-            <h2>Edit and Update User Type</h2>
-            <label for="rolNum">No</label>
-            <input id="rolNum" type="text" name="rolnumber" value="1">
-            <label for="edtType">Type</label>
-            <input id="edtType" type="text" name="type" value="admin" disabled="">
-            <label for="edtSpt">Super Type</label>
-            <input id="edtSpt" type="text" name="supertype" value="admin B">
+    <div id="editCategory" class="new-post modal"> <!-- Edit User Type Modal -->
+        <div class="modal-content form text-left">
+            <h2>Edit and Update Category</h2>
+            <label for="">Super Category</label>
+            <select>
+                <option>demo1</option>
+                <option>demo2</option>
+                <option>demo3</option>
+                <option>demo4</option>
+            </select>
+            <label for="">Category</label>
+            <input id="" type="text" name="category">
+            <label for="">Online Status</label>
+            <select id="" name="onlinestatus">
+                <option value="demo">Demo</option>
+                <option value="demo1">Demo1</option>
+                <option value="demo2">Demo2</option>
+                <option value="demo3">Demo3</option>
+                <option value="demo4">Demo4</option>
+            </select>
+            <label for="">Offline Status</label>
+            <select id="" name="offlinestatus">
+                <option value="demo">Demo</option>
+                <option value="demo1">Demo1</option>
+                <option value="demo2">Demo2</option>
+                <option value="demo3">Demo3</option>
+                <option value="demo4">Demo4</option>
+            </select>
         </div>
         <div class="modal-footer form">
             <button class="btn btn-cancel waves-effect modal-close" type="button">Cancel</button>
-            <button onclick="edtUsertype()" class="btn btn-bg waves-effect btn-select-plan" type="button">Update</button>
+            <button onclick="" class="btn btn-bg waves-effect btn-select-plan" type="button">Update</button>
         </div>
     </div> <!-- End Edit User Type Modal -->
+    
+    <div id="newSubC" class="new-post modal"> <!-- Add Super Category Modal -->
+        <div class="modal-content form text-left">
+            <h2>Add New Sub Category</h2>
+            <label for="">Category</label>
+            <select id="" name="">
+                <option value="demo">Demo</option>
+                <option value="demo1">Demo1</option>
+                <option value="demo2">Demo2</option>
+                <option value="demo3">Demo3</option>
+                <option value="demo4">Demo4</option>
+            </select>
+            <label for="">Sub Category</label>
+            <input id="" type="text" name="categoryname">
+        </div>
+        <div class="modal-footer form">
+            <button class="btn btn-cancel waves-effect modal-close" type="button">Cancel</button>
+            <button onclick="" class="btn btn-bg waves-effect btn-select-plan" type="button">Add</button>
+        </div>
+    </div> <!-- End Add Super Category Modal -->
+
+    <div id="editSubC" class="new-post modal"> <!-- Edit Super Category Modal -->
+        <div class="modal-content form text-left">
+            <h2>Edit and update Suub Category</h2>
+            <label for="edtCn">Category Name</label>
+            <input id="edtCn" type="text" name="categoryname" value="Textails" disabled="">
+            <label for="">Sub Category</label>
+            <input id="" type="text" name="categoryname" value="Mens" disabled="">
+            <label for="">Online Status</label>
+            <select id="" name="onlinestatus">
+                <option value="demo">Demo</option>
+                <option value="demo1">Demo1</option>
+                <option value="demo2">Demo2</option>
+                <option value="demo3">Demo3</option>
+                <option value="demo4">Demo4</option>
+            </select>
+            <label for="">Offline Status</label>
+            <select id="" name="offlinestatus">
+                <option value="demo">Demo</option>
+                <option value="demo1">Demo1</option>
+                <option value="demo2">Demo2</option>
+                <option value="demo3">Demo3</option>
+                <option value="demo4">Demo4</option>
+            </select>
+        </div>
+        <div class="modal-footer form">
+            <button class="btn btn-cancel waves-effect modal-close" type="button">Cancel</button>
+            <button onclick="" class="btn btn-bg waves-effect btn-select-plan" type="button">Update</button>
+        </div>
+    </div> <!-- End Edit Super Category Modal -->
 
 </main>
     
     <!-- JS -->
-    <script type="text/javascript" src="js/vaydeal.jquery.js"></script>
+    <script type="text/javascript" src="../js/vaydeal.jquery.js"></script>
     
 </body>
 </html>

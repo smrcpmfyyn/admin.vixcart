@@ -12,17 +12,16 @@
     <meta name="og_title" property="og:title" content=""/>
     <meta name="og_url" property="og:url" content=""/>
     
-    <link rel="canonical" href=""/>
-    <link rel='shortcut icon' href="images/favicon.ico" />
+    <link rel="icon" href="images/favicon.ico" />
     
     <!-- CSS -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/vaydeal-icons.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/vaydeal-icons.css">
     
     <!-- JS -->
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/animation.jquery.js"></script>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/animation.jquery.js"></script>
 
 </head>
 
@@ -32,10 +31,11 @@
 
 	<header> <!-- Header -->
         <div class="header-logo">
-            <a href="#"><img src="images/logo.png" alt=""></a>
+            <a href="#"><img src="../images/logo.png" alt=""></a>
         </div>
         <nav>
-            <ul>
+<!--
+            <ul style="display:none;">
                 <li><a href="dashboard.html" class="btn-dashboard"> <i class="ti-pie-chart"></i> Dashboard</a></li>
                 <li><a href="" class=""> <i class=" ti-folder"></i> Clint</a></li>
                 <li><a href="#" class=""> <i class="ti-package"></i> Customer</a></li>
@@ -45,20 +45,18 @@
                 <li><a href="#" class=""> <i class="ti-settings"></i> Settings </a></li>
                 <li><a href="#" class=""> <i class="ti-power-off"></i> log Out</a></li>            
             </ul>
+-->
+            <ul>
+                <li><a href="user-dashboard.html"><i class="ti-pie-chart"></i> Dashboard</a></li>
+                <li class="active"><a href=""><i class="ti-pie-chart"></i> Users</a></li>
+                <li><a href=""><i class="ti-pie-chart"></i> Employes</a></li>
+                <li><a href=""><i class="ti-pie-chart"></i> Expence </a></li>
+                <li><a href="#" class=""> <i class="ti-settings"></i> Settings </a></li>
+                <li><a href="#" class=""> <i class="ti-power-off"></i> log Out</a></li>  
+            </ul>
         </nav>
     </header> <!-- End Header -->
     <div id="mainSection" class="main-section"> <!-- Main Section -->
-        <div class="header-menu">
-            <ul>
-                <li><a href=""><i class="ti-pie-chart"></i> Dashboard</a></li>
-                <i class="list-sup"></i>
-                <li class="active"><a href="user-users.html"><i class="ti-pie-chart"></i> Users</li>
-                <i class="list-sup"></i>
-                <li><a href=""><i class="ti-pie-chart"></i> Employes</a></li>
-                <i class="list-sup"></i>
-                <li><a href=""><i class="ti-pie-chart"></i> Expence </a></li>
-            </ul>
-        </div> <!-- End Header Menu -->
 
         <div class="container sub-container">
             <div class="section-head form">
@@ -76,7 +74,7 @@
                     </div> <!-- End Tabs List -->
                 </div>
                 <div class="tab-content"> <!-- Tabs Content -->
-                    <div id="tabUser" class=""> <!-- Tabs Users -->
+                    <div id="tabUser" class="">
                         <div class="col-6">
                             <h1>Users</h1>
                         </div>
@@ -129,8 +127,8 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div> <!-- End Tabs Users -->
-                    <div id="tabUsertype" class=""> <!-- Tabs User Type -->
+                    </div> <!--Tabs Users -->
+                    <div id="tabUsertype" class="">
                         <div class="col-6">
                             <h1>User Type</h1>
                         </div>
@@ -172,49 +170,15 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div> <!-- End Tabs User Type -->
-                    <div id="tabActivities" class=""> <!-- Tabs Activities -->
-                        <div class="col-6">
-                            <h1>Activities</h1>
-                        </div>
-                        <div class="col-6 text-right">
-                            <button data-target="newCtv" class="btn btn-bg waves-effect"><i class="ti-plus"></i>Add CTV</button>
-                        </div>
-                        <div class="ctv-report">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>S No</th>
-                                        <th> User ID </th>
-                                        <th> Date </th>
-                                        <th> Activity </th>
-                                        <th> User category </th>
-                                        <th> Activity category </th>
-                                        <th class="table-action">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Basic</td>
-                                        <td>900</td>
-                                        <td>55</td>
-                                        <td>25%</td>
-                                        <td><button class="btn btn-view waves-effect tooltipped" data-target="viewCtv" data-position="top" data-delay="50" data-tooltip="View"><i class="ti-eye"></i> </button>
-                                        <button class="btn btn-edit waves-effect tooltipped" data-target="editCtv" data-position="top" data-delay="50" data-tooltip="Edit"><i class="ti-pencil-alt"></i> </button>
-                                        <button class="btn btn-remove waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Remove"><i class="ti-trash"></i> </button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div> <!-- End Tabs Activities -->
+                    </div> <!-- Tabs User Type -->
+                    <div id="tabActivities" class=""> </div> <!-- Tabs Activities -->
                 </div> <!-- End Tabs Content -->
             </div>
         </div>
     </div> <!-- End Main Section -->
-
+    
     <div id="newUser" class="new-post modal"> <!-- Add User Modal -->
-        <div class="modal-content form">
+        <div class="modal-content form text-left">
             <h2>Add New User</h2>
             <label for="rolNum">No</label>
             <input id="rolNum" type="text" name="rolnumber">
@@ -240,7 +204,7 @@
     </div> <!-- End Add User Modal -->
 
     <div id="editUser" class="new-post modal"> <!-- Edit User Modal -->
-        <div class="modal-content form">
+        <div class="modal-content form text-left">
             <h2>Edit And Update User</h2>
             <label for="rolNum">No</label>
             <input id="rolNum" type="text" name="rolnumber" value="1">
@@ -266,7 +230,7 @@
     </div> <!-- End Edit User Modal -->
 
     <div id="viewUser" class="new-post modal"> <!-- View User Modal -->
-        <div class="modal-content form">
+        <div class="modal-content form text-left">
             <h2> View User </h2>
             <ul class="view-list">
                 <li> <span class="view-title"> Name :</span> <span class="view-value"> Rahman </span> </li>
@@ -282,9 +246,9 @@
             <button class="btn btn-cancel waves-effect modal-close" type="button">Cancel</button>
         </div>
     </div> <!-- End View User Modal -->
-
+    
     <div id="newUt" class="new-post modal"> <!-- Add User Type Modal -->
-        <div class="modal-content form">
+        <div class="modal-content form text-left">
             <h2>Add New User Type</h2>
             <label for="rolNum">No</label>
             <input id="rolNum" type="text" name="rolnumber">
@@ -300,7 +264,7 @@
     </div> <!-- End Add User Type Modal -->
 
     <div id="editUt" class="new-post modal"> <!-- Edit User Type Modal -->
-        <div class="modal-content form">
+        <div class="modal-content form text-left">
             <h2>Edit and Update User Type</h2>
             <label for="rolNum">No</label>
             <input id="rolNum" type="text" name="rolnumber" value="1">
@@ -318,7 +282,11 @@
 </main>
     
     <!-- JS -->
-    <script type="text/javascript" src="js/vaydeal.jquery.js"></script>
+    <script type="text/javascript" src="../js/vaydeal.jquery.js"></script>
+    
+    <script>
+        
+    </script>
     
 </body>
 </html>

@@ -1922,6 +1922,9 @@ public class DBConnect {
     public void addMember(AddMember req) throws SQLException {
         addMemberDetails(req);
         addMemberLogin(req);
+        addMemberBank(req.getNew_member_id());
+        addMemberProduct(req.getNew_member_id());
+        addMemberPayment(req.getNew_member_id());
     }
 
     private void addMemberDetails(AddMember req) throws SQLException {
@@ -2033,6 +2036,27 @@ public class DBConnect {
         rs.close();
         ps.close();
         return res;
+    }
+
+    private void addMemberBank(String new_member_id) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("INSERT INTO member_bank(member_id) VALUES(?)");
+        ps.setString(1, new_member_id);
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    private void addMemberProduct(String new_member_id) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("INSERT INTO member_product(member_id) VALUES(?)");
+        ps.setString(1, new_member_id);
+        ps.executeUpdate();
+        ps.close();
+    }
+    
+    private void addMemberPayment(String new_member_id) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("INSERT INTO member_payment(member_id) VALUES(?)");
+        ps.setString(1, new_member_id);
+        ps.executeUpdate();
+        ps.close();
     }
 
 }

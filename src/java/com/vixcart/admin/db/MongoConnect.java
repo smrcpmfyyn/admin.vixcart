@@ -665,13 +665,13 @@ public class MongoConnect {
         String type = "";
         switch(req.getmType()){
             case "1":
-                type = "part time";
+                type = "passociate";
                 break;
             case "2":
-                type = "full time";
+                type = "fassociate";
                 break;
             case "3":
-                type = "none";
+                type = "main";
                 break;
         }
         addMAT(req.getNew_member_id(), token, type);
